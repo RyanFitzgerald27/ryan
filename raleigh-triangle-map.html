@@ -1,0 +1,240 @@
+<!-- Interactive Raleigh Triangle Neighborhood Map -->
+<!-- For RaleighRealty.com | Angular 18 + Bootstrap 5 Compatible -->
+<!-- All styles inline — AgentLoft style-tag safe -->
+
+<div class="row g-0" style="background: linear-gradient(145deg, #071826 0%, #0a2236 60%, #0c2a42 100%); border-radius: 16px; overflow: hidden; max-width: 1140px; margin: 0 auto; box-shadow: 0 24px 64px rgba(0,0,0,0.55);">
+
+  <!-- ── LEFT PANEL ── -->
+  <div class="col-12 col-md-4 d-flex align-items-center justify-content-center" style="padding: 48px 40px; min-height: 420px;">
+    <div style="max-width: 340px;">
+
+      <div style="font-size: 0.7rem; font-weight: 800; letter-spacing: 3.5px; text-transform: uppercase; color: #3fbfa0; margin-bottom: 18px;">
+        NEIGHBORHOOD GUIDE
+      </div>
+
+      <h2 style="font-family: Georgia, 'Times New Roman', serif; font-size: 3rem; font-weight: 400; color: #f2ebcf; line-height: 1.08; margin: 0 0 18px 0;">
+        Explore<br>The Triangle
+      </h2>
+
+      <div style="width: 44px; height: 3px; background: #3fbfa0; margin-bottom: 26px; border-radius: 2px;"></div>
+
+      <p style="color: #8aafc4; font-size: 0.92rem; line-height: 1.75; margin-bottom: 30px;">
+        From vibrant Downtown Raleigh to quiet cul-de-sacs in Holly Springs, every pocket of the Triangle has its own rhythm. Select a region on the map to explore local homes, schools, and community.
+      </p>
+
+      <div id="rrMapHint" style="color: #3fbfa0; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.3px; transition: color 0.2s;">
+        <span style="margin-right: 7px; font-size: 0.75rem;">&#9654;</span>Click a region to get started
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── MAP PANEL ── -->
+  <div class="col-12 col-md-8 d-flex align-items-center justify-content-center" style="padding: 28px 24px;">
+
+    <svg id="rrTriangleMap"
+         viewBox="0 0 780 530"
+         xmlns="http://www.w3.org/2000/svg"
+         style="width: 100%; max-width: 720px; height: auto; display: block;">
+
+      <!-- ── REGIONS ── -->
+
+      <!-- DURHAM -->
+      <polygon id="rr-durham"
+        points="40,42 288,42 268,98 244,158 208,192 146,200 88,180 52,152 40,118"
+        style="fill:#1c7a60; stroke:#cfc5a0; stroke-width:2.2; cursor:pointer; stroke-linejoin:round;"
+        onmouseover="rrHover(this,'Durham')"
+        onmouseout="rrOut(this)"
+        onclick="rrClick('durham')"/>
+      <text x="152" y="122" style="fill:#e8e0c8; font-family:Georgia,serif; font-size:13.5px; font-weight:bold; pointer-events:none; text-anchor:middle;">Durham</text>
+
+      <!-- CHAPEL HILL -->
+      <polygon id="rr-chapel-hill"
+        points="40,118 52,152 88,180 146,200 164,252 150,306 108,320 58,310 40,274"
+        style="fill:#1c7a60; stroke:#cfc5a0; stroke-width:2.2; cursor:pointer; stroke-linejoin:round;"
+        onmouseover="rrHover(this,'Chapel Hill')"
+        onmouseout="rrOut(this)"
+        onclick="rrClick('chapel-hill')"/>
+      <text x="88" y="248" style="fill:#e8e0c8; font-family:Georgia,serif; font-size:12px; font-weight:bold; pointer-events:none; text-anchor:middle;">Chapel Hill</text>
+
+      <!-- MORRISVILLE / RTP -->
+      <polygon id="rr-morrisville"
+        points="288,42 392,42 400,102 380,162 350,196 312,210 274,204 244,158 268,98"
+        style="fill:#1c7a60; stroke:#cfc5a0; stroke-width:2.2; cursor:pointer; stroke-linejoin:round;"
+        onmouseover="rrHover(this,'Morrisville')"
+        onmouseout="rrOut(this)"
+        onclick="rrClick('morrisville')"/>
+      <text x="334" y="135" style="fill:#e8e0c8; font-family:Georgia,serif; font-size:12.5px; font-weight:bold; pointer-events:none; text-anchor:middle;">Morrisville</text>
+
+      <!-- NORTH RALEIGH -->
+      <polygon id="rr-north-raleigh"
+        points="392,42 550,42 568,110 558,188 518,224 465,244 410,242 380,212 380,162 400,102"
+        style="fill:#1c7a60; stroke:#cfc5a0; stroke-width:2.2; cursor:pointer; stroke-linejoin:round;"
+        onmouseover="rrHover(this,'North Raleigh')"
+        onmouseout="rrOut(this)"
+        onclick="rrClick('north-raleigh')"/>
+      <text x="478" y="164" style="fill:#e8e0c8; font-family:Georgia,serif; font-size:13px; font-weight:bold; pointer-events:none; text-anchor:middle;">North Raleigh</text>
+
+      <!-- WAKE FOREST -->
+      <polygon id="rr-wake-forest"
+        points="550,42 700,42 722,102 722,182 688,216 638,228 580,222 558,188 568,110"
+        style="fill:#1c7a60; stroke:#cfc5a0; stroke-width:2.2; cursor:pointer; stroke-linejoin:round;"
+        onmouseover="rrHover(this,'Wake Forest')"
+        onmouseout="rrOut(this)"
+        onclick="rrClick('wake-forest')"/>
+      <text x="636" y="138" style="fill:#e8e0c8; font-family:Georgia,serif; font-size:13px; font-weight:bold; pointer-events:none; text-anchor:middle;">Wake Forest</text>
+      <text x="636" y="154" style="fill:#cfc5a0; font-family:Georgia,serif; font-size:9.5px; pointer-events:none; text-anchor:middle;">&amp; Rolesville</text>
+
+      <!-- KNIGHTDALE -->
+      <polygon id="rr-knightdale"
+        points="638,228 688,216 722,182 742,244 742,346 714,382 666,394 610,376 574,334 566,264 580,222"
+        style="fill:#1c7a60; stroke:#cfc5a0; stroke-width:2.2; cursor:pointer; stroke-linejoin:round;"
+        onmouseover="rrHover(this,'Knightdale')"
+        onmouseout="rrOut(this)"
+        onclick="rrClick('knightdale')"/>
+      <text x="668" y="302" style="fill:#e8e0c8; font-family:Georgia,serif; font-size:13px; font-weight:bold; pointer-events:none; text-anchor:middle;">Knightdale</text>
+
+      <!-- CARY -->
+      <polygon id="rr-cary"
+        points="146,200 208,192 244,158 274,204 312,210 330,252 344,312 314,372 262,386 210,372 170,342 150,306 164,252"
+        style="fill:#1c7a60; stroke:#cfc5a0; stroke-width:2.2; cursor:pointer; stroke-linejoin:round;"
+        onmouseover="rrHover(this,'Cary')"
+        onmouseout="rrOut(this)"
+        onclick="rrClick('cary')"/>
+      <text x="236" y="300" style="fill:#e8e0c8; font-family:Georgia,serif; font-size:15px; font-weight:bold; pointer-events:none; text-anchor:middle;">Cary</text>
+
+      <!-- DOWNTOWN RALEIGH -->
+      <polygon id="rr-downtown-raleigh"
+        points="312,210 350,196 380,212 410,242 465,244 514,272 512,362 466,394 412,402 374,396 344,372 344,312 330,252"
+        style="fill:#1c7a60; stroke:#cfc5a0; stroke-width:2.2; cursor:pointer; stroke-linejoin:round;"
+        onmouseover="rrHover(this,'Downtown Raleigh')"
+        onmouseout="rrOut(this)"
+        onclick="rrClick('downtown-raleigh')"/>
+      <text x="420" y="308" style="fill:#e8e0c8; font-family:Georgia,serif; font-size:13px; font-weight:bold; pointer-events:none; text-anchor:middle;">Downtown</text>
+      <text x="420" y="325" style="fill:#e8e0c8; font-family:Georgia,serif; font-size:13px; font-weight:bold; pointer-events:none; text-anchor:middle;">Raleigh</text>
+
+      <!-- APEX -->
+      <polygon id="rr-apex"
+        points="170,342 210,372 262,386 282,424 262,464 208,466 164,444 150,402"
+        style="fill:#1c7a60; stroke:#cfc5a0; stroke-width:2.2; cursor:pointer; stroke-linejoin:round;"
+        onmouseover="rrHover(this,'Apex')"
+        onmouseout="rrOut(this)"
+        onclick="rrClick('apex')"/>
+      <text x="212" y="420" style="fill:#e8e0c8; font-family:Georgia,serif; font-size:13px; font-weight:bold; pointer-events:none; text-anchor:middle;">Apex</text>
+
+      <!-- HOLLY SPRINGS -->
+      <polygon id="rr-holly-springs"
+        points="262,386 314,372 344,372 374,396 378,436 348,468 306,480 268,476 262,464 282,424"
+        style="fill:#1c7a60; stroke:#cfc5a0; stroke-width:2.2; cursor:pointer; stroke-linejoin:round;"
+        onmouseover="rrHover(this,'Holly Springs')"
+        onmouseout="rrOut(this)"
+        onclick="rrClick('holly-springs')"/>
+      <text x="318" y="436" style="fill:#e8e0c8; font-family:Georgia,serif; font-size:11.5px; font-weight:bold; pointer-events:none; text-anchor:middle;">Holly Springs</text>
+
+      <!-- FUQUAY-VARINA -->
+      <polygon id="rr-fuquay-varina"
+        points="164,444 208,466 262,464 268,476 306,480 348,468 378,436 390,468 388,518 268,518 180,518 158,490"
+        style="fill:#1c7a60; stroke:#cfc5a0; stroke-width:2.2; cursor:pointer; stroke-linejoin:round;"
+        onmouseover="rrHover(this,'Fuquay-Varina')"
+        onmouseout="rrOut(this)"
+        onclick="rrClick('fuquay-varina')"/>
+      <text x="276" y="504" style="fill:#e8e0c8; font-family:Georgia,serif; font-size:11.5px; font-weight:bold; pointer-events:none; text-anchor:middle;">Fuquay-Varina</text>
+
+      <!-- GARNER / SOUTH RALEIGH -->
+      <polygon id="rr-garner"
+        points="374,396 412,402 466,394 512,362 576,382 578,422 544,464 494,482 434,484 390,468 378,436 374,396"
+        style="fill:#1c7a60; stroke:#cfc5a0; stroke-width:2.2; cursor:pointer; stroke-linejoin:round;"
+        onmouseover="rrHover(this,'Garner')"
+        onmouseout="rrOut(this)"
+        onclick="rrClick('garner')"/>
+      <text x="466" y="438" style="fill:#e8e0c8; font-family:Georgia,serif; font-size:13px; font-weight:bold; pointer-events:none; text-anchor:middle;">Garner</text>
+
+      <!-- CLAYTON -->
+      <polygon id="rr-clayton"
+        points="574,334 610,376 666,394 714,382 742,346 742,448 714,482 654,496 576,494 494,482 544,464 578,422 576,382"
+        style="fill:#1c7a60; stroke:#cfc5a0; stroke-width:2.2; cursor:pointer; stroke-linejoin:round;"
+        onmouseover="rrHover(this,'Clayton')"
+        onmouseout="rrOut(this)"
+        onclick="rrClick('clayton')"/>
+      <text x="634" y="444" style="fill:#e8e0c8; font-family:Georgia,serif; font-size:13px; font-weight:bold; pointer-events:none; text-anchor:middle;">Clayton</text>
+
+    </svg>
+
+  </div><!-- /map panel -->
+
+</div><!-- /row -->
+
+
+<script>
+(function () {
+  'use strict';
+
+  var FILL_DEFAULT = '#1c7a60';
+  var FILL_HOVER   = '#26a882';
+  var FILL_ACTIVE  = '#2ec9a0';
+
+  /* Neighborhood pages — update slugs to match RaleighRealty.com URL structure */
+  var URLS = {
+    'durham':           'https://raleighrealty.com/durham-nc-homes-for-sale/',
+    'chapel-hill':      'https://raleighrealty.com/chapel-hill-nc-homes-for-sale/',
+    'morrisville':      'https://raleighrealty.com/morrisville-nc-homes-for-sale/',
+    'north-raleigh':    'https://raleighrealty.com/north-raleigh-homes-for-sale/',
+    'wake-forest':      'https://raleighrealty.com/wake-forest-nc-homes-for-sale/',
+    'knightdale':       'https://raleighrealty.com/knightdale-nc-homes-for-sale/',
+    'cary':             'https://raleighrealty.com/cary-nc-homes-for-sale/',
+    'downtown-raleigh': 'https://raleighrealty.com/downtown-raleigh-homes-for-sale/',
+    'apex':             'https://raleighrealty.com/apex-nc-homes-for-sale/',
+    'holly-springs':    'https://raleighrealty.com/holly-springs-nc-homes-for-sale/',
+    'fuquay-varina':    'https://raleighrealty.com/fuquay-varina-nc-homes-for-sale/',
+    'garner':           'https://raleighrealty.com/garner-nc-homes-for-sale/',
+    'clayton':          'https://raleighrealty.com/clayton-nc-homes-for-sale/'
+  };
+
+  /* Hint text labels */
+  var LABELS = {
+    'durham':           'Durham',
+    'chapel-hill':      'Chapel Hill',
+    'morrisville':      'Morrisville',
+    'north-raleigh':    'North Raleigh',
+    'wake-forest':      'Wake Forest & Rolesville',
+    'knightdale':       'Knightdale',
+    'cary':             'Cary',
+    'downtown-raleigh': 'Downtown Raleigh',
+    'apex':             'Apex',
+    'holly-springs':    'Holly Springs',
+    'fuquay-varina':    'Fuquay-Varina',
+    'garner':           'Garner',
+    'clayton':          'Clayton'
+  };
+
+  function getHint() {
+    return document.getElementById('rrMapHint');
+  }
+
+  window.rrHover = function (el, label) {
+    el.style.fill = FILL_HOVER;
+    var hint = getHint();
+    if (hint) {
+      hint.innerHTML = '<span style="margin-right:7px;font-size:0.75rem;">&#9654;</span>' + label;
+    }
+  };
+
+  window.rrOut = function (el) {
+    el.style.fill = FILL_DEFAULT;
+    var hint = getHint();
+    if (hint) {
+      hint.innerHTML = '<span style="margin-right:7px;font-size:0.75rem;">&#9654;</span>Click a region to get started';
+    }
+  };
+
+  window.rrClick = function (key) {
+    var el = document.getElementById('rr-' + key);
+    if (el) { el.style.fill = FILL_ACTIVE; }
+    var url = URLS[key];
+    if (url) {
+      setTimeout(function () { window.location.href = url; }, 140);
+    }
+  };
+
+}());
+</script>
