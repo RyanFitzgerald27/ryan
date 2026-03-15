@@ -1,0 +1,315 @@
+<!-- Monthly Market Report Component -->
+<!-- Compatible with Angular 18 + Bootstrap 5 | Uses inline styles to avoid style-tag stripping -->
+
+<div class="container-fluid py-4" style="font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #f8f9fa;">
+
+  <!-- Header -->
+  <div class="text-center mb-4">
+    <div class="d-inline-block px-4 py-1 rounded-pill mb-2"
+         style="background-color: #1a3a5c; color: #c9a84c; font-size: 0.8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">
+      Monthly Snapshot
+    </div>
+    <h2 class="fw-bold mb-1" style="color: #1a3a5c; font-size: 1.9rem;">Real Estate Market Report</h2>
+    <p class="text-muted mb-0" style="font-size: 0.95rem;">February 2025 &nbsp;&#8594;&nbsp; February 2026</p>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- ── LOCAL MARKET TABLE ── -->
+    <div class="col-12 col-xl-6">
+      <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; overflow: hidden;">
+
+        <!-- Card header -->
+        <div class="card-header border-0 py-3 px-4" style="background-color: #1a3a5c;">
+          <h5 class="mb-0 fw-bold text-white" style="font-size: 1.05rem; letter-spacing: 0.5px;">
+            &#127968; Local Market Area
+          </h5>
+        </div>
+
+        <!-- Column labels -->
+        <div class="d-flex px-4 py-2" style="background-color: #eef2f7; border-bottom: 2px solid #d4dde8;">
+          <div style="flex: 2; font-size: 0.72rem; font-weight: 700; color: #1a3a5c; text-transform: uppercase; letter-spacing: 0.8px;">Metric</div>
+          <div class="text-center" style="flex: 1; font-size: 0.72rem; font-weight: 700; color: #1a3a5c; text-transform: uppercase; letter-spacing: 0.8px;">Feb 2025</div>
+          <div class="text-center" style="flex: 1; font-size: 0.72rem; font-weight: 700; color: #1a3a5c; text-transform: uppercase; letter-spacing: 0.8px;">Feb 2026</div>
+          <div class="text-center" style="flex: 1; font-size: 0.72rem; font-weight: 700; color: #1a3a5c; text-transform: uppercase; letter-spacing: 0.8px;">Change</div>
+        </div>
+
+        <div class="card-body p-0">
+
+          <!-- Row: New Listings -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">New Listings</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">1,674</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #1a3a5c;">1,748</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #d4edda; color: #155724; font-size: 0.75rem;">&#9650; 4.42%</span>
+            </div>
+          </div>
+
+          <!-- Row: Homes for Sale -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7; background-color: #fafbfc;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;"># of Homes for Sale</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">3,146</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #1a3a5c;">3,637</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #d4edda; color: #155724; font-size: 0.75rem;">&#9650; 15.61%</span>
+            </div>
+          </div>
+
+          <!-- Row: Closed Sales -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Closed Sales</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">1,060</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #1a3a5c;">1,028</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #f8d7da; color: #721c24; font-size: 0.75rem;">&#9660; 3.02%</span>
+            </div>
+          </div>
+
+          <!-- Row: Median Sales Price -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7; background-color: #fafbfc;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Median Sales Price</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">$450,500</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #1a3a5c;">$459,000</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #d4edda; color: #155724; font-size: 0.75rem;">&#9650; 1.89%</span>
+            </div>
+          </div>
+
+          <!-- Row: Average Sales Price -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Average Sales Price</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">$552,756</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #1a3a5c;">$548,968</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #f8d7da; color: #721c24; font-size: 0.75rem;">&#9660; 0.69%</span>
+            </div>
+          </div>
+
+          <!-- Row: Median Price per SF -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7; background-color: #fafbfc;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Median Price per SF</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">$224</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #1a3a5c;">$214</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #f8d7da; color: #721c24; font-size: 0.75rem;">&#9660; 4.46%</span>
+            </div>
+          </div>
+
+          <!-- Row: Average Price per SF -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Average Price per SF</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">$236</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #1a3a5c;">$231</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #f8d7da; color: #721c24; font-size: 0.75rem;">&#9660; 2.12%</span>
+            </div>
+          </div>
+
+          <!-- Row: Avg Days on Market -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7; background-color: #fafbfc;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Average Days on Market</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">28</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #1a3a5c;">39</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #f8d7da; color: #721c24; font-size: 0.75rem;">&#9650; 39.29%</span>
+            </div>
+          </div>
+
+          <!-- Row: Months Supply -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Months Supply of Inventory</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">2.4</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #1a3a5c;">2.6</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #f8d7da; color: #721c24; font-size: 0.75rem;">&#9650; 8.33%</span>
+            </div>
+          </div>
+
+          <!-- Row: Showings Per Listing -->
+          <div class="d-flex align-items-center px-4 py-2">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Showings Per Listing</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">5.6</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #1a3a5c;">5.4</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #f8d7da; color: #721c24; font-size: 0.75rem;">&#9660; 3.57%</span>
+            </div>
+          </div>
+
+        </div><!-- /card-body -->
+      </div><!-- /card -->
+    </div><!-- /col -->
+
+
+    <!-- ── ENTIRE MLS TABLE ── -->
+    <div class="col-12 col-xl-6">
+      <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; overflow: hidden;">
+
+        <!-- Card header -->
+        <div class="card-header border-0 py-3 px-4" style="background-color: #c9a84c;">
+          <h5 class="mb-0 fw-bold text-white" style="font-size: 1.05rem; letter-spacing: 0.5px;">
+            &#127758; Entire MLS
+          </h5>
+        </div>
+
+        <!-- Column labels -->
+        <div class="d-flex px-4 py-2" style="background-color: #fdf8ee; border-bottom: 2px solid #e8d9a8;">
+          <div style="flex: 2; font-size: 0.72rem; font-weight: 700; color: #6b4f10; text-transform: uppercase; letter-spacing: 0.8px;">Metric</div>
+          <div class="text-center" style="flex: 1; font-size: 0.72rem; font-weight: 700; color: #6b4f10; text-transform: uppercase; letter-spacing: 0.8px;">Feb 2025</div>
+          <div class="text-center" style="flex: 1; font-size: 0.72rem; font-weight: 700; color: #6b4f10; text-transform: uppercase; letter-spacing: 0.8px;">Feb 2026</div>
+          <div class="text-center" style="flex: 1; font-size: 0.72rem; font-weight: 700; color: #6b4f10; text-transform: uppercase; letter-spacing: 0.8px;">Change</div>
+        </div>
+
+        <div class="card-body p-0">
+
+          <!-- Row: New Listings -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">New Listings</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">4,070</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #6b4f10;">4,230</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #d4edda; color: #155724; font-size: 0.75rem;">&#9650; 3.93%</span>
+            </div>
+          </div>
+
+          <!-- Row: Homes for Sale -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7; background-color: #fafbfc;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;"># of Homes for Sale</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">8,706</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #6b4f10;">10,069</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #d4edda; color: #155724; font-size: 0.75rem;">&#9650; 15.66%</span>
+            </div>
+          </div>
+
+          <!-- Row: Closed Sales -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Closed Sales</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">2,518</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #6b4f10;">2,478</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #f8d7da; color: #721c24; font-size: 0.75rem;">&#9660; 1.59%</span>
+            </div>
+          </div>
+
+          <!-- Row: Median Sales Price -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7; background-color: #fafbfc;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Median Sales Price</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">$383,000</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #6b4f10;">$391,303</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #d4edda; color: #155724; font-size: 0.75rem;">&#9650; 2.17%</span>
+            </div>
+          </div>
+
+          <!-- Row: Average Sales Price -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Average Sales Price</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">$459,755</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #6b4f10;">$465,970</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #d4edda; color: #155724; font-size: 0.75rem;">&#9650; 1.35%</span>
+            </div>
+          </div>
+
+          <!-- Row: Median Price per SF -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7; background-color: #fafbfc;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Median Price per SF</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">$203</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #6b4f10;">$197</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #f8d7da; color: #721c24; font-size: 0.75rem;">&#9660; 2.96%</span>
+            </div>
+          </div>
+
+          <!-- Row: Average Price per SF -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Average Price per SF</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">$215</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #6b4f10;">$209</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #f8d7da; color: #721c24; font-size: 0.75rem;">&#9660; 2.79%</span>
+            </div>
+          </div>
+
+          <!-- Row: Avg Days on Market -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7; background-color: #fafbfc;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Average Days on Market</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">30</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #6b4f10;">38</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #f8d7da; color: #721c24; font-size: 0.75rem;">&#9650; 26.67%</span>
+            </div>
+          </div>
+
+          <!-- Row: Months Supply -->
+          <div class="d-flex align-items-center px-4 py-2" style="border-bottom: 1px solid #f0f3f7;">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Months Supply of Inventory</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">2.8</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #6b4f10;">3.1</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #f8d7da; color: #721c24; font-size: 0.75rem;">&#9650; 10.71%</span>
+            </div>
+          </div>
+
+          <!-- Row: Showings Per Listing -->
+          <div class="d-flex align-items-center px-4 py-2">
+            <div style="flex: 2; font-size: 0.88rem; color: #333; font-weight: 500;">Showings Per Listing</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; color: #555;">4.7</div>
+            <div class="text-center" style="flex: 1; font-size: 0.88rem; font-weight: 600; color: #6b4f10;">4.6</div>
+            <div class="text-center" style="flex: 1;">
+              <span class="badge rounded-pill px-2 py-1" style="background-color: #f8d7da; color: #721c24; font-size: 0.75rem;">&#9660; 2.13%</span>
+            </div>
+          </div>
+
+        </div><!-- /card-body -->
+      </div><!-- /card -->
+    </div><!-- /col -->
+
+  </div><!-- /row -->
+
+
+  <!-- ── Key Takeaway Highlight Bars ── -->
+  <div class="row g-3 mt-2">
+
+    <div class="col-6 col-md-3">
+      <div class="text-center p-3 rounded-3 shadow-sm" style="background-color: #1a3a5c; color: white;">
+        <div style="font-size: 1.5rem; font-weight: 700; color: #c9a84c;">$459K</div>
+        <div style="font-size: 0.75rem; opacity: 0.85; margin-top: 2px;">Local Median Sale Price</div>
+        <div style="font-size: 0.7rem; margin-top: 4px; background-color: rgba(255,255,255,0.15); border-radius: 20px; padding: 2px 8px; display: inline-block;">&#9650; 1.89% YoY</div>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+      <div class="text-center p-3 rounded-3 shadow-sm" style="background-color: #1a3a5c; color: white;">
+        <div style="font-size: 1.5rem; font-weight: 700; color: #c9a84c;">39 days</div>
+        <div style="font-size: 0.75rem; opacity: 0.85; margin-top: 2px;">Local Avg Days on Market</div>
+        <div style="font-size: 0.7rem; margin-top: 4px; background-color: rgba(255,255,255,0.15); border-radius: 20px; padding: 2px 8px; display: inline-block;">&#9650; 39.29% YoY</div>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+      <div class="text-center p-3 rounded-3 shadow-sm" style="background-color: #c9a84c; color: white;">
+        <div style="font-size: 1.5rem; font-weight: 700;">$391K</div>
+        <div style="font-size: 0.75rem; opacity: 0.9; margin-top: 2px;">MLS Median Sale Price</div>
+        <div style="font-size: 0.7rem; margin-top: 4px; background-color: rgba(255,255,255,0.25); border-radius: 20px; padding: 2px 8px; display: inline-block;">&#9650; 2.17% YoY</div>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+      <div class="text-center p-3 rounded-3 shadow-sm" style="background-color: #c9a84c; color: white;">
+        <div style="font-size: 1.5rem; font-weight: 700;">3.1 mo</div>
+        <div style="font-size: 0.75rem; opacity: 0.9; margin-top: 2px;">MLS Months of Supply</div>
+        <div style="font-size: 0.7rem; margin-top: 4px; background-color: rgba(255,255,255,0.25); border-radius: 20px; padding: 2px 8px; display: inline-block;">&#9650; 10.71% YoY</div>
+      </div>
+    </div>
+
+  </div><!-- /highlight row -->
+
+
+  <!-- Footer note -->
+  <p class="text-center text-muted mt-4 mb-0" style="font-size: 0.75rem;">
+    Data reflects February 2025 vs. February 2026 &nbsp;|&nbsp; Source: MLS &nbsp;|&nbsp; Prepared by your agent
+  </p>
+
+</div><!-- /container -->
