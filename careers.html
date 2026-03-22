@@ -1,0 +1,398 @@
+<!-- Careers Page Component -->
+<!-- Compatible with Angular 18 + Bootstrap 5 | Uses inline styles to avoid style-tag stripping -->
+
+<div style="font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #f8f9fa;">
+
+  <!-- ══════════════════════════════════════════════
+       HERO SECTION
+  ══════════════════════════════════════════════ -->
+  <div style="background: linear-gradient(135deg, #1a3a5c 0%, #0d2240 60%, #1a3a5c 100%); color: #fff; padding: 80px 24px 100px; text-align: center; position: relative; overflow: hidden;">
+
+    <!-- decorative circles -->
+    <div style="position: absolute; top: -60px; right: -60px; width: 280px; height: 280px; border-radius: 50%; background: rgba(201,168,76,0.08);"></div>
+    <div style="position: absolute; bottom: -80px; left: -80px; width: 360px; height: 360px; border-radius: 50%; background: rgba(201,168,76,0.06);"></div>
+
+    <div style="position: relative; max-width: 760px; margin: 0 auto;">
+      <div style="display: inline-block; background-color: rgba(201,168,76,0.18); color: #c9a84c; font-size: 0.75rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 6px 20px; border-radius: 50px; margin-bottom: 20px; border: 1px solid rgba(201,168,76,0.35);">
+        Join Our Team
+      </div>
+      <h1 style="font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; letter-spacing: -0.5px;">
+        Build a Career You're<br>
+        <span style="color: #c9a84c;">Proud Of</span> in Real Estate
+      </h1>
+      <p style="font-size: 1.1rem; color: rgba(255,255,255,0.82); max-width: 580px; margin: 0 auto 36px; line-height: 1.7;">
+        Raleigh Realty is one of the Triangle's fastest-growing brokerages. We give our agents the tools, training, and support to close more deals — and live better lives.
+      </p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="#open-positions" style="display: inline-block; background-color: #c9a84c; color: #1a3a5c; font-weight: 700; font-size: 0.95rem; padding: 14px 32px; border-radius: 8px; text-decoration: none; letter-spacing: 0.3px; transition: opacity 0.2s;">
+          View Open Positions
+        </a>
+        <a href="#why-raleigh-realty" style="display: inline-block; background: transparent; color: #fff; font-weight: 600; font-size: 0.95rem; padding: 14px 32px; border-radius: 8px; text-decoration: none; border: 2px solid rgba(255,255,255,0.4);">
+          Learn More
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       STAT BAR
+  ══════════════════════════════════════════════ -->
+  <div style="background-color: #fff; border-bottom: 1px solid #e8edf3; padding: 32px 24px;">
+    <div style="max-width: 960px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-around; gap: 24px; text-align: center;">
+
+      <div>
+        <div style="font-size: 2rem; font-weight: 800; color: #1a3a5c; line-height: 1;">500+</div>
+        <div style="font-size: 0.82rem; color: #6c757d; font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.8px;">Homes Sold Annually</div>
+      </div>
+      <div style="width: 1px; background: #e0e7ef; align-self: stretch;"></div>
+
+      <div>
+        <div style="font-size: 2rem; font-weight: 800; color: #1a3a5c; line-height: 1;">$150M+</div>
+        <div style="font-size: 0.82rem; color: #6c757d; font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.8px;">Annual Sales Volume</div>
+      </div>
+      <div style="width: 1px; background: #e0e7ef; align-self: stretch;"></div>
+
+      <div>
+        <div style="font-size: 2rem; font-weight: 800; color: #1a3a5c; line-height: 1;">4.9 ★</div>
+        <div style="font-size: 0.82rem; color: #6c757d; font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.8px;">Average Client Rating</div>
+      </div>
+      <div style="width: 1px; background: #e0e7ef; align-self: stretch;"></div>
+
+      <div>
+        <div style="font-size: 2rem; font-weight: 800; color: #1a3a5c; line-height: 1;">Top 1%</div>
+        <div style="font-size: 0.82rem; color: #6c757d; font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.8px;">Triangle Brokerages</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       WHY RALEIGH REALTY
+  ══════════════════════════════════════════════ -->
+  <div id="why-raleigh-realty" style="padding: 72px 24px; max-width: 1100px; margin: 0 auto;">
+
+    <div style="text-align: center; margin-bottom: 52px;">
+      <div style="display: inline-block; background-color: #eef2f7; color: #1a3a5c; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 14px;">
+        Why Us
+      </div>
+      <h2 style="font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; color: #1a3a5c; margin-bottom: 14px;">Everything You Need to Thrive</h2>
+      <p style="font-size: 1rem; color: #6c757d; max-width: 520px; margin: 0 auto; line-height: 1.65;">We've built a brokerage where top producers and new agents alike find what they need to succeed.</p>
+    </div>
+
+    <!-- Benefits grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px;">
+
+      <!-- Card 1 -->
+      <div style="background: #fff; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 16px rgba(26,58,92,0.08); border-top: 4px solid #c9a84c;">
+        <div style="font-size: 2rem; margin-bottom: 14px;">&#128200;</div>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin-bottom: 10px;">Industry-Leading Commission Splits</h3>
+        <p style="font-size: 0.9rem; color: #6c757d; line-height: 1.65; margin: 0;">Keep more of what you earn. Our competitive splits and transparent fee structure mean your hard work pays off — literally.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div style="background: #fff; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 16px rgba(26,58,92,0.08); border-top: 4px solid #c9a84c;">
+        <div style="font-size: 2rem; margin-bottom: 14px;">&#128241;</div>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin-bottom: 10px;">Best-in-Class Tech Stack</h3>
+        <p style="font-size: 0.9rem; color: #6c757d; line-height: 1.65; margin: 0;">CRM, automated follow-up, market analytics, and a high-converting IDX website — all provided, no extra cost.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div style="background: #fff; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 16px rgba(26,58,92,0.08); border-top: 4px solid #c9a84c;">
+        <div style="font-size: 2rem; margin-bottom: 14px;">&#127891;</div>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin-bottom: 10px;">Ongoing Training & Mentorship</h3>
+        <p style="font-size: 0.9rem; color: #6c757d; line-height: 1.65; margin: 0;">Weekly coaching, on-demand courses, and a mentor program that pairs new agents with proven top producers.</p>
+      </div>
+
+      <!-- Card 4 -->
+      <div style="background: #fff; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 16px rgba(26,58,92,0.08); border-top: 4px solid #c9a84c;">
+        <div style="font-size: 2rem; margin-bottom: 14px;">&#128506;</div>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin-bottom: 10px;">Exclusive Lead Generation</h3>
+        <p style="font-size: 0.9rem; color: #6c757d; line-height: 1.65; margin: 0;">Access thousands of buyer and seller leads per month generated by our digital marketing team — leads you didn't have to pay for.</p>
+      </div>
+
+      <!-- Card 5 -->
+      <div style="background: #fff; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 16px rgba(26,58,92,0.08); border-top: 4px solid #c9a84c;">
+        <div style="font-size: 2rem; margin-bottom: 14px;">&#129309;</div>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin-bottom: 10px;">Collaborative Culture</h3>
+        <p style="font-size: 0.9rem; color: #6c757d; line-height: 1.65; margin: 0;">No cutthroat competition here. Our agents share strategies, celebrate each other's wins, and lift the whole team up.</p>
+      </div>
+
+      <!-- Card 6 -->
+      <div style="background: #fff; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 16px rgba(26,58,92,0.08); border-top: 4px solid #c9a84c;">
+        <div style="font-size: 2rem; margin-bottom: 14px;">&#127759;</div>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin-bottom: 10px;">Local Market Expertise</h3>
+        <p style="font-size: 0.9rem; color: #6c757d; line-height: 1.65; margin: 0;">Deep roots in the Triangle mean our brand recognition, neighborhood data, and community relationships give you a real edge.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       AGENT JOURNEY TIMELINE
+  ══════════════════════════════════════════════ -->
+  <div style="background-color: #1a3a5c; padding: 72px 24px; color: #fff;">
+    <div style="max-width: 860px; margin: 0 auto; text-align: center;">
+
+      <div style="display: inline-block; background-color: rgba(201,168,76,0.18); color: #c9a84c; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 14px; border: 1px solid rgba(201,168,76,0.35);">
+        Your Path to Success
+      </div>
+      <h2 style="font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; margin-bottom: 14px;">From Day One to Top Producer</h2>
+      <p style="font-size: 1rem; color: rgba(255,255,255,0.75); max-width: 520px; margin: 0 auto 56px; line-height: 1.65;">A clear, supported roadmap so you always know what's next.</p>
+
+      <!-- Timeline -->
+      <div style="display: flex; flex-direction: column; gap: 0; text-align: left; position: relative;">
+
+        <!-- vertical line -->
+        <div style="position: absolute; left: 28px; top: 20px; bottom: 20px; width: 2px; background: rgba(201,168,76,0.35);"></div>
+
+        <!-- Step 1 -->
+        <div style="display: flex; gap: 28px; align-items: flex-start; margin-bottom: 40px; position: relative;">
+          <div style="min-width: 56px; height: 56px; border-radius: 50%; background-color: #c9a84c; color: #1a3a5c; font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1;">1</div>
+          <div style="padding-top: 10px;">
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: #c9a84c;">Onboarding & Setup (Week 1–2)</h4>
+            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.75); line-height: 1.65; margin: 0;">Get your accounts, tools, and branding configured. Meet your mentor and the full team. Attend your first team meeting.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div style="display: flex; gap: 28px; align-items: flex-start; margin-bottom: 40px; position: relative;">
+          <div style="min-width: 56px; height: 56px; border-radius: 50%; background-color: rgba(201,168,76,0.2); color: #c9a84c; font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1; border: 2px solid #c9a84c;">2</div>
+          <div style="padding-top: 10px;">
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: #c9a84c;">Foundation Training (Month 1–3)</h4>
+            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.75); line-height: 1.65; margin: 0;">Master our systems: CRM workflow, lead conversion scripts, listing presentations, and the Triangle market landscape.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div style="display: flex; gap: 28px; align-items: flex-start; margin-bottom: 40px; position: relative;">
+          <div style="min-width: 56px; height: 56px; border-radius: 50%; background-color: rgba(201,168,76,0.2); color: #c9a84c; font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1; border: 2px solid #c9a84c;">3</div>
+          <div style="padding-top: 10px;">
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: #c9a84c;">First Closings (Month 3–6)</h4>
+            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.75); line-height: 1.65; margin: 0;">Work live leads with mentor support. Close your first transactions and build your client review profile.</p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div style="display: flex; gap: 28px; align-items: flex-start; position: relative;">
+          <div style="min-width: 56px; height: 56px; border-radius: 50%; background-color: rgba(201,168,76,0.2); color: #c9a84c; font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1; border: 2px solid #c9a84c;">4</div>
+          <div style="padding-top: 10px;">
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: #c9a84c;">Scale & Specialize (Month 6+)</h4>
+            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.75); line-height: 1.65; margin: 0;">Choose your niche — luxury, relocation, investors — and build a pipeline that runs year-round. Many agents hit 6 figures in year one.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       OPEN POSITIONS
+  ══════════════════════════════════════════════ -->
+  <div id="open-positions" style="padding: 72px 24px; max-width: 920px; margin: 0 auto;">
+
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div style="display: inline-block; background-color: #eef2f7; color: #1a3a5c; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 14px;">
+        Open Positions
+      </div>
+      <h2 style="font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; color: #1a3a5c; margin-bottom: 14px;">Find Your Role</h2>
+      <p style="font-size: 1rem; color: #6c757d; max-width: 500px; margin: 0 auto; line-height: 1.65;">Whether you're just getting licensed or you're a seasoned producer, we have a place for you.</p>
+    </div>
+
+    <!-- Position cards -->
+    <div style="display: flex; flex-direction: column; gap: 18px;">
+
+      <!-- Position 1 -->
+      <div style="background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: 0 2px 14px rgba(26,58,92,0.07); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-left: 5px solid #c9a84c;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin: 0;">Buyer's Agent</h3>
+            <span style="background-color: #d4edda; color: #155724; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 50px;">Actively Hiring</span>
+          </div>
+          <p style="font-size: 0.88rem; color: #6c757d; margin: 0 0 10px; line-height: 1.55;">Work with pre-qualified buyers using our lead system. Ideal for energetic agents who love helping people find their perfect home.</p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <span style="background: #eef2f7; color: #1a3a5c; font-size: 0.78rem; font-weight: 600; padding: 3px 12px; border-radius: 50px;">Full-Time</span>
+            <span style="background: #eef2f7; color: #1a3a5c; font-size: 0.78rem; font-weight: 600; padding: 3px 12px; border-radius: 50px;">Commission</span>
+            <span style="background: #eef2f7; color: #1a3a5c; font-size: 0.78rem; font-weight: 600; padding: 3px 12px; border-radius: 50px;">Raleigh / Durham / Chapel Hill</span>
+          </div>
+        </div>
+        <a href="#apply" style="display: inline-block; background-color: #1a3a5c; color: #fff; font-weight: 700; font-size: 0.88rem; padding: 12px 28px; border-radius: 8px; text-decoration: none; white-space: nowrap;">Apply Now</a>
+      </div>
+
+      <!-- Position 2 -->
+      <div style="background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: 0 2px 14px rgba(26,58,92,0.07); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-left: 5px solid #c9a84c;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin: 0;">Listing Agent</h3>
+            <span style="background-color: #d4edda; color: #155724; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 50px;">Actively Hiring</span>
+          </div>
+          <p style="font-size: 0.88rem; color: #6c757d; margin: 0 0 10px; line-height: 1.55;">Represent sellers with our proven listing strategy. You'll get marketing support, professional photography, and a pricing analysis team behind you.</p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <span style="background: #eef2f7; color: #1a3a5c; font-size: 0.78rem; font-weight: 600; padding: 3px 12px; border-radius: 50px;">Full-Time</span>
+            <span style="background: #eef2f7; color: #1a3a5c; font-size: 0.78rem; font-weight: 600; padding: 3px 12px; border-radius: 50px;">Commission</span>
+            <span style="background: #eef2f7; color: #1a3a5c; font-size: 0.78rem; font-weight: 600; padding: 3px 12px; border-radius: 50px;">Triangle Area</span>
+          </div>
+        </div>
+        <a href="#apply" style="display: inline-block; background-color: #1a3a5c; color: #fff; font-weight: 700; font-size: 0.88rem; padding: 12px 28px; border-radius: 8px; text-decoration: none; white-space: nowrap;">Apply Now</a>
+      </div>
+
+      <!-- Position 3 -->
+      <div style="background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: 0 2px 14px rgba(26,58,92,0.07); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-left: 5px solid #c9a84c;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin: 0;">New Agent (Pre-License)</h3>
+            <span style="background-color: #cce5ff; color: #004085; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 50px;">Open Enrollment</span>
+          </div>
+          <p style="font-size: 0.88rem; color: #6c757d; margin: 0 0 10px; line-height: 1.55;">Haven't gotten your license yet? We'll point you to the right school, guide you through the process, and have a position ready when you pass.</p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <span style="background: #eef2f7; color: #1a3a5c; font-size: 0.78rem; font-weight: 600; padding: 3px 12px; border-radius: 50px;">Mentored</span>
+            <span style="background: #eef2f7; color: #1a3a5c; font-size: 0.78rem; font-weight: 600; padding: 3px 12px; border-radius: 50px;">Flexible Start</span>
+            <span style="background: #eef2f7; color: #1a3a5c; font-size: 0.78rem; font-weight: 600; padding: 3px 12px; border-radius: 50px;">Triangle Area</span>
+          </div>
+        </div>
+        <a href="#apply" style="display: inline-block; background-color: #1a3a5c; color: #fff; font-weight: 700; font-size: 0.88rem; padding: 12px 28px; border-radius: 8px; text-decoration: none; white-space: nowrap;">Apply Now</a>
+      </div>
+
+      <!-- Position 4 -->
+      <div style="background: #fff; border-radius: 12px; padding: 28px 32px; box-shadow: 0 2px 14px rgba(26,58,92,0.07); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-left: 5px solid #6c757d;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin: 0;">Transaction Coordinator</h3>
+            <span style="background-color: #fff3cd; color: #856404; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 50px;">1 Opening</span>
+          </div>
+          <p style="font-size: 0.88rem; color: #6c757d; margin: 0 0 10px; line-height: 1.55;">Keep deals on track from contract to close. Detail-oriented professionals who love organization and client communication thrive in this role.</p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <span style="background: #eef2f7; color: #1a3a5c; font-size: 0.78rem; font-weight: 600; padding: 3px 12px; border-radius: 50px;">Full-Time</span>
+            <span style="background: #eef2f7; color: #1a3a5c; font-size: 0.78rem; font-weight: 600; padding: 3px 12px; border-radius: 50px;">Salary + Bonus</span>
+            <span style="background: #eef2f7; color: #1a3a5c; font-size: 0.78rem; font-weight: 600; padding: 3px 12px; border-radius: 50px;">Hybrid / Raleigh</span>
+          </div>
+        </div>
+        <a href="#apply" style="display: inline-block; background-color: #1a3a5c; color: #fff; font-weight: 700; font-size: 0.88rem; padding: 12px 28px; border-radius: 8px; text-decoration: none; white-space: nowrap;">Apply Now</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       TESTIMONIALS
+  ══════════════════════════════════════════════ -->
+  <div style="background-color: #eef2f7; padding: 72px 24px;">
+    <div style="max-width: 1000px; margin: 0 auto;">
+
+      <div style="text-align: center; margin-bottom: 48px;">
+        <div style="display: inline-block; background-color: #fff; color: #1a3a5c; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 14px; border: 1px solid #d4dde8;">
+          Agent Stories
+        </div>
+        <h2 style="font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; color: #1a3a5c; margin-bottom: 0;">Hear From Our Team</h2>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+
+        <!-- Testimonial 1 -->
+        <div style="background: #fff; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 14px rgba(26,58,92,0.07);">
+          <div style="color: #c9a84c; font-size: 1.4rem; margin-bottom: 14px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p style="font-size: 0.9rem; color: #444; line-height: 1.7; margin-bottom: 20px; font-style: italic;">"I joined Raleigh Realty with zero closings and hit $4M in sales volume in my first year. The leads, the training, the culture — it's all real."</p>
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="width: 44px; height: 44px; border-radius: 50%; background-color: #1a3a5c; color: #c9a84c; font-weight: 800; font-size: 1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">JM</div>
+            <div>
+              <div style="font-weight: 700; font-size: 0.9rem; color: #1a3a5c;">Jordan M.</div>
+              <div style="font-size: 0.8rem; color: #6c757d;">Buyer's Agent, 2 years</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div style="background: #fff; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 14px rgba(26,58,92,0.07);">
+          <div style="color: #c9a84c; font-size: 1.4rem; margin-bottom: 14px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p style="font-size: 0.9rem; color: #444; line-height: 1.7; margin-bottom: 20px; font-style: italic;">"I transferred from another brokerage and the difference is night and day. Our leadership actually picks up the phone, and the tech tools save me hours every week."</p>
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="width: 44px; height: 44px; border-radius: 50%; background-color: #1a3a5c; color: #c9a84c; font-weight: 800; font-size: 1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">SP</div>
+            <div>
+              <div style="font-weight: 700; font-size: 0.9rem; color: #1a3a5c;">Sarah P.</div>
+              <div style="font-size: 0.8rem; color: #6c757d;">Listing Agent, 4 years</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div style="background: #fff; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 14px rgba(26,58,92,0.07);">
+          <div style="color: #c9a84c; font-size: 1.4rem; margin-bottom: 14px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p style="font-size: 0.9rem; color: #444; line-height: 1.7; margin-bottom: 20px; font-style: italic;">"I was nervous to leave my corporate job. Twelve months in I'm earning more than I ever did, with a schedule I actually control. Best decision I've ever made."</p>
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="width: 44px; height: 44px; border-radius: 50%; background-color: #1a3a5c; color: #c9a84c; font-weight: 800; font-size: 1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">DK</div>
+            <div>
+              <div style="font-weight: 700; font-size: 0.9rem; color: #1a3a5c;">David K.</div>
+              <div style="font-size: 0.8rem; color: #6c757d;">Agent, 1 year</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       APPLICATION FORM CTA
+  ══════════════════════════════════════════════ -->
+  <div id="apply" style="padding: 72px 24px; max-width: 680px; margin: 0 auto; text-align: center;">
+
+    <div style="display: inline-block; background-color: #eef2f7; color: #1a3a5c; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 14px;">
+      Apply Today
+    </div>
+    <h2 style="font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; color: #1a3a5c; margin-bottom: 12px;">Ready to Take the Next Step?</h2>
+    <p style="font-size: 1rem; color: #6c757d; max-width: 480px; margin: 0 auto 40px; line-height: 1.65;">Fill out the form below and a member of our leadership team will reach out within 1 business day.</p>
+
+    <div style="background: #fff; border-radius: 16px; padding: 40px 36px; box-shadow: 0 4px 24px rgba(26,58,92,0.1); text-align: left;">
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px;">
+        <div>
+          <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #1a3a5c; margin-bottom: 6px; letter-spacing: 0.3px;">First Name <span style="color:#c0392b;">*</span></label>
+          <input type="text" placeholder="Jane" style="width: 100%; padding: 10px 14px; border: 1.5px solid #d4dde8; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #333; outline: none; box-sizing: border-box;" />
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #1a3a5c; margin-bottom: 6px; letter-spacing: 0.3px;">Last Name <span style="color:#c0392b;">*</span></label>
+          <input type="text" placeholder="Doe" style="width: 100%; padding: 10px 14px; border: 1.5px solid #d4dde8; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #333; outline: none; box-sizing: border-box;" />
+        </div>
+      </div>
+
+      <div style="margin-bottom: 18px;">
+        <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #1a3a5c; margin-bottom: 6px; letter-spacing: 0.3px;">Email Address <span style="color:#c0392b;">*</span></label>
+        <input type="email" placeholder="jane@example.com" style="width: 100%; padding: 10px 14px; border: 1.5px solid #d4dde8; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #333; outline: none; box-sizing: border-box;" />
+      </div>
+
+      <div style="margin-bottom: 18px;">
+        <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #1a3a5c; margin-bottom: 6px; letter-spacing: 0.3px;">Phone Number</label>
+        <input type="tel" placeholder="(919) 555-0100" style="width: 100%; padding: 10px 14px; border: 1.5px solid #d4dde8; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #333; outline: none; box-sizing: border-box;" />
+      </div>
+
+      <div style="margin-bottom: 18px;">
+        <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #1a3a5c; margin-bottom: 6px; letter-spacing: 0.3px;">Position of Interest <span style="color:#c0392b;">*</span></label>
+        <select style="width: 100%; padding: 10px 14px; border: 1.5px solid #d4dde8; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #333; outline: none; box-sizing: border-box; background-color: #fff;">
+          <option value="">Select a position…</option>
+          <option>Buyer's Agent</option>
+          <option>Listing Agent</option>
+          <option>New Agent (Pre-License)</option>
+          <option>Transaction Coordinator</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 18px;">
+        <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #1a3a5c; margin-bottom: 6px; letter-spacing: 0.3px;">NC Real Estate License #</label>
+        <input type="text" placeholder="If licensed — leave blank if not yet" style="width: 100%; padding: 10px 14px; border: 1.5px solid #d4dde8; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #333; outline: none; box-sizing: border-box;" />
+      </div>
+
+      <div style="margin-bottom: 28px;">
+        <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #1a3a5c; margin-bottom: 6px; letter-spacing: 0.3px;">Tell Us About Yourself</label>
+        <textarea rows="4" placeholder="Brief background, goals, why you're interested in Raleigh Realty…" style="width: 100%; padding: 10px 14px; border: 1.5px solid #d4dde8; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #333; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
+      </div>
+
+      <button type="submit" style="width: 100%; background-color: #c9a84c; color: #1a3a5c; font-weight: 800; font-size: 1rem; padding: 15px; border: none; border-radius: 8px; cursor: pointer; letter-spacing: 0.3px; font-family: inherit;">
+        Submit Application
+      </button>
+
+      <p style="text-align: center; font-size: 0.8rem; color: #9ca3af; margin-top: 14px; margin-bottom: 0;">We typically respond within 1 business day. Your info is kept confidential.</p>
+    </div>
+
+  </div>
+
+</div>
