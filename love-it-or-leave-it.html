@@ -1,249 +1,228 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Love It or Leave It | The Roland Team</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-</head>
-<body style="margin:0; padding:0; font-family:'DM Sans',sans-serif; background:#FAF7F0; color:#0D1B2A; overflow-x:hidden; box-sizing:border-box;">
-
-<!-- NAV -->
-<nav style="position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:1.25rem 5%; background:rgba(13,27,42,0.97); backdrop-filter:blur(8px); border-bottom:1px solid rgba(201,168,76,0.2); box-sizing:border-box;">
-  <div style="font-family:'Playfair Display',serif; color:#C9A84C; font-size:1.1rem; letter-spacing:0.08em; text-transform:uppercase;">The Roland Team</div>
-  <button onclick="document.getElementById('capture').scrollIntoView({behavior:'smooth'})" style="background:#C9A84C; color:#0D1B2A; border:none; padding:0.6rem 1.4rem; border-radius:4px; font-family:'DM Sans',sans-serif; font-weight:600; font-size:0.85rem; letter-spacing:0.05em; cursor:pointer; text-transform:uppercase;">Claim Your Guarantee</button>
-</nav>
-
-<!-- HERO -->
-<section style="min-height:100vh; background:#0D1B2A; display:flex; flex-direction:column; justify-content:center; padding:8rem 5% 5rem; position:relative; overflow:hidden; box-sizing:border-box;">
-  <div style="font-family:'DM Sans',sans-serif; font-size:0.75rem; letter-spacing:0.25em; text-transform:uppercase; color:#C9A84C; margin-bottom:1.5rem; display:flex; align-items:center; gap:0.75rem;">
-    <span style="display:inline-block; width:32px; height:1px; background:#C9A84C;"></span>
-    The Roland Team &middot; Las Vegas
-  </div>
-  <h1 style="font-family:'Playfair Display',serif; font-size:clamp(3rem,7vw,5.5rem); font-weight:900; color:#FFFFFF; line-height:1.05; max-width:760px; margin:0 0 1.5rem 0;">
-    <span style="color:#C9A84C;">Love It</span> or<br>We'll Sell It<br>for Free.
-  </h1>
-  <p style="font-size:1.15rem; color:rgba(255,255,255,0.65); max-width:520px; line-height:1.7; margin:0 0 3rem 0; font-weight:300;">Buy with total confidence. If you change your mind within 12 months of purchase, we'll list and sell your home &mdash; at no commission to you. Zero risk. Zero fine print.</p>
-  <div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:center;">
-    <a href="#capture" onclick="document.getElementById('capture').scrollIntoView({behavior:'smooth'}); return false;" style="background:#C9A84C; color:#0D1B2A; border:none; padding:1rem 2.25rem; border-radius:4px; font-family:'DM Sans',sans-serif; font-weight:600; font-size:0.95rem; letter-spacing:0.04em; cursor:pointer; text-transform:uppercase; text-decoration:none; display:inline-block;">Activate Your Guarantee</a>
-    <a href="#how" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'}); return false;" style="background:transparent; color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); padding:1rem 2.25rem; border-radius:4px; font-family:'DM Sans',sans-serif; font-weight:400; font-size:0.95rem; cursor:pointer; text-decoration:none; display:inline-block;">How It Works</a>
-  </div>
-  <div style="display:flex; flex-wrap:wrap; gap:2.5rem; margin-top:4rem; padding-top:2.5rem; border-top:1px solid rgba(255,255,255,0.1);">
-    <div>
-      <div style="font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:700; color:#C9A84C; line-height:1;">1,000+</div>
-      <div style="font-size:0.8rem; color:rgba(255,255,255,0.45); letter-spacing:0.1em; text-transform:uppercase; margin-top:0.3rem;">Career sales</div>
-    </div>
-    <div>
-      <div style="font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:700; color:#C9A84C; line-height:1;">25+</div>
-      <div style="font-size:0.8rem; color:rgba(255,255,255,0.45); letter-spacing:0.1em; text-transform:uppercase; margin-top:0.3rem;">Expert agents</div>
-    </div>
-    <div>
-      <div style="font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:700; color:#C9A84C; line-height:1;">12</div>
-      <div style="font-size:0.8rem; color:rgba(255,255,255,0.45); letter-spacing:0.1em; text-transform:uppercase; margin-top:0.3rem;">Month guarantee window</div>
-    </div>
-    <div>
-      <div style="font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:700; color:#C9A84C; line-height:1;">$0</div>
-      <div style="font-size:0.8rem; color:rgba(255,255,255,0.45); letter-spacing:0.1em; text-transform:uppercase; margin-top:0.3rem;">Commission if you leave</div>
-    </div>
-  </div>
-</section>
-
-<!-- GUARANTEE DETAILS -->
-<section id="guarantee" style="background:#FAF7F0; padding:6rem 5%; box-sizing:border-box;">
-  <div style="font-size:0.75rem; letter-spacing:0.25em; text-transform:uppercase; color:#8B6914; margin-bottom:1rem; display:flex; align-items:center; gap:0.75rem;">
-    <span style="display:inline-block; width:32px; height:1px; background:#8B6914;"></span>
-    The Guarantee
-  </div>
-  <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; color:#0D1B2A; line-height:1.15; max-width:640px; margin:0 0 1.25rem 0;">A promise that actually means something.</h2>
-  <p style="font-size:1.05rem; color:#3D5166; max-width:560px; line-height:1.75; font-weight:300; margin:0 0 3.5rem 0;">Most agents disappear after closing day. We stay accountable &mdash; because our success is tied directly to yours.</p>
-
-  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.5rem;">
-    <!-- Card 1 -->
-    <div style="background:#FFFFFF; border:1px solid #F0EAD6; border-radius:12px; padding:2rem;">
-      <div style="width:44px; height:44px; background:rgba(201,168,76,0.12); border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:1.25rem;">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:22px; height:22px; fill:#8B6914;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      </div>
-      <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:700; color:#0D1B2A; margin-bottom:0.6rem;">Full 12-Month Coverage</div>
-      <p style="font-size:0.9rem; color:#3D5166; line-height:1.7; font-weight:300; margin:0;">From the day you close, you have a full year of protection. Life changes &mdash; we get it. Your guarantee doesn't expire at move-in.</p>
-    </div>
-    <!-- Card 2 -->
-    <div style="background:#FFFFFF; border:1px solid #F0EAD6; border-radius:12px; padding:2rem;">
-      <div style="width:44px; height:44px; background:rgba(201,168,76,0.12); border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:1.25rem;">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:22px; height:22px; fill:#8B6914;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-      </div>
-      <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:700; color:#0D1B2A; margin-bottom:0.6rem;">Zero Commission to Sell</div>
-      <p style="font-size:0.9rem; color:#3D5166; line-height:1.7; font-weight:300; margin:0;">If you decide to move on, we list and sell your home completely free. No hidden fees, no "processing charges" &mdash; nothing.</p>
-    </div>
-    <!-- Card 3 -->
-    <div style="background:#FFFFFF; border:1px solid #F0EAD6; border-radius:12px; padding:2rem;">
-      <div style="width:44px; height:44px; background:rgba(201,168,76,0.12); border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:1.25rem;">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:22px; height:22px; fill:#8B6914;"><path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-2h2v2zm0-4h-2c0-3.25 3-3 3-5 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 2.5-3 2.75-3 5z"/></svg>
-      </div>
-      <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:700; color:#0D1B2A; margin-bottom:0.6rem;">No Pressure. No Catch.</div>
-      <p style="font-size:0.9rem; color:#3D5166; line-height:1.7; font-weight:300; margin:0;">This isn't a gimmick. We stand behind our ability to match buyers with the right home. If we miss, we make it right.</p>
-    </div>
-    <!-- Card 4 -->
-    <div style="background:#FFFFFF; border:1px solid #F0EAD6; border-radius:12px; padding:2rem;">
-      <div style="width:44px; height:44px; background:rgba(201,168,76,0.12); border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:1.25rem;">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:22px; height:22px; fill:#8B6914;"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-      </div>
-      <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:700; color:#0D1B2A; margin-bottom:0.6rem;">A Team Behind You</div>
-      <p style="font-size:0.9rem; color:#3D5166; line-height:1.7; font-weight:300; margin:0;">With 1,000+ career sales behind us, we have the experience, resources, and reach to deliver &mdash; every single time.</p>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section id="how" style="background:#0D1B2A; padding:6rem 5%; position:relative; overflow:hidden; box-sizing:border-box;">
-  <div style="font-size:0.75rem; letter-spacing:0.25em; text-transform:uppercase; color:#C9A84C; margin-bottom:1rem; display:flex; align-items:center; gap:0.75rem;">
-    <span style="display:inline-block; width:32px; height:1px; background:#C9A84C;"></span>
-    The Process
-  </div>
-  <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; color:#FFFFFF; line-height:1.15; max-width:640px; margin:0 0 1.25rem 0;">Simple as it should be.</h2>
-  <p style="font-size:1.05rem; color:rgba(255,255,255,0.55); max-width:560px; line-height:1.75; font-weight:300; margin:0 0 3.5rem 0;">Three steps to buying with complete peace of mind in Las Vegas.</p>
-
-  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:2rem; position:relative; z-index:1;">
-    <div>
-      <div style="font-family:'Playfair Display',serif; font-size:4rem; font-weight:900; color:rgba(201,168,76,0.15); line-height:1; margin-bottom:-0.5rem;">01</div>
-      <div style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:#FFFFFF; margin-bottom:0.6rem;">Buy Your Home</div>
-      <p style="font-size:0.88rem; color:rgba(255,255,255,0.5); line-height:1.75; font-weight:300; margin:0;">Work with our team to find and purchase your perfect Las Vegas home. Your guarantee activates automatically at closing.</p>
-    </div>
-    <div>
-      <div style="font-family:'Playfair Display',serif; font-size:4rem; font-weight:900; color:rgba(201,168,76,0.15); line-height:1; margin-bottom:-0.5rem;">02</div>
-      <div style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:#FFFFFF; margin-bottom:0.6rem;">Love It (or Don't)</div>
-      <p style="font-size:0.88rem; color:rgba(255,255,255,0.5); line-height:1.75; font-weight:300; margin:0;">Live in your new home. If within 12 months you decide it's not the right fit &mdash; for any reason &mdash; reach out to us.</p>
-    </div>
-    <div>
-      <div style="font-family:'Playfair Display',serif; font-size:4rem; font-weight:900; color:rgba(201,168,76,0.15); line-height:1; margin-bottom:-0.5rem;">03</div>
-      <div style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:#FFFFFF; margin-bottom:0.6rem;">We Sell for Free</div>
-      <p style="font-size:0.88rem; color:rgba(255,255,255,0.5); line-height:1.75; font-weight:300; margin:0;">We list, market, and sell your home with zero commission charged to you. Our full service, your zero cost.</p>
-    </div>
-    <div>
-      <div style="font-family:'Playfair Display',serif; font-size:4rem; font-weight:900; color:rgba(201,168,76,0.15); line-height:1; margin-bottom:-0.5rem;">04</div>
-      <div style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:#FFFFFF; margin-bottom:0.6rem;">Move Forward</div>
-      <p style="font-size:0.88rem; color:rgba(255,255,255,0.5); line-height:1.75; font-weight:300; margin:0;">Whether you're buying again with us or moving on, you walk away without regret &mdash; and without losing a dime on commissions.</p>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section id="testimonials" style="background:#FAF7F0; padding:6rem 5%; box-sizing:border-box;">
-  <div style="font-size:0.75rem; letter-spacing:0.25em; text-transform:uppercase; color:#8B6914; margin-bottom:1rem; display:flex; align-items:center; gap:0.75rem;">
-    <span style="display:inline-block; width:32px; height:1px; background:#8B6914;"></span>
-    Real Results
-  </div>
-  <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; color:#0D1B2A; line-height:1.15; max-width:640px; margin:0 0 1.25rem 0;">Our clients say it best.</h2>
-
-  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; margin-top:3.5rem;">
-    <!-- Testimonial 1 -->
-    <div style="background:#FFFFFF; border:1px solid #F0EAD6; border-radius:12px; padding:2rem; position:relative;">
-      <div style="font-family:'Playfair Display',serif; font-size:5rem; color:#F0D98A; position:absolute; top:0.5rem; left:1.25rem; line-height:1;">&ldquo;</div>
-      <div style="color:#C9A84C; font-size:0.75rem; letter-spacing:0.1em; margin-bottom:0.25rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p style="font-size:0.93rem; color:#3D5166; line-height:1.8; margin:0 0 1.5rem 0; padding-top:1.5rem; font-weight:300;">We were nervous about buying in a new neighborhood, but the Love It or Leave It guarantee completely removed that anxiety. We love our home &mdash; and we love knowing we had a safety net.</p>
-      <div style="display:flex; align-items:center; gap:0.75rem;">
-        <div style="width:40px; height:40px; border-radius:50%; background:#0D1B2A; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:600; color:#C9A84C; flex-shrink:0; letter-spacing:0.02em;">JM</div>
-        <div>
-          <div style="font-weight:600; font-size:0.88rem; color:#0D1B2A;">Jason &amp; Maria T.</div>
-          <div style="font-size:0.78rem; color:#6B8299; margin-top:0.15rem;">Summerlin, Las Vegas</div>
+<!-- HERO SECTION -->
+<div class="container-fluid" style="background:#0D1B2A; padding:80px 5% 60px; margin:0;">
+  <div class="container">
+    <p style="font-size:12px; letter-spacing:4px; text-transform:uppercase; color:#C9A84C; margin-bottom:20px;">&#9473;&#9473; THE ROLAND TEAM &middot; LAS VEGAS</p>
+    <h1 style="font-family:Georgia,serif; font-size:56px; font-weight:900; color:#FFFFFF; line-height:1.05; margin:0 0 20px 0;">
+      <span style="color:#C9A84C;">Love It</span> or<br>We'll Sell It<br>for Free.
+    </h1>
+    <p style="font-size:18px; color:rgba(255,255,255,0.65); max-width:520px; line-height:1.7; margin:0 0 30px 0; font-weight:300;">Buy with total confidence. If you change your mind within 12 months of purchase, we'll list and sell your home &mdash; at no commission to you. Zero risk. Zero fine print.</p>
+    <p style="margin:0 0 50px 0;">
+      <a href="#capture-section" style="background:#C9A84C; color:#0D1B2A; padding:14px 30px; border-radius:4px; font-weight:600; font-size:15px; letter-spacing:1px; text-transform:uppercase; text-decoration:none; display:inline-block; margin-right:10px;">Activate Your Guarantee</a>
+      <a href="#how-section" style="color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); padding:14px 30px; border-radius:4px; font-size:15px; text-decoration:none; display:inline-block;">How It Works</a>
+    </p>
+    <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:30px;">
+      <div class="row">
+        <div class="col-6 col-md-3" style="margin-bottom:15px;">
+          <div style="font-family:Georgia,serif; font-size:32px; font-weight:700; color:#C9A84C; line-height:1;">1,000+</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.45); letter-spacing:2px; text-transform:uppercase; margin-top:5px;">Career sales</div>
         </div>
-      </div>
-    </div>
-    <!-- Testimonial 2 -->
-    <div style="background:#FFFFFF; border:1px solid #F0EAD6; border-radius:12px; padding:2rem; position:relative;">
-      <div style="font-family:'Playfair Display',serif; font-size:5rem; color:#F0D98A; position:absolute; top:0.5rem; left:1.25rem; line-height:1;">&ldquo;</div>
-      <div style="color:#C9A84C; font-size:0.75rem; letter-spacing:0.1em; margin-bottom:0.25rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p style="font-size:0.93rem; color:#3D5166; line-height:1.8; margin:0 0 1.5rem 0; padding-top:1.5rem; font-weight:300;">The Roland Team didn't just find us a house &mdash; they found us the right house. But knowing they backed their work with a real guarantee told us everything about how they operate.</p>
-      <div style="display:flex; align-items:center; gap:0.75rem;">
-        <div style="width:40px; height:40px; border-radius:50%; background:#0D1B2A; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:600; color:#C9A84C; flex-shrink:0; letter-spacing:0.02em;">DR</div>
-        <div>
-          <div style="font-weight:600; font-size:0.88rem; color:#0D1B2A;">Derek R.</div>
-          <div style="font-size:0.78rem; color:#6B8299; margin-top:0.15rem;">Henderson, NV</div>
+        <div class="col-6 col-md-3" style="margin-bottom:15px;">
+          <div style="font-family:Georgia,serif; font-size:32px; font-weight:700; color:#C9A84C; line-height:1;">25+</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.45); letter-spacing:2px; text-transform:uppercase; margin-top:5px;">Expert agents</div>
         </div>
-      </div>
-    </div>
-    <!-- Testimonial 3 -->
-    <div style="background:#FFFFFF; border:1px solid #F0EAD6; border-radius:12px; padding:2rem; position:relative;">
-      <div style="font-family:'Playfair Display',serif; font-size:5rem; color:#F0D98A; position:absolute; top:0.5rem; left:1.25rem; line-height:1;">&ldquo;</div>
-      <div style="color:#C9A84C; font-size:0.75rem; letter-spacing:0.1em; margin-bottom:0.25rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p style="font-size:0.93rem; color:#3D5166; line-height:1.8; margin:0 0 1.5rem 0; padding-top:1.5rem; font-weight:300;">I've worked with several real estate teams and none offered anything close to this. It's not just a gimmick &mdash; it's proof they're confident in what they do. That confidence was contagious.</p>
-      <div style="display:flex; align-items:center; gap:0.75rem;">
-        <div style="width:40px; height:40px; border-radius:50%; background:#0D1B2A; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:600; color:#C9A84C; flex-shrink:0; letter-spacing:0.02em;">LK</div>
-        <div>
-          <div style="font-weight:600; font-size:0.88rem; color:#0D1B2A;">Linda K.</div>
-          <div style="font-size:0.78rem; color:#6B8299; margin-top:0.15rem;">North Las Vegas</div>
+        <div class="col-6 col-md-3" style="margin-bottom:15px;">
+          <div style="font-family:Georgia,serif; font-size:32px; font-weight:700; color:#C9A84C; line-height:1;">12</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.45); letter-spacing:2px; text-transform:uppercase; margin-top:5px;">Month guarantee</div>
+        </div>
+        <div class="col-6 col-md-3" style="margin-bottom:15px;">
+          <div style="font-family:Georgia,serif; font-size:32px; font-weight:700; color:#C9A84C; line-height:1;">$0</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.45); letter-spacing:2px; text-transform:uppercase; margin-top:5px;">Commission if you leave</div>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- LEAD CAPTURE -->
-<section id="capture" style="background:#0D1B2A; padding:6rem 5%; position:relative; overflow:hidden; box-sizing:border-box;">
-  <div style="max-width:760px; margin:0 auto; text-align:center; position:relative; z-index:1;">
-    <div style="font-size:0.75rem; letter-spacing:0.25em; text-transform:uppercase; color:#C9A84C; margin-bottom:1rem; display:flex; align-items:center; justify-content:center; gap:0.75rem;">
-      Get Started
+<!-- GUARANTEE SECTION -->
+<div class="container-fluid" style="background:#FAF7F0; padding:80px 5%; margin:0;">
+  <div class="container">
+    <p style="font-size:12px; letter-spacing:4px; text-transform:uppercase; color:#8B6914; margin-bottom:10px;">&#9473;&#9473; THE GUARANTEE</p>
+    <h2 style="font-family:Georgia,serif; font-size:36px; font-weight:700; color:#0D1B2A; line-height:1.15; margin:0 0 15px 0;">A promise that actually means something.</h2>
+    <p style="font-size:16px; color:#3D5166; max-width:560px; line-height:1.75; font-weight:300; margin:0 0 40px 0;">Most agents disappear after closing day. We stay accountable &mdash; because our success is tied directly to yours.</p>
+    <div class="row">
+      <div class="col-md-6 col-lg-3" style="margin-bottom:20px;">
+        <div style="background:#FFFFFF; border:1px solid #F0EAD6; border-radius:12px; padding:30px; height:100%;">
+          <div style="width:44px; height:44px; background:rgba(201,168,76,0.12); border-radius:10px; text-align:center; line-height:44px; font-size:20px; margin-bottom:15px;">&#9733;</div>
+          <h3 style="font-family:Georgia,serif; font-size:18px; font-weight:700; color:#0D1B2A; margin:0 0 8px 0;">Full 12-Month Coverage</h3>
+          <p style="font-size:14px; color:#3D5166; line-height:1.7; font-weight:300; margin:0;">From the day you close, you have a full year of protection. Life changes &mdash; we get it. Your guarantee doesn't expire at move-in.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3" style="margin-bottom:20px;">
+        <div style="background:#FFFFFF; border:1px solid #F0EAD6; border-radius:12px; padding:30px; height:100%;">
+          <div style="width:44px; height:44px; background:rgba(201,168,76,0.12); border-radius:10px; text-align:center; line-height:44px; font-size:20px; margin-bottom:15px;">&#10003;</div>
+          <h3 style="font-family:Georgia,serif; font-size:18px; font-weight:700; color:#0D1B2A; margin:0 0 8px 0;">Zero Commission to Sell</h3>
+          <p style="font-size:14px; color:#3D5166; line-height:1.7; font-weight:300; margin:0;">If you decide to move on, we list and sell your home completely free. No hidden fees, no "processing charges" &mdash; nothing.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3" style="margin-bottom:20px;">
+        <div style="background:#FFFFFF; border:1px solid #F0EAD6; border-radius:12px; padding:30px; height:100%;">
+          <div style="width:44px; height:44px; background:rgba(201,168,76,0.12); border-radius:10px; text-align:center; line-height:44px; font-size:20px; margin-bottom:15px;">&#63;</div>
+          <h3 style="font-family:Georgia,serif; font-size:18px; font-weight:700; color:#0D1B2A; margin:0 0 8px 0;">No Pressure. No Catch.</h3>
+          <p style="font-size:14px; color:#3D5166; line-height:1.7; font-weight:300; margin:0;">This isn't a gimmick. We stand behind our ability to match buyers with the right home. If we miss, we make it right.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3" style="margin-bottom:20px;">
+        <div style="background:#FFFFFF; border:1px solid #F0EAD6; border-radius:12px; padding:30px; height:100%;">
+          <div style="width:44px; height:44px; background:rgba(201,168,76,0.12); border-radius:10px; text-align:center; line-height:44px; font-size:20px; margin-bottom:15px;">&#9829;</div>
+          <h3 style="font-family:Georgia,serif; font-size:18px; font-weight:700; color:#0D1B2A; margin:0 0 8px 0;">A Team Behind You</h3>
+          <p style="font-size:14px; color:#3D5166; line-height:1.7; font-weight:300; margin:0;">With 1,000+ career sales behind us, we have the experience, resources, and reach to deliver &mdash; every single time.</p>
+        </div>
+      </div>
     </div>
-    <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; color:#FFFFFF; line-height:1.15; max-width:640px; margin:0 auto 1rem;">Ready to buy without the risk?</h2>
-    <p style="font-size:1.05rem; color:rgba(255,255,255,0.55); max-width:560px; line-height:1.75; font-weight:300; margin:0 auto 2.5rem;">Fill out the form below and a member of The Roland Team will reach out within 24 hours to activate your guarantee.</p>
-
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
-      <input type="text" id="fname" placeholder="First Name" style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:0.9rem 1.1rem; color:#FFFFFF; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:300; outline:none; box-sizing:border-box;" />
-      <input type="text" id="lname" placeholder="Last Name" style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:0.9rem 1.1rem; color:#FFFFFF; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:300; outline:none; box-sizing:border-box;" />
-    </div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
-      <input type="email" id="email" placeholder="Email Address" style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:0.9rem 1.1rem; color:#FFFFFF; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:300; outline:none; box-sizing:border-box;" />
-      <input type="tel" id="phone" placeholder="Phone Number" style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:0.9rem 1.1rem; color:#FFFFFF; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:300; outline:none; box-sizing:border-box;" />
-    </div>
-    <input type="text" id="preapproved" placeholder="Are you pre-approved? (optional)" style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:0.9rem 1.1rem; color:#FFFFFF; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:300; outline:none; margin-bottom:0.75rem; box-sizing:border-box;" />
-    <button id="submitBtn" onclick="submitLead()" style="width:100%; background:#C9A84C; color:#0D1B2A; border:none; padding:1.1rem 2rem; border-radius:4px; font-family:'DM Sans',sans-serif; font-weight:700; font-size:1rem; letter-spacing:0.05em; text-transform:uppercase; cursor:pointer; margin-top:0.5rem;">Activate My Love It or Leave It Guarantee &#8594;</button>
-    <p id="formMsg" style="font-size:0.75rem; color:rgba(255,255,255,0.25); margin-top:1rem; line-height:1.6;">By submitting this form you agree to be contacted by The Roland Team regarding your home search. We respect your privacy and will never sell your information.</p>
-
-    <script>
-    function submitLead() {
-      var fname = document.getElementById('fname').value.trim();
-      var lname = document.getElementById('lname').value.trim();
-      var email = document.getElementById('email').value.trim();
-      var phone = document.getElementById('phone').value.trim();
-      var preapproved = document.getElementById('preapproved').value.trim();
-      var msg = document.getElementById('formMsg');
-      var btn = document.getElementById('submitBtn');
-
-      if (!fname || !lname || !email || !phone) {
-        msg.style.color = '#F0D98A';
-        msg.textContent = 'Please fill in your name, email, and phone number.';
-        return;
-      }
-
-      var subject = 'New Lead: Love It or Leave It - ' + fname + ' ' + lname;
-      var body = 'First Name: ' + fname + '\n'
-               + 'Last Name: ' + lname + '\n'
-               + 'Email: ' + email + '\n'
-               + 'Phone: ' + phone + '\n'
-               + 'Pre-Approved: ' + (preapproved || 'Not specified') + '\n'
-               + 'Source: Love It or Leave It Landing Page';
-
-      var mailto = 'mailto:the.roland.team2@followupboss.me'
-                 + '?subject=' + encodeURIComponent(subject)
-                 + '&body=' + encodeURIComponent(body);
-
-      window.location.href = mailto;
-
-      btn.textContent = 'Submission sent - we will be in touch within 24 hours!';
-      btn.style.background = '#3B6D11';
-      btn.style.color = '#fff';
-      btn.disabled = true;
-      msg.style.color = 'rgba(255,255,255,0.25)';
-      msg.textContent = 'By submitting this form you agree to be contacted by The Roland Team regarding your home search. We respect your privacy and will never sell your information.';
-    }
-    </script>
   </div>
-</section>
+</div>
 
-<!-- FOOTER -->
-<footer style="background:#080F17; padding:2.5rem 5%; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem; border-top:1px solid rgba(201,168,76,0.12); margin:0; box-sizing:border-box;">
-  <div style="font-family:'Playfair Display',serif; color:#C9A84C; font-size:0.95rem; letter-spacing:0.1em; text-transform:uppercase;">The Roland Team &middot; Las Vegas</div>
-  <div style="font-size:0.78rem; color:rgba(255,255,255,0.2);">&copy; 2026 The Roland Team. All rights reserved.</div>
-</footer>
+<!-- HOW IT WORKS SECTION -->
+<div id="how-section" class="container-fluid" style="background:#0D1B2A; padding:80px 5%; margin:0;">
+  <div class="container">
+    <p style="font-size:12px; letter-spacing:4px; text-transform:uppercase; color:#C9A84C; margin-bottom:10px;">&#9473;&#9473; THE PROCESS</p>
+    <h2 style="font-family:Georgia,serif; font-size:36px; font-weight:700; color:#FFFFFF; line-height:1.15; margin:0 0 15px 0;">Simple as it should be.</h2>
+    <p style="font-size:16px; color:rgba(255,255,255,0.55); max-width:560px; line-height:1.75; font-weight:300; margin:0 0 40px 0;">Three steps to buying with complete peace of mind in Las Vegas.</p>
+    <div class="row">
+      <div class="col-md-6 col-lg-3" style="margin-bottom:25px;">
+        <div style="font-family:Georgia,serif; font-size:60px; font-weight:900; color:rgba(201,168,76,0.15); line-height:1;">01</div>
+        <h3 style="font-family:Georgia,serif; font-size:18px; font-weight:700; color:#FFFFFF; margin:0 0 8px 0;">Buy Your Home</h3>
+        <p style="font-size:14px; color:rgba(255,255,255,0.5); line-height:1.75; font-weight:300; margin:0;">Work with our team to find and purchase your perfect Las Vegas home. Your guarantee activates automatically at closing.</p>
+      </div>
+      <div class="col-md-6 col-lg-3" style="margin-bottom:25px;">
+        <div style="font-family:Georgia,serif; font-size:60px; font-weight:900; color:rgba(201,168,76,0.15); line-height:1;">02</div>
+        <h3 style="font-family:Georgia,serif; font-size:18px; font-weight:700; color:#FFFFFF; margin:0 0 8px 0;">Love It (or Don't)</h3>
+        <p style="font-size:14px; color:rgba(255,255,255,0.5); line-height:1.75; font-weight:300; margin:0;">Live in your new home. If within 12 months you decide it's not the right fit &mdash; for any reason &mdash; reach out to us.</p>
+      </div>
+      <div class="col-md-6 col-lg-3" style="margin-bottom:25px;">
+        <div style="font-family:Georgia,serif; font-size:60px; font-weight:900; color:rgba(201,168,76,0.15); line-height:1;">03</div>
+        <h3 style="font-family:Georgia,serif; font-size:18px; font-weight:700; color:#FFFFFF; margin:0 0 8px 0;">We Sell for Free</h3>
+        <p style="font-size:14px; color:rgba(255,255,255,0.5); line-height:1.75; font-weight:300; margin:0;">We list, market, and sell your home with zero commission charged to you. Our full service, your zero cost.</p>
+      </div>
+      <div class="col-md-6 col-lg-3" style="margin-bottom:25px;">
+        <div style="font-family:Georgia,serif; font-size:60px; font-weight:900; color:rgba(201,168,76,0.15); line-height:1;">04</div>
+        <h3 style="font-family:Georgia,serif; font-size:18px; font-weight:700; color:#FFFFFF; margin:0 0 8px 0;">Move Forward</h3>
+        <p style="font-size:14px; color:rgba(255,255,255,0.5); line-height:1.75; font-weight:300; margin:0;">Whether you're buying again with us or moving on, you walk away without regret &mdash; and without losing a dime on commissions.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-</body>
-</html>
+<!-- TESTIMONIALS SECTION -->
+<div class="container-fluid" style="background:#FAF7F0; padding:80px 5%; margin:0;">
+  <div class="container">
+    <p style="font-size:12px; letter-spacing:4px; text-transform:uppercase; color:#8B6914; margin-bottom:10px;">&#9473;&#9473; REAL RESULTS</p>
+    <h2 style="font-family:Georgia,serif; font-size:36px; font-weight:700; color:#0D1B2A; line-height:1.15; margin:0 0 40px 0;">Our clients say it best.</h2>
+    <div class="row">
+      <div class="col-md-4" style="margin-bottom:20px;">
+        <div style="background:#FFFFFF; border:1px solid #F0EAD6; border-radius:12px; padding:30px; height:100%;">
+          <p style="color:#C9A84C; font-size:14px; letter-spacing:2px; margin:0 0 5px 0;">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+          <p style="font-size:14px; color:#3D5166; line-height:1.8; margin:0 0 20px 0; font-weight:300;">We were nervous about buying in a new neighborhood, but the Love It or Leave It guarantee completely removed that anxiety. We love our home &mdash; and we love knowing we had a safety net.</p>
+          <table cellpadding="0" cellspacing="0" border="0"><tr>
+            <td style="vertical-align:middle; padding-right:10px;">
+              <div style="width:40px; height:40px; border-radius:50%; background:#0D1B2A; color:#C9A84C; text-align:center; line-height:40px; font-size:13px; font-weight:600;">JM</div>
+            </td>
+            <td style="vertical-align:middle;">
+              <div style="font-weight:600; font-size:14px; color:#0D1B2A;">Jason &amp; Maria T.</div>
+              <div style="font-size:12px; color:#6B8299;">Summerlin, Las Vegas</div>
+            </td>
+          </tr></table>
+        </div>
+      </div>
+      <div class="col-md-4" style="margin-bottom:20px;">
+        <div style="background:#FFFFFF; border:1px solid #F0EAD6; border-radius:12px; padding:30px; height:100%;">
+          <p style="color:#C9A84C; font-size:14px; letter-spacing:2px; margin:0 0 5px 0;">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+          <p style="font-size:14px; color:#3D5166; line-height:1.8; margin:0 0 20px 0; font-weight:300;">The Roland Team didn't just find us a house &mdash; they found us the right house. But knowing they backed their work with a real guarantee told us everything about how they operate.</p>
+          <table cellpadding="0" cellspacing="0" border="0"><tr>
+            <td style="vertical-align:middle; padding-right:10px;">
+              <div style="width:40px; height:40px; border-radius:50%; background:#0D1B2A; color:#C9A84C; text-align:center; line-height:40px; font-size:13px; font-weight:600;">DR</div>
+            </td>
+            <td style="vertical-align:middle;">
+              <div style="font-weight:600; font-size:14px; color:#0D1B2A;">Derek R.</div>
+              <div style="font-size:12px; color:#6B8299;">Henderson, NV</div>
+            </td>
+          </tr></table>
+        </div>
+      </div>
+      <div class="col-md-4" style="margin-bottom:20px;">
+        <div style="background:#FFFFFF; border:1px solid #F0EAD6; border-radius:12px; padding:30px; height:100%;">
+          <p style="color:#C9A84C; font-size:14px; letter-spacing:2px; margin:0 0 5px 0;">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+          <p style="font-size:14px; color:#3D5166; line-height:1.8; margin:0 0 20px 0; font-weight:300;">I've worked with several real estate teams and none offered anything close to this. It's not just a gimmick &mdash; it's proof they're confident in what they do. That confidence was contagious.</p>
+          <table cellpadding="0" cellspacing="0" border="0"><tr>
+            <td style="vertical-align:middle; padding-right:10px;">
+              <div style="width:40px; height:40px; border-radius:50%; background:#0D1B2A; color:#C9A84C; text-align:center; line-height:40px; font-size:13px; font-weight:600;">LK</div>
+            </td>
+            <td style="vertical-align:middle;">
+              <div style="font-weight:600; font-size:14px; color:#0D1B2A;">Linda K.</div>
+              <div style="font-size:12px; color:#6B8299;">North Las Vegas</div>
+            </td>
+          </tr></table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LEAD CAPTURE SECTION -->
+<div id="capture-section" class="container-fluid" style="background:#0D1B2A; padding:80px 5%; margin:0;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <p style="font-size:12px; letter-spacing:4px; text-transform:uppercase; color:#C9A84C; margin-bottom:10px;">GET STARTED</p>
+        <h2 style="font-family:Georgia,serif; font-size:36px; font-weight:700; color:#FFFFFF; line-height:1.15; margin:0 0 15px 0;">Ready to buy without the risk?</h2>
+        <p style="font-size:16px; color:rgba(255,255,255,0.55); line-height:1.75; font-weight:300; margin:0 0 35px 0;">Fill out the form below and a member of The Roland Team will reach out within 24 hours to activate your guarantee.</p>
+        <div class="row" style="margin-bottom:12px;">
+          <div class="col-sm-6" style="margin-bottom:12px;">
+            <input type="text" id="fname" placeholder="First Name" style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:14px 16px; color:#FFFFFF; font-size:14px; font-weight:300; outline:none; box-sizing:border-box;" />
+          </div>
+          <div class="col-sm-6" style="margin-bottom:12px;">
+            <input type="text" id="lname" placeholder="Last Name" style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:14px 16px; color:#FFFFFF; font-size:14px; font-weight:300; outline:none; box-sizing:border-box;" />
+          </div>
+        </div>
+        <div class="row" style="margin-bottom:12px;">
+          <div class="col-sm-6" style="margin-bottom:12px;">
+            <input type="email" id="email" placeholder="Email Address" style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:14px 16px; color:#FFFFFF; font-size:14px; font-weight:300; outline:none; box-sizing:border-box;" />
+          </div>
+          <div class="col-sm-6" style="margin-bottom:12px;">
+            <input type="tel" id="phone" placeholder="Phone Number" style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:14px 16px; color:#FFFFFF; font-size:14px; font-weight:300; outline:none; box-sizing:border-box;" />
+          </div>
+        </div>
+        <input type="text" id="preapproved" placeholder="Are you pre-approved? (optional)" style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:14px 16px; color:#FFFFFF; font-size:14px; font-weight:300; outline:none; margin-bottom:12px; box-sizing:border-box;" />
+        <button id="submitBtn" onclick="submitLead()" style="width:100%; background:#C9A84C; color:#0D1B2A; border:none; padding:16px 30px; border-radius:4px; font-weight:700; font-size:16px; letter-spacing:1px; text-transform:uppercase; cursor:pointer; margin-top:8px;">ACTIVATE MY LOVE IT OR LEAVE IT GUARANTEE &rarr;</button>
+        <p id="formMsg" style="font-size:12px; color:rgba(255,255,255,0.25); margin-top:15px; line-height:1.6;">By submitting this form you agree to be contacted by The Roland Team regarding your home search. We respect your privacy and will never sell your information.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function submitLead() {
+  var fname = document.getElementById('fname').value.trim();
+  var lname = document.getElementById('lname').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var phone = document.getElementById('phone').value.trim();
+  var preapproved = document.getElementById('preapproved').value.trim();
+  var msg = document.getElementById('formMsg');
+  var btn = document.getElementById('submitBtn');
+
+  if (!fname || !lname || !email || !phone) {
+    msg.style.color = '#F0D98A';
+    msg.textContent = 'Please fill in your name, email, and phone number.';
+    return;
+  }
+
+  var subject = 'New Lead: Love It or Leave It - ' + fname + ' ' + lname;
+  var body = 'First Name: ' + fname + '\n'
+           + 'Last Name: ' + lname + '\n'
+           + 'Email: ' + email + '\n'
+           + 'Phone: ' + phone + '\n'
+           + 'Pre-Approved: ' + (preapproved || 'Not specified') + '\n'
+           + 'Source: Love It or Leave It Landing Page';
+
+  var mailto = 'mailto:the.roland.team2@followupboss.me'
+             + '?subject=' + encodeURIComponent(subject)
+             + '&body=' + encodeURIComponent(body);
+
+  window.location.href = mailto;
+
+  btn.textContent = 'SUBMISSION SENT - WE WILL BE IN TOUCH WITHIN 24 HOURS!';
+  btn.style.background = '#3B6D11';
+  btn.style.color = '#fff';
+  btn.disabled = true;
+}
+</script>
