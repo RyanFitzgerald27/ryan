@@ -1,4 +1,4 @@
-<!-- HERO SECTION -->
+<!-- HERO -->
 <div style="background:#0D1B2A; padding:80px 40px 60px; margin:0;">
   <p style="font-size:12px; letter-spacing:4px; text-transform:uppercase; color:#C9A84C; margin:0 0 20px 0;">&#9473;&#9473; THE ROLAND TEAM &middot; LAS VEGAS</p>
   <h1 style="font-family:Georgia,serif; font-size:52px; font-weight:900; color:#FFFFFF; line-height:1.1; margin:0 0 20px 0;"><span style="color:#C9A84C;">Love It</span> or<br>We'll Sell It<br>for Free.</h1>
@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<!-- GUARANTEE SECTION -->
+<!-- GUARANTEE -->
 <div style="background:#FAF7F0; padding:80px 40px; margin:0;">
   <p style="font-size:12px; letter-spacing:4px; text-transform:uppercase; color:#8B6914; margin:0 0 10px 0;">&#9473;&#9473; THE GUARANTEE</p>
   <h2 style="font-family:Georgia,serif; font-size:36px; font-weight:700; color:#0D1B2A; line-height:1.15; margin:0 0 15px 0;">A promise that actually means something.</h2>
@@ -55,7 +55,7 @@
   </tr></table>
 </div>
 
-<!-- HOW IT WORKS SECTION -->
+<!-- HOW IT WORKS -->
 <div id="how-section" style="background:#0D1B2A; padding:80px 40px; margin:0;">
   <p style="font-size:12px; letter-spacing:4px; text-transform:uppercase; color:#C9A84C; margin:0 0 10px 0;">&#9473;&#9473; THE PROCESS</p>
   <h2 style="font-family:Georgia,serif; font-size:36px; font-weight:700; color:#FFFFFF; line-height:1.15; margin:0 0 15px 0;">Simple as it should be.</h2>
@@ -84,7 +84,7 @@
   </tr></table>
 </div>
 
-<!-- TESTIMONIALS SECTION -->
+<!-- TESTIMONIALS -->
 <div style="background:#FAF7F0; padding:80px 40px; margin:0;">
   <p style="font-size:12px; letter-spacing:4px; text-transform:uppercase; color:#8B6914; margin:0 0 10px 0;">&#9473;&#9473; REAL RESULTS</p>
   <h2 style="font-family:Georgia,serif; font-size:36px; font-weight:700; color:#0D1B2A; line-height:1.15; margin:0 0 40px 0;">Our clients say it best.</h2>
@@ -116,7 +116,7 @@
   </tr></table>
 </div>
 
-<!-- LEAD CAPTURE SECTION -->
+<!-- LEAD CAPTURE -->
 <div id="capture-section" style="background:#0D1B2A; padding:80px 40px; margin:0; text-align:center;">
   <p style="font-size:12px; letter-spacing:4px; text-transform:uppercase; color:#C9A84C; margin:0 0 10px 0;">GET STARTED</p>
   <h2 style="font-family:Georgia,serif; font-size:36px; font-weight:700; color:#FFFFFF; line-height:1.15; margin:0 auto 15px; max-width:640px;">Ready to buy without the risk?</h2>
@@ -135,33 +135,9 @@
         <td colspan="2"><input type="text" id="preapproved" placeholder="Are you pre-approved? (optional)" style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:14px 16px; color:#FFFFFF; font-size:14px; box-sizing:border-box;" /></td>
       </tr>
       <tr>
-        <td colspan="2"><button id="submitBtn" onclick="submitLead()" style="width:100%; background:#C9A84C; color:#0D1B2A; border:none; padding:16px 30px; border-radius:4px; font-weight:700; font-size:16px; letter-spacing:1px; text-transform:uppercase; cursor:pointer;">ACTIVATE MY GUARANTEE &rarr;</button></td>
+        <td colspan="2"><a href="mailto:the.roland.team2@followupboss.me?subject=Love%20It%20or%20Leave%20It%20Inquiry&amp;body=I%20am%20interested%20in%20learning%20more%20about%20the%20Love%20It%20or%20Leave%20It%20Guarantee." style="display:block; width:100%; background:#C9A84C; color:#0D1B2A; border:none; padding:16px 30px; border-radius:4px; font-weight:700; font-size:16px; letter-spacing:1px; text-transform:uppercase; text-decoration:none; text-align:center; box-sizing:border-box;">ACTIVATE MY GUARANTEE &rarr;</a></td>
       </tr>
     </table>
-    <p id="formMsg" style="font-size:12px; color:rgba(255,255,255,0.25); margin-top:15px; line-height:1.6;">By submitting this form you agree to be contacted by The Roland Team regarding your home search. We respect your privacy and will never sell your information.</p>
+    <p style="font-size:12px; color:rgba(255,255,255,0.25); margin-top:15px; line-height:1.6;">By submitting this form you agree to be contacted by The Roland Team regarding your home search. We respect your privacy and will never sell your information.</p>
   </div>
 </div>
-
-<script>
-function submitLead() {
-  var fname = document.getElementById('fname').value.trim();
-  var lname = document.getElementById('lname').value.trim();
-  var email = document.getElementById('email').value.trim();
-  var phone = document.getElementById('phone').value.trim();
-  var preapproved = document.getElementById('preapproved').value.trim();
-  var msg = document.getElementById('formMsg');
-  var btn = document.getElementById('submitBtn');
-  if (!fname || !lname || !email || !phone) {
-    msg.style.color = '#F0D98A';
-    msg.textContent = 'Please fill in your name, email, and phone number.';
-    return;
-  }
-  var subject = 'New Lead: Love It or Leave It - ' + fname + ' ' + lname;
-  var body = 'First Name: ' + fname + '\nLast Name: ' + lname + '\nEmail: ' + email + '\nPhone: ' + phone + '\nPre-Approved: ' + (preapproved || 'Not specified') + '\nSource: Love It or Leave It Landing Page';
-  window.location.href = 'mailto:the.roland.team2@followupboss.me?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-  btn.textContent = 'SENT - WE WILL BE IN TOUCH WITHIN 24 HOURS!';
-  btn.style.background = '#3B6D11';
-  btn.style.color = '#fff';
-  btn.disabled = true;
-}
-</script>
