@@ -1,0 +1,384 @@
+<!-- Wildwood Homeowners Resource Hub -->
+<!-- Compatible with Angular 18 + Bootstrap 5 | Uses inline styles to avoid style-tag stripping -->
+
+<div style="font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #f8f9fa;">
+
+  <!-- ══════════════════════════════════════════════
+       HERO SECTION
+  ══════════════════════════════════════════════ -->
+  <div style="background: linear-gradient(135deg, #1a3a5c 0%, #0d2240 60%, #1a3a5c 100%); color: #fff; padding: 80px 24px 100px; text-align: center; position: relative; overflow: hidden;">
+
+    <!-- decorative circles -->
+    <div style="position: absolute; top: -60px; right: -60px; width: 280px; height: 280px; border-radius: 50%; background: rgba(201,168,76,0.08);"></div>
+    <div style="position: absolute; bottom: -80px; left: -80px; width: 360px; height: 360px; border-radius: 50%; background: rgba(201,168,76,0.06);"></div>
+
+    <div style="position: relative; max-width: 760px; margin: 0 auto;">
+      <div style="display: inline-block; background-color: rgba(201,168,76,0.18); color: #c9a84c; font-size: 0.75rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 6px 20px; border-radius: 50px; margin-bottom: 20px; border: 1px solid rgba(201,168,76,0.35);">
+        AVL Real Estate Advisor &middot; Wildwood
+      </div>
+      <h1 style="font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.2; margin-bottom: 20px; letter-spacing: -0.5px;">
+        Wildwood <span style="color: #c9a84c;">Homeowners</span><br>
+        Resource Hub
+      </h1>
+      <p style="font-size: 1.1rem; color: rgba(255,255,255,0.82); max-width: 580px; margin: 0 auto 36px; line-height: 1.7;">
+        Your go-to source for Wildwood market updates, home tours, trusted local vendors, and everything you need to make the most of living in one of Asheville&rsquo;s best neighborhoods.
+      </p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="#featured-video" onclick="event.preventDefault();document.getElementById('featured-video').scrollIntoView({behavior:'smooth'})" style="display: inline-block; background-color: #c9a84c; color: #1a3a5c; font-weight: 700; font-size: 0.95rem; padding: 14px 32px; border-radius: 8px; text-decoration: none; letter-spacing: 0.3px;">
+          Watch the Neighborhood Tour
+        </a>
+        <a href="#active-listings" onclick="event.preventDefault();document.getElementById('active-listings').scrollIntoView({behavior:'smooth'})" style="display: inline-block; background: transparent; color: #fff; font-weight: 600; font-size: 0.95rem; padding: 14px 32px; border-radius: 8px; text-decoration: none; border: 2px solid rgba(255,255,255,0.4);">
+          View Active Listings
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       STAT BAR
+  ══════════════════════════════════════════════ -->
+  <div style="background-color: #fff; border-bottom: 1px solid #e8edf3; padding: 32px 24px;">
+    <div style="max-width: 960px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-around; gap: 24px; text-align: center;">
+
+      <div>
+        <div style="font-size: 2rem; font-weight: 800; color: #1a3a5c; line-height: 1;">$XXX,XXX</div>
+        <div style="font-size: 0.82rem; color: #6c757d; font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.8px;">Median Home Value</div>
+      </div>
+      <div style="width: 1px; background: #e0e7ef; align-self: stretch;"></div>
+
+      <div>
+        <div style="font-size: 2rem; font-weight: 800; color: #1a3a5c; line-height: 1;">XX</div>
+        <div style="font-size: 0.82rem; color: #6c757d; font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.8px;">Avg Days on Market</div>
+      </div>
+      <div style="width: 1px; background: #e0e7ef; align-self: stretch;"></div>
+
+      <div>
+        <div style="font-size: 2rem; font-weight: 800; color: #1a3a5c; line-height: 1;">XX</div>
+        <div style="font-size: 0.82rem; color: #6c757d; font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.8px;">Homes Sold (12 Mo)</div>
+      </div>
+      <div style="width: 1px; background: #e0e7ef; align-self: stretch;"></div>
+
+      <div>
+        <div style="font-size: 2rem; font-weight: 800; color: #1a3a5c; line-height: 1;">Est. XXXX</div>
+        <div style="font-size: 0.82rem; color: #6c757d; font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.8px;">Year Established</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       FEATURED VIDEO
+  ══════════════════════════════════════════════ -->
+  <div id="featured-video" style="padding: 72px 24px; max-width: 960px; margin: 0 auto;">
+
+    <div style="text-align: center; margin-bottom: 40px;">
+      <div style="display: inline-block; background-color: #eef2f7; color: #1a3a5c; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 14px;">
+        Neighborhood Spotlight
+      </div>
+      <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; color: #1a3a5c; margin-bottom: 10px; line-height: 1.2;">Get to Know <span style="color: #c9a84c;">Wildwood</span></h2>
+      <p style="font-size: 1rem; color: #6c757d; max-width: 520px; margin: 0 auto; line-height: 1.65;">Take a deep dive into what makes Wildwood one of Asheville&rsquo;s most sought-after communities &mdash; from the tree-lined streets to the tight-knit neighborhood feel.</p>
+    </div>
+
+    <!-- 16:9 responsive video embed -->
+    <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 14px; box-shadow: 0 4px 24px rgba(26,58,92,0.12);">
+      <!-- REPLACE the src below with your YouTube or Vimeo embed URL -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; border-radius: 14px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       HOME TOUR VIDEOS
+  ══════════════════════════════════════════════ -->
+  <div style="background-color: #eef2f7; padding: 72px 24px;">
+    <div style="max-width: 1100px; margin: 0 auto;">
+
+      <div style="text-align: center; margin-bottom: 44px;">
+        <div style="display: inline-block; background-color: #fff; color: #1a3a5c; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 14px; border: 1px solid #e0e7ef;">
+          Home Tours
+        </div>
+        <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; color: #1a3a5c; margin-bottom: 10px; line-height: 1.2;">Inside <span style="color: #c9a84c;">Wildwood</span> Homes</h2>
+        <p style="font-size: 1rem; color: #6c757d; max-width: 520px; margin: 0 auto; line-height: 1.65;">Walk through some of the beautiful homes in Wildwood with our latest video tours.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+
+        <!-- Tour Video 1 -->
+        <div style="background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 16px rgba(26,58,92,0.08);">
+          <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+            <!-- REPLACE src with actual video embed URL -->
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div style="padding: 20px 24px;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin: 0 0 6px 0;">123 Wildwood Lane</h3>
+            <p style="font-size: 0.88rem; color: #6c757d; margin: 0; line-height: 1.5;">4 BD &middot; 3 BA &middot; 2,400 SF &middot; $XXX,XXX</p>
+          </div>
+        </div>
+
+        <!-- Tour Video 2 -->
+        <div style="background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 16px rgba(26,58,92,0.08);">
+          <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+            <!-- REPLACE src with actual video embed URL -->
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div style="padding: 20px 24px;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin: 0 0 6px 0;">456 Wildwood Drive</h3>
+            <p style="font-size: 0.88rem; color: #6c757d; margin: 0; line-height: 1.5;">3 BD &middot; 2 BA &middot; 1,850 SF &middot; $XXX,XXX</p>
+          </div>
+        </div>
+
+        <!-- Tour Video 3 -->
+        <div style="background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 16px rgba(26,58,92,0.08);">
+          <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+            <!-- REPLACE src with actual video embed URL -->
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID_3" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div style="padding: 20px 24px;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin: 0 0 6px 0;">789 Wildwood Court</h3>
+            <p style="font-size: 0.88rem; color: #6c757d; margin: 0; line-height: 1.5;">4 BD &middot; 2.5 BA &middot; 2,100 SF &middot; $XXX,XXX</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       MARKET REPORT SNAPSHOT
+  ══════════════════════════════════════════════ -->
+  <div style="background: linear-gradient(135deg, #1a3a5c 0%, #0d2240 60%, #1a3a5c 100%); padding: 72px 24px; color: #fff; position: relative; overflow: hidden;">
+
+    <!-- decorative circle -->
+    <div style="position: absolute; top: -40px; left: -40px; width: 220px; height: 220px; border-radius: 50%; background: rgba(201,168,76,0.06);"></div>
+
+    <div style="max-width: 1100px; margin: 0 auto; text-align: center; position: relative;">
+      <div style="display: inline-block; background-color: rgba(201,168,76,0.18); color: #c9a84c; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 14px; border: 1px solid rgba(201,168,76,0.35);">
+        Market Update
+      </div>
+      <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 10px; line-height: 1.2;">Wildwood <span style="color: #c9a84c;">Market Snapshot</span></h2>
+      <p style="font-size: 1rem; color: rgba(255,255,255,0.75); max-width: 520px; margin: 0 auto 44px; line-height: 1.65;">Stay informed on what&rsquo;s happening in the Wildwood real estate market. Updated monthly with the latest data.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-bottom: 40px;">
+
+        <!-- Stat Card 1 -->
+        <div style="background: rgba(255,255,255,0.08); border-radius: 14px; padding: 28px 20px; border: 1px solid rgba(255,255,255,0.1);">
+          <div style="font-size: 0.75rem; color: #c9a84c; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px;">Median Sale Price</div>
+          <div style="font-size: 2rem; font-weight: 800; line-height: 1;">$XXX,XXX</div>
+        </div>
+
+        <!-- Stat Card 2 -->
+        <div style="background: rgba(255,255,255,0.08); border-radius: 14px; padding: 28px 20px; border: 1px solid rgba(255,255,255,0.1);">
+          <div style="font-size: 0.75rem; color: #c9a84c; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px;">Avg Days on Market</div>
+          <div style="font-size: 2rem; font-weight: 800; line-height: 1;">XX Days</div>
+        </div>
+
+        <!-- Stat Card 3 -->
+        <div style="background: rgba(255,255,255,0.08); border-radius: 14px; padding: 28px 20px; border: 1px solid rgba(255,255,255,0.1);">
+          <div style="font-size: 0.75rem; color: #c9a84c; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px;">Active Listings</div>
+          <div style="font-size: 2rem; font-weight: 800; line-height: 1;">XX</div>
+        </div>
+
+        <!-- Stat Card 4 -->
+        <div style="background: rgba(255,255,255,0.08); border-radius: 14px; padding: 28px 20px; border: 1px solid rgba(255,255,255,0.1);">
+          <div style="font-size: 0.75rem; color: #c9a84c; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px;">Price Per Sq Ft</div>
+          <div style="font-size: 2rem; font-weight: 800; line-height: 1;">$XXX</div>
+        </div>
+
+      </div>
+
+      <p style="font-size: 0.78rem; color: rgba(255,255,255,0.4); margin-bottom: 24px;">Data sourced from Canopy MLS. Updated monthly.</p>
+
+      <!-- REPLACE href with link to your full market report page -->
+      <a href="#" style="display: inline-block; background-color: #c9a84c; color: #1a3a5c; font-weight: 700; font-size: 0.95rem; padding: 14px 32px; border-radius: 8px; text-decoration: none; letter-spacing: 0.3px;">
+        View Full Market Report &rarr;
+      </a>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       TRUSTED LOCAL VENDORS
+  ══════════════════════════════════════════════ -->
+  <div style="padding: 72px 24px; max-width: 1100px; margin: 0 auto;">
+
+    <div style="text-align: center; margin-bottom: 52px;">
+      <div style="display: inline-block; background-color: #eef2f7; color: #1a3a5c; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 14px;">
+        Neighborhood Resources
+      </div>
+      <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; color: #1a3a5c; margin-bottom: 10px; line-height: 1.2;">Trusted Local <span style="color: #c9a84c;">Vendors</span></h2>
+      <p style="font-size: 1rem; color: #6c757d; max-width: 520px; margin: 0 auto; line-height: 1.65;">A curated list of professionals I personally trust and recommend to Wildwood homeowners.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px;">
+
+      <!-- Vendor 1 - Home Inspector -->
+      <div style="background: #fff; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 16px rgba(26,58,92,0.08); border-top: 4px solid #c9a84c;">
+        <div style="font-size: 2rem; margin-bottom: 14px;">&#128269;</div>
+        <div style="font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #c9a84c; margin-bottom: 8px;">Home Inspector</div>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin-bottom: 6px;">Business Name Here</h3>
+        <p style="font-size: 0.88rem; color: #6c757d; line-height: 1.5; margin: 0;">Contact: (XXX) XXX-XXXX</p>
+      </div>
+
+      <!-- Vendor 2 - Lender -->
+      <div style="background: #fff; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 16px rgba(26,58,92,0.08); border-top: 4px solid #c9a84c;">
+        <div style="font-size: 2rem; margin-bottom: 14px;">&#127974;</div>
+        <div style="font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #c9a84c; margin-bottom: 8px;">Lender</div>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin-bottom: 6px;">Business Name Here</h3>
+        <p style="font-size: 0.88rem; color: #6c757d; line-height: 1.5; margin: 0;">Contact: (XXX) XXX-XXXX</p>
+      </div>
+
+      <!-- Vendor 3 - Contractor -->
+      <div style="background: #fff; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 16px rgba(26,58,92,0.08); border-top: 4px solid #c9a84c;">
+        <div style="font-size: 2rem; margin-bottom: 14px;">&#128296;</div>
+        <div style="font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #c9a84c; margin-bottom: 8px;">Contractor</div>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin-bottom: 6px;">Business Name Here</h3>
+        <p style="font-size: 0.88rem; color: #6c757d; line-height: 1.5; margin: 0;">Contact: (XXX) XXX-XXXX</p>
+      </div>
+
+      <!-- Vendor 4 - Landscaper -->
+      <div style="background: #fff; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 16px rgba(26,58,92,0.08); border-top: 4px solid #c9a84c;">
+        <div style="font-size: 2rem; margin-bottom: 14px;">&#127793;</div>
+        <div style="font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #c9a84c; margin-bottom: 8px;">Landscaper</div>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin-bottom: 6px;">Business Name Here</h3>
+        <p style="font-size: 0.88rem; color: #6c757d; line-height: 1.5; margin: 0;">Contact: (XXX) XXX-XXXX</p>
+      </div>
+
+      <!-- Vendor 5 - Cleaning Service -->
+      <div style="background: #fff; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 16px rgba(26,58,92,0.08); border-top: 4px solid #c9a84c;">
+        <div style="font-size: 2rem; margin-bottom: 14px;">&#10024;</div>
+        <div style="font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #c9a84c; margin-bottom: 8px;">Cleaning Service</div>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin-bottom: 6px;">Business Name Here</h3>
+        <p style="font-size: 0.88rem; color: #6c757d; line-height: 1.5; margin: 0;">Contact: (XXX) XXX-XXXX</p>
+      </div>
+
+      <!-- Vendor 6 - Handyman -->
+      <div style="background: #fff; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 16px rgba(26,58,92,0.08); border-top: 4px solid #c9a84c;">
+        <div style="font-size: 2rem; margin-bottom: 14px;">&#128736;</div>
+        <div style="font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #c9a84c; margin-bottom: 8px;">Handyman</div>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a3a5c; margin-bottom: 6px;">Business Name Here</h3>
+        <p style="font-size: 0.88rem; color: #6c757d; line-height: 1.5; margin: 0;">Contact: (XXX) XXX-XXXX</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       ACTIVE LISTINGS / IDX SEARCH
+  ══════════════════════════════════════════════ -->
+  <div id="active-listings" style="background-color: #eef2f7; padding: 72px 24px;">
+    <div style="max-width: 1100px; margin: 0 auto;">
+
+      <div style="text-align: center; margin-bottom: 44px;">
+        <div style="display: inline-block; background-color: #fff; color: #1a3a5c; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 14px; border: 1px solid #e0e7ef;">
+          Active Listings
+        </div>
+        <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; color: #1a3a5c; margin-bottom: 10px; line-height: 1.2;">Homes for Sale in <span style="color: #c9a84c;">Wildwood</span></h2>
+        <p style="font-size: 1rem; color: #6c757d; max-width: 520px; margin: 0 auto; line-height: 1.65;">Browse all active listings in the Wildwood community. Updated in real time from the MLS.</p>
+      </div>
+
+      <!-- ╔══════════════════════════════════════════╗
+           ║  IDX WIDGET EMBED AREA                   ║
+           ║  Paste your IDX widget / iframe code     ║
+           ║  inside this container div.               ║
+           ╚══════════════════════════════════════════╝ -->
+      <div style="background: #fff; border-radius: 14px; padding: 48px 32px; box-shadow: 0 2px 16px rgba(26,58,92,0.08); text-align: center; min-height: 300px; display: flex; align-items: center; justify-content: center;">
+
+        <!-- REPLACE this placeholder with your IDX widget embed code -->
+        <div>
+          <div style="font-size: 3rem; margin-bottom: 16px; opacity: 0.3;">&#127968;</div>
+          <p style="font-size: 1rem; color: #6c757d; margin: 0 0 24px 0;">IDX listing search widget will appear here.</p>
+          <!-- REPLACE href with your IDX search URL for Wildwood -->
+          <a href="#" style="display: inline-block; background-color: #c9a84c; color: #1a3a5c; font-weight: 700; font-size: 0.95rem; padding: 14px 32px; border-radius: 8px; text-decoration: none; letter-spacing: 0.3px;">
+            Search Wildwood Listings &rarr;
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       CONTACT / CTA SECTION
+  ══════════════════════════════════════════════ -->
+  <div id="contact-section" style="background: linear-gradient(135deg, #1a3a5c 0%, #0d2240 60%, #1a3a5c 100%); padding: 72px 24px; position: relative; overflow: hidden;">
+
+    <!-- decorative circle -->
+    <div style="position: absolute; bottom: -60px; right: -60px; width: 260px; height: 260px; border-radius: 50%; background: rgba(201,168,76,0.06);"></div>
+
+    <div style="max-width: 680px; margin: 0 auto; text-align: center; position: relative;">
+      <div style="display: inline-block; background-color: rgba(201,168,76,0.18); color: #c9a84c; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 14px; border: 1px solid rgba(201,168,76,0.35);">
+        Your Wildwood Expert
+      </div>
+      <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; color: #fff; margin-bottom: 10px; line-height: 1.2;">
+        Have Questions About <span style="color: #c9a84c;">Wildwood?</span>
+      </h2>
+      <p style="font-size: 1rem; color: rgba(255,255,255,0.75); max-width: 520px; margin: 0 auto 36px; line-height: 1.65;">
+        Whether you&rsquo;re thinking about selling, curious about your home&rsquo;s value, or just want to know what&rsquo;s happening in the neighborhood &mdash; I&rsquo;m here to help.
+      </p>
+
+      <!-- White form card -->
+      <div style="background: #fff; border-radius: 16px; padding: 40px 36px; box-shadow: 0 4px 24px rgba(26,58,92,0.12); text-align: left;">
+
+        <!-- First + Last Name row -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px;">
+          <div>
+            <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #1a3a5c; margin-bottom: 6px; letter-spacing: 0.3px;">First Name <span style="color: #c0392b;">*</span></label>
+            <input type="text" placeholder="First Name" style="width: 100%; padding: 10px 14px; border: 1.5px solid #e0e7ef; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #333; outline: none; box-sizing: border-box;" />
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #1a3a5c; margin-bottom: 6px; letter-spacing: 0.3px;">Last Name <span style="color: #c0392b;">*</span></label>
+            <input type="text" placeholder="Last Name" style="width: 100%; padding: 10px 14px; border: 1.5px solid #e0e7ef; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #333; outline: none; box-sizing: border-box;" />
+          </div>
+        </div>
+
+        <!-- Email + Phone row -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px;">
+          <div>
+            <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #1a3a5c; margin-bottom: 6px; letter-spacing: 0.3px;">Email Address <span style="color: #c0392b;">*</span></label>
+            <input type="email" placeholder="Email Address" style="width: 100%; padding: 10px 14px; border: 1.5px solid #e0e7ef; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #333; outline: none; box-sizing: border-box;" />
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #1a3a5c; margin-bottom: 6px; letter-spacing: 0.3px;">Phone Number</label>
+            <input type="tel" placeholder="Phone Number" style="width: 100%; padding: 10px 14px; border: 1.5px solid #e0e7ef; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #333; outline: none; box-sizing: border-box;" />
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div style="margin-bottom: 24px;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #1a3a5c; margin-bottom: 6px; letter-spacing: 0.3px;">Message <span style="color: #6c757d; font-weight: 400;">(optional)</span></label>
+          <textarea placeholder="What can I help you with?" rows="3" style="width: 100%; padding: 10px 14px; border: 1.5px solid #e0e7ef; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #333; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button type="button" style="display: block; width: 100%; background-color: #c9a84c; color: #1a3a5c; font-weight: 800; font-size: 1rem; padding: 15px; border: none; border-radius: 8px; cursor: pointer; letter-spacing: 0.3px; font-family: inherit; box-sizing: border-box;">
+          Send Message &rarr;
+        </button>
+      </div>
+
+      <p style="font-size: 0.75rem; color: rgba(255,255,255,0.35); margin-top: 16px; line-height: 1.6;">
+        By submitting this form you agree to be contacted regarding your inquiry. We respect your privacy and will never sell your information.
+      </p>
+
+      <!-- Contact info -->
+      <div style="margin-top: 32px; display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;">
+        <div>
+          <div style="font-size: 0.7rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Email</div>
+          <!-- REPLACE with actual email -->
+          <div style="font-size: 0.95rem; color: #fff; font-weight: 600;">your-email@example.com</div>
+        </div>
+        <div>
+          <div style="font-size: 0.7rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Phone</div>
+          <!-- REPLACE with actual phone -->
+          <div style="font-size: 0.95rem; color: #fff; font-weight: 600;">(XXX) XXX-XXXX</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════ -->
+  <div style="background-color: #0d2240; padding: 28px 24px; text-align: center;">
+    <p style="font-size: 0.82rem; color: rgba(255,255,255,0.35); margin: 0; letter-spacing: 0.5px;">AVL Real Estate Advisor &middot; Asheville, NC</p>
+  </div>
+
+</div>
