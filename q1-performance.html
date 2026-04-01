@@ -1,0 +1,447 @@
+<!-- Q1 2026 Performance Review Slide Deck -->
+<!-- Compatible with Angular 18 + Bootstrap 5 | Uses inline styles to avoid style-tag stripping -->
+
+<div style="font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #0d2240;">
+
+  <!-- ══════════════════════════════════════════════
+       SLIDE NAV (fixed top)
+  ══════════════════════════════════════════════ -->
+  <div style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(13,34,64,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(201,168,76,0.2); padding: 10px 24px; display: flex; align-items: center; justify-content: space-between;">
+    <div style="font-weight: 700; color: #c9a84c; font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase;">Raleigh Realty</div>
+    <div style="display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end;">
+      <a href="#slide-1" onclick="event.preventDefault();document.getElementById('slide-1').scrollIntoView({behavior:'smooth'})" style="width: 28px; height: 6px; border-radius: 3px; background: #c9a84c; display: inline-block; text-decoration: none; opacity: 1;"></a>
+      <a href="#slide-2" onclick="event.preventDefault();document.getElementById('slide-2').scrollIntoView({behavior:'smooth'})" style="width: 28px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.3); display: inline-block; text-decoration: none;"></a>
+      <a href="#slide-3" onclick="event.preventDefault();document.getElementById('slide-3').scrollIntoView({behavior:'smooth'})" style="width: 28px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.3); display: inline-block; text-decoration: none;"></a>
+      <a href="#slide-4" onclick="event.preventDefault();document.getElementById('slide-4').scrollIntoView({behavior:'smooth'})" style="width: 28px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.3); display: inline-block; text-decoration: none;"></a>
+      <a href="#slide-5" onclick="event.preventDefault();document.getElementById('slide-5').scrollIntoView({behavior:'smooth'})" style="width: 28px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.3); display: inline-block; text-decoration: none;"></a>
+      <a href="#slide-6" onclick="event.preventDefault();document.getElementById('slide-6').scrollIntoView({behavior:'smooth'})" style="width: 28px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.3); display: inline-block; text-decoration: none;"></a>
+      <a href="#slide-7" onclick="event.preventDefault();document.getElementById('slide-7').scrollIntoView({behavior:'smooth'})" style="width: 28px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.3); display: inline-block; text-decoration: none;"></a>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SLIDE 1 — TITLE
+  ══════════════════════════════════════════════ -->
+  <div id="slide-1" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a3a5c 0%, #0d2240 60%, #1a3a5c 100%); color: #fff; padding: 80px 24px; text-align: center; position: relative; overflow: hidden;">
+
+    <!-- decorative circles -->
+    <div style="position: absolute; top: -80px; right: -80px; width: 360px; height: 360px; border-radius: 50%; background: rgba(201,168,76,0.06);"></div>
+    <div style="position: absolute; bottom: -100px; left: -100px; width: 420px; height: 420px; border-radius: 50%; background: rgba(201,168,76,0.04);"></div>
+    <div style="position: absolute; top: 40%; left: 10%; width: 200px; height: 200px; border-radius: 50%; background: rgba(201,168,76,0.03);"></div>
+
+    <div style="position: relative; max-width: 800px; margin: 0 auto;">
+      <div style="display: inline-block; background-color: rgba(201,168,76,0.18); color: #c9a84c; font-size: 0.75rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 6px 20px; border-radius: 50px; margin-bottom: 24px; border: 1px solid rgba(201,168,76,0.35);">
+        Company-Wide Review
+      </div>
+      <h1 style="font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 800; line-height: 1.15; margin: 0 0 16px; letter-spacing: -1px;">
+        Q1 2026<br>
+        <span style="color: #c9a84c;">Performance Review</span>
+      </h1>
+      <p style="font-size: 1.15rem; color: rgba(255,255,255,0.7); margin: 0 0 12px; font-weight: 400;">
+        January &ndash; March 2026
+      </p>
+      <p style="font-size: 1rem; color: rgba(255,255,255,0.5); margin: 0;">
+        Raleigh Realty &bull; All Office
+      </p>
+
+      <div style="margin-top: 48px;">
+        <a href="#slide-2" onclick="event.preventDefault();document.getElementById('slide-2').scrollIntoView({behavior:'smooth'})" style="display: inline-flex; align-items: center; gap: 8px; background: transparent; color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: 500; text-decoration: none; letter-spacing: 0.5px;">
+          Scroll to begin &#8595;
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SLIDE 2 — EXECUTIVE SUMMARY
+  ══════════════════════════════════════════════ -->
+  <div id="slide-2" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, #0d2240 0%, #132d4f 100%); color: #fff; padding: 80px 24px;">
+
+    <div style="max-width: 1000px; width: 100%; margin: 0 auto;">
+
+      <div style="text-align: center; margin-bottom: 48px;">
+        <div style="display: inline-block; background-color: rgba(201,168,76,0.18); color: #c9a84c; font-size: 0.7rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 12px; border: 1px solid rgba(201,168,76,0.3);">
+          Executive Summary
+        </div>
+        <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; margin: 0; letter-spacing: -0.5px;">
+          Q1 At a Glance
+        </h2>
+      </div>
+
+      <!-- 4 metric cards -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+
+        <!-- Card: Closed Production -->
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 32px 24px; text-align: center;">
+          <div style="font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Closed Production</div>
+          <div style="font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; color: #fff; line-height: 1;">$33.4M</div>
+          <div style="font-size: 0.82rem; color: rgba(255,255,255,0.45); margin-top: 8px;">Authorized / Completed</div>
+        </div>
+
+        <!-- Card: Closed GCI -->
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 32px 24px; text-align: center;">
+          <div style="font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Closed GCI</div>
+          <div style="font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; color: #fff; line-height: 1;">$874,945</div>
+          <div style="font-size: 0.82rem; color: rgba(255,255,255,0.45); margin-top: 8px;">Gross Commission Income</div>
+        </div>
+
+        <!-- Card: Goal Progress -->
+        <div style="background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25); border-radius: 16px; padding: 32px 24px; text-align: center;">
+          <div style="font-size: 0.72rem; font-weight: 600; color: #c9a84c; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">YTD Goal Progress</div>
+          <div style="font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; color: #c9a84c; line-height: 1;">29.5%</div>
+          <div style="font-size: 0.82rem; color: rgba(255,255,255,0.45); margin-top: 8px;">$66.4M of $225M Goal</div>
+        </div>
+
+        <!-- Card: Pipeline -->
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 32px 24px; text-align: center;">
+          <div style="font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Active Pipeline</div>
+          <div style="font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; color: #fff; line-height: 1;">$1.8M</div>
+          <div style="font-size: 0.82rem; color: rgba(255,255,255,0.45); margin-top: 8px;">Listed / Coming Soon</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SLIDE 3 — PRODUCTION OVERVIEW
+  ══════════════════════════════════════════════ -->
+  <div id="slide-3" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, #132d4f 0%, #f8f9fa 100%); padding: 80px 24px;">
+
+    <div style="max-width: 900px; width: 100%; margin: 0 auto;">
+
+      <div style="text-align: center; margin-bottom: 48px;">
+        <div style="display: inline-block; background-color: rgba(26,58,92,0.12); color: #1a3a5c; font-size: 0.7rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 12px; border: 1px solid rgba(26,58,92,0.2);">
+          Production
+        </div>
+        <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; color: #1a3a5c; margin: 0; letter-spacing: -0.5px;">
+          Q1 Production Overview
+        </h2>
+        <p style="color: #6c757d; font-size: 0.95rem; margin-top: 8px;">Contracted vs. Closed Volume — January through March 2026</p>
+      </div>
+
+      <!-- Contracted bar -->
+      <div style="background: #fff; border-radius: 16px; padding: 32px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e8edf3;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;">
+          <div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #6c757d; text-transform: uppercase; letter-spacing: 1.5px;">Contracted (Under Contract)</div>
+          </div>
+          <div style="font-size: 1.8rem; font-weight: 800; color: #1a3a5c;">$43,921,784</div>
+        </div>
+        <div style="width: 100%; background: #eef2f7; border-radius: 8px; height: 40px; overflow: hidden;">
+          <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #1a3a5c, #2d5a8c); border-radius: 8px; display: flex; align-items: center; padding-left: 16px;">
+            <span style="color: #fff; font-weight: 700; font-size: 0.85rem;">$43.9M</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Closed bar -->
+      <div style="background: #fff; border-radius: 16px; padding: 32px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e8edf3;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;">
+          <div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #6c757d; text-transform: uppercase; letter-spacing: 1.5px;">Closed (Authorized / Completed)</div>
+          </div>
+          <div style="font-size: 1.8rem; font-weight: 800; color: #1a3a5c;">$33,414,415</div>
+        </div>
+        <div style="width: 100%; background: #eef2f7; border-radius: 8px; height: 40px; overflow: hidden;">
+          <div style="width: 76%; height: 100%; background: linear-gradient(90deg, #c9a84c, #dbbf6a); border-radius: 8px; display: flex; align-items: center; padding-left: 16px;">
+            <span style="color: #1a3a5c; font-weight: 700; font-size: 0.85rem;">$33.4M</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conversion callout -->
+      <div style="background: #fff; border-radius: 16px; padding: 24px 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e8edf3; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <div style="font-size: 0.72rem; font-weight: 700; color: #6c757d; text-transform: uppercase; letter-spacing: 1.5px;">Contract-to-Close Ratio</div>
+          <div style="font-size: 0.88rem; color: #555; margin-top: 4px;">$10.5M still moving toward closing</div>
+        </div>
+        <div style="font-size: 2rem; font-weight: 800; color: #c9a84c;">76.1%</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SLIDE 4 — GCI OVERVIEW
+  ══════════════════════════════════════════════ -->
+  <div id="slide-4" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #f8f9fa; padding: 80px 24px;">
+
+    <div style="max-width: 900px; width: 100%; margin: 0 auto;">
+
+      <div style="text-align: center; margin-bottom: 48px;">
+        <div style="display: inline-block; background-color: rgba(26,58,92,0.12); color: #1a3a5c; font-size: 0.7rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 12px; border: 1px solid rgba(26,58,92,0.2);">
+          Gross Commission Income
+        </div>
+        <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; color: #1a3a5c; margin: 0; letter-spacing: -0.5px;">
+          Q1 GCI Breakdown
+        </h2>
+        <p style="color: #6c757d; font-size: 0.95rem; margin-top: 8px;">Commission revenue from contracted and closed transactions</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+
+        <!-- Contracted GCI -->
+        <div style="background: #fff; border-radius: 16px; padding: 40px 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e8edf3; text-align: center;">
+          <div style="width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #1a3a5c, #2d5a8c); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+            <span style="color: #fff; font-size: 1.6rem; font-weight: 700;">C</span>
+          </div>
+          <div style="font-size: 0.72rem; font-weight: 700; color: #6c757d; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px;">Contracted GCI</div>
+          <div style="font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 800; color: #1a3a5c; line-height: 1;">$1,171,004</div>
+          <div style="width: 60px; height: 3px; background: #1a3a5c; margin: 16px auto 0; border-radius: 2px;"></div>
+        </div>
+
+        <!-- Closed GCI -->
+        <div style="background: #fff; border-radius: 16px; padding: 40px 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e8edf3; text-align: center;">
+          <div style="width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #c9a84c, #dbbf6a); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+            <span style="color: #1a3a5c; font-size: 1.6rem; font-weight: 700;">&#10003;</span>
+          </div>
+          <div style="font-size: 0.72rem; font-weight: 700; color: #6c757d; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px;">Closed GCI</div>
+          <div style="font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 800; color: #1a3a5c; line-height: 1;">$874,945</div>
+          <div style="width: 60px; height: 3px; background: #c9a84c; margin: 16px auto 0; border-radius: 2px;"></div>
+        </div>
+
+      </div>
+
+      <!-- GCI pending -->
+      <div style="background: #fff; border-radius: 16px; padding: 24px 32px; margin-top: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e8edf3; text-align: center;">
+        <span style="font-size: 0.82rem; color: #6c757d; font-weight: 500;">Pending GCI (Contracted, not yet closed):</span>
+        <span style="font-size: 1.1rem; font-weight: 800; color: #1a3a5c; margin-left: 8px;">$296,059</span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SLIDE 5 — YEAR-OVER-YEAR TRENDS
+  ══════════════════════════════════════════════ -->
+  <div id="slide-5" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%); padding: 80px 24px;">
+
+    <div style="max-width: 960px; width: 100%; margin: 0 auto;">
+
+      <div style="text-align: center; margin-bottom: 48px;">
+        <div style="display: inline-block; background-color: rgba(26,58,92,0.12); color: #1a3a5c; font-size: 0.7rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 12px; border: 1px solid rgba(26,58,92,0.2);">
+          Historical Context
+        </div>
+        <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; color: #1a3a5c; margin: 0; letter-spacing: -0.5px;">
+          Year-over-Year Performance
+        </h2>
+        <p style="color: #6c757d; font-size: 0.95rem; margin-top: 8px;">Full-year closed production and GCI (2021&ndash;2025) with 2026 Q1 annualized pace</p>
+      </div>
+
+      <!-- Table -->
+      <div style="background: #fff; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e8edf3; overflow: hidden;">
+
+        <!-- Header row -->
+        <div style="display: grid; grid-template-columns: 1fr 2fr 2fr 2fr; background: #1a3a5c; padding: 16px 24px;">
+          <div style="font-size: 0.72rem; font-weight: 700; color: #c9a84c; text-transform: uppercase; letter-spacing: 1.2px;">Year</div>
+          <div style="font-size: 0.72rem; font-weight: 700; color: #c9a84c; text-transform: uppercase; letter-spacing: 1.2px; text-align: right;">Closed Production</div>
+          <div style="font-size: 0.72rem; font-weight: 700; color: #c9a84c; text-transform: uppercase; letter-spacing: 1.2px; text-align: right;">Closed GCI</div>
+          <div style="font-size: 0.72rem; font-weight: 700; color: #c9a84c; text-transform: uppercase; letter-spacing: 1.2px; text-align: right;">YoY Growth</div>
+        </div>
+
+        <!-- 2021 -->
+        <div style="display: grid; grid-template-columns: 1fr 2fr 2fr 2fr; padding: 14px 24px; border-bottom: 1px solid #f0f3f7;">
+          <div style="font-size: 0.92rem; font-weight: 700; color: #1a3a5c;">2021</div>
+          <div style="font-size: 0.92rem; color: #333; text-align: right;">$112,213,677</div>
+          <div style="font-size: 0.92rem; color: #333; text-align: right;">$2,751,520</div>
+          <div style="font-size: 0.92rem; color: #6c757d; text-align: right;">&mdash;</div>
+        </div>
+
+        <!-- 2022 -->
+        <div style="display: grid; grid-template-columns: 1fr 2fr 2fr 2fr; padding: 14px 24px; border-bottom: 1px solid #f0f3f7; background: #fafbfc;">
+          <div style="font-size: 0.92rem; font-weight: 700; color: #1a3a5c;">2022</div>
+          <div style="font-size: 0.92rem; color: #333; text-align: right;">$132,599,121</div>
+          <div style="font-size: 0.92rem; color: #333; text-align: right;">$3,200,627</div>
+          <div style="text-align: right;">
+            <span style="display: inline-block; background: #d4edda; color: #155724; font-size: 0.78rem; font-weight: 600; padding: 2px 10px; border-radius: 50px;">&#9650; 18.2%</span>
+          </div>
+        </div>
+
+        <!-- 2023 -->
+        <div style="display: grid; grid-template-columns: 1fr 2fr 2fr 2fr; padding: 14px 24px; border-bottom: 1px solid #f0f3f7;">
+          <div style="font-size: 0.92rem; font-weight: 700; color: #1a3a5c;">2023</div>
+          <div style="font-size: 0.92rem; color: #333; text-align: right;">$166,651,549</div>
+          <div style="font-size: 0.92rem; color: #333; text-align: right;">$4,288,552</div>
+          <div style="text-align: right;">
+            <span style="display: inline-block; background: #d4edda; color: #155724; font-size: 0.78rem; font-weight: 600; padding: 2px 10px; border-radius: 50px;">&#9650; 25.7%</span>
+          </div>
+        </div>
+
+        <!-- 2024 -->
+        <div style="display: grid; grid-template-columns: 1fr 2fr 2fr 2fr; padding: 14px 24px; border-bottom: 1px solid #f0f3f7; background: #fafbfc;">
+          <div style="font-size: 0.92rem; font-weight: 700; color: #1a3a5c;">2024</div>
+          <div style="font-size: 0.92rem; color: #333; text-align: right;">$186,788,036</div>
+          <div style="font-size: 0.92rem; color: #333; text-align: right;">$4,760,245</div>
+          <div style="text-align: right;">
+            <span style="display: inline-block; background: #d4edda; color: #155724; font-size: 0.78rem; font-weight: 600; padding: 2px 10px; border-radius: 50px;">&#9650; 12.1%</span>
+          </div>
+        </div>
+
+        <!-- 2025 -->
+        <div style="display: grid; grid-template-columns: 1fr 2fr 2fr 2fr; padding: 14px 24px; border-bottom: 1px solid #f0f3f7;">
+          <div style="font-size: 0.92rem; font-weight: 700; color: #1a3a5c;">2025</div>
+          <div style="font-size: 0.92rem; color: #333; text-align: right;">$137,504,396</div>
+          <div style="font-size: 0.92rem; color: #333; text-align: right;">$3,416,123</div>
+          <div style="text-align: right;">
+            <span style="display: inline-block; background: #f8d7da; color: #721c24; font-size: 0.78rem; font-weight: 600; padding: 2px 10px; border-radius: 50px;">&#9660; 26.4%</span>
+          </div>
+        </div>
+
+        <!-- 2026 Q1 Annualized -->
+        <div style="display: grid; grid-template-columns: 1fr 2fr 2fr 2fr; padding: 16px 24px; background: rgba(201,168,76,0.08); border-top: 2px solid #c9a84c;">
+          <div style="font-size: 0.92rem; font-weight: 800; color: #c9a84c;">2026*</div>
+          <div style="font-size: 0.92rem; font-weight: 700; color: #1a3a5c; text-align: right;">$133,657,660</div>
+          <div style="font-size: 0.92rem; font-weight: 700; color: #1a3a5c; text-align: right;">$3,499,780</div>
+          <div style="text-align: right;">
+            <span style="display: inline-block; background: #fff3cd; color: #856404; font-size: 0.78rem; font-weight: 600; padding: 2px 10px; border-radius: 50px;">&#9679; Projected</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align: center; margin-top: 16px;">
+        <span style="font-size: 0.78rem; color: #999;">* 2026 annualized = Q1 closed ($33.4M) &times; 4 | GCI ($875K) &times; 4</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SLIDE 6 — GOAL TRACKING
+  ══════════════════════════════════════════════ -->
+  <div id="slide-6" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a3a5c 0%, #0d2240 100%); color: #fff; padding: 80px 24px; position: relative; overflow: hidden;">
+
+    <div style="position: absolute; bottom: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: rgba(201,168,76,0.05);"></div>
+
+    <div style="max-width: 900px; width: 100%; margin: 0 auto; position: relative;">
+
+      <div style="text-align: center; margin-bottom: 48px;">
+        <div style="display: inline-block; background-color: rgba(201,168,76,0.18); color: #c9a84c; font-size: 0.7rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 12px; border: 1px solid rgba(201,168,76,0.3);">
+          Goal Progress
+        </div>
+        <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; margin: 0; letter-spacing: -0.5px;">
+          2026 Annual Goal Tracking
+        </h2>
+      </div>
+
+      <!-- Goal progress bar -->
+      <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 40px 32px; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <span style="font-size: 2.4rem; font-weight: 800; color: #c9a84c;">$66,370,565</span>
+            <span style="font-size: 1rem; color: rgba(255,255,255,0.5); margin-left: 8px;">of $225,000,000</span>
+          </div>
+          <div style="font-size: 2rem; font-weight: 800; color: #fff;">29.5%</div>
+        </div>
+        <!-- Progress bar -->
+        <div style="width: 100%; background: rgba(255,255,255,0.1); border-radius: 12px; height: 32px; overflow: hidden;">
+          <div style="width: 29.5%; height: 100%; background: linear-gradient(90deg, #c9a84c, #dbbf6a); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 0.75rem; font-weight: 700; color: #1a3a5c;">29.5%</span>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+          <span style="font-size: 0.75rem; color: rgba(255,255,255,0.4);">$0</span>
+          <span style="font-size: 0.75rem; color: rgba(255,255,255,0.4);">Q1 target: 25%</span>
+          <span style="font-size: 0.75rem; color: rgba(255,255,255,0.4);">$225M</span>
+        </div>
+      </div>
+
+      <!-- 3 supporting metrics -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 24px; text-align: center;">
+          <div style="font-size: 0.68rem; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px;">YTD Contracted &amp; Closed</div>
+          <div style="font-size: 1.5rem; font-weight: 800;">$66,370,565</div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 24px; text-align: center;">
+          <div style="font-size: 0.68rem; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px;">Past 12 Months</div>
+          <div style="font-size: 1.5rem; font-weight: 800;">$141,612,204</div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 24px; text-align: center;">
+          <div style="font-size: 0.68rem; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px;">Last Year (2025)</div>
+          <div style="font-size: 1.5rem; font-weight: 800;">$137,504,396</div>
+        </div>
+
+      </div>
+
+      <!-- Ahead of pace callout -->
+      <div style="margin-top: 24px; background: rgba(40,167,69,0.15); border: 1px solid rgba(40,167,69,0.3); border-radius: 12px; padding: 16px 24px; text-align: center;">
+        <span style="font-size: 0.95rem; font-weight: 600; color: #6ddc8a;">&#9650; Tracking 4.5 percentage points ahead of 25% quarterly pace</span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SLIDE 7 — KEY TAKEAWAYS & OUTLOOK
+  ══════════════════════════════════════════════ -->
+  <div id="slide-7" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, #0d2240 0%, #1a3a5c 100%); color: #fff; padding: 80px 24px; position: relative; overflow: hidden;">
+
+    <div style="position: absolute; top: -80px; left: -80px; width: 320px; height: 320px; border-radius: 50%; background: rgba(201,168,76,0.04);"></div>
+
+    <div style="max-width: 800px; width: 100%; margin: 0 auto; position: relative;">
+
+      <div style="text-align: center; margin-bottom: 48px;">
+        <div style="display: inline-block; background-color: rgba(201,168,76,0.18); color: #c9a84c; font-size: 0.7rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 12px; border: 1px solid rgba(201,168,76,0.3);">
+          Summary
+        </div>
+        <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; margin: 0; letter-spacing: -0.5px;">
+          Key Takeaways &amp; Outlook
+        </h2>
+      </div>
+
+      <!-- Takeaway cards -->
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 24px 28px; display: flex; align-items: flex-start; gap: 16px;">
+          <div style="min-width: 36px; height: 36px; border-radius: 50%; background: rgba(201,168,76,0.2); display: flex; align-items: center; justify-content: center; color: #c9a84c; font-weight: 800; font-size: 0.9rem;">1</div>
+          <div>
+            <div style="font-weight: 700; font-size: 1rem; margin-bottom: 4px;">Strong Start to the Year</div>
+            <div style="font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.6;">Q1 production of $66.4M (contracted &amp; closed) puts us at 29.5% of our $225M annual goal &mdash; ahead of the 25% quarterly pace.</div>
+          </div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 24px 28px; display: flex; align-items: flex-start; gap: 16px;">
+          <div style="min-width: 36px; height: 36px; border-radius: 50%; background: rgba(201,168,76,0.2); display: flex; align-items: center; justify-content: center; color: #c9a84c; font-weight: 800; font-size: 0.9rem;">2</div>
+          <div>
+            <div style="font-weight: 700; font-size: 1rem; margin-bottom: 4px;">Healthy Pipeline Conversion</div>
+            <div style="font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.6;">76% contract-to-close ratio in Q1 shows strong execution. $10.5M in contracted volume still progressing toward close.</div>
+          </div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 24px 28px; display: flex; align-items: flex-start; gap: 16px;">
+          <div style="min-width: 36px; height: 36px; border-radius: 50%; background: rgba(201,168,76,0.2); display: flex; align-items: center; justify-content: center; color: #c9a84c; font-weight: 800; font-size: 0.9rem;">3</div>
+          <div>
+            <div style="font-weight: 700; font-size: 1rem; margin-bottom: 4px;">Trailing 12-Month Momentum</div>
+            <div style="font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.6;">Past 12-month volume of $141.6M exceeds 2025&rsquo;s full-year total of $137.5M, signaling a recovery trend from last year&rsquo;s dip.</div>
+          </div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 24px 28px; display: flex; align-items: flex-start; gap: 16px;">
+          <div style="min-width: 36px; height: 36px; border-radius: 50%; background: rgba(201,168,76,0.2); display: flex; align-items: center; justify-content: center; color: #c9a84c; font-weight: 800; font-size: 0.9rem;">4</div>
+          <div>
+            <div style="font-weight: 700; font-size: 1rem; margin-bottom: 4px;">Q2 Focus</div>
+            <div style="font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.6;">Annualized Q1 pace projects ~$134M in closed production. Entering the spring selling season, Q2 will be critical to maintaining momentum and closing the gap toward $225M.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom branding -->
+      <div style="text-align: center; margin-top: 56px;">
+        <div style="font-size: 0.75rem; color: rgba(255,255,255,0.3); letter-spacing: 2px; text-transform: uppercase;">Raleigh Realty &bull; Q1 2026 Performance Review</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
