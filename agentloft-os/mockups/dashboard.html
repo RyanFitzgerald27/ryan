@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>AgentLoft OS · Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
+  colors: {
+    canvas: { DEFAULT: '#fff', 2: '#fafafa', 3: '#f4f4f5' },
+    ink:    { DEFAULT: '#18181b', 2: '#3f3f46', 3: '#71717a', 4: '#a1a1aa' },
+    line:   { DEFAULT: '#e4e4e7', 2: '#d4d4d8' },
+    sidebar:{ DEFAULT: '#0b1220', 2: '#111a2e', text: '#e5e7eb', muted: '#6b7280', hover: '#1c2740', active: '#2a3656' },
+  },
+}}}
+</script>
+<style>
+  body { font-family: 'Inter', ui-sans-serif, system-ui; -webkit-font-smoothing: antialiased; }
+  .scroll-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+  .scroll-thin::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 8px; }
+  .avatar { background: linear-gradient(135deg, var(--c1, #2563eb), var(--c2, #1d4ed8)); }
+</style>
+</head>
+<body class="h-screen w-screen overflow-hidden bg-canvas-2 text-ink">
+<div class="flex h-screen w-screen">
+
+  <!-- SIDEBAR -->
+  <aside class="flex h-full w-64 shrink-0 flex-col bg-sidebar text-sidebar-text">
+    <div class="px-5 pt-5 pb-4 text-[15px] font-semibold tracking-wider">AGENTLOFT</div>
+    <div class="px-3 pb-3">
+      <button class="flex w-full items-center gap-2 rounded-md bg-sidebar-2 px-3 py-2 text-sm text-sidebar-muted hover:text-sidebar-text">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <span class="flex-1 text-left">Search…</span><kbd class="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 text-[10px]">⌘K</kbd>
+      </button>
+    </div>
+    <nav class="flex-1 overflow-y-auto px-2 pb-6 scroll-thin">
+      <div class="mt-2 mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">Work</div>
+      <a href="dashboard.html" class="flex items-center gap-2 rounded-md bg-sidebar-active px-3 py-1.5 text-sm text-white"><span>🏠</span><span class="flex-1">Dashboard</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>✉️</span><span class="flex-1">Inbox</span><span class="rounded bg-red-500 px-1.5 py-0.5 text-[10px] text-white">12</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>✓</span><span class="flex-1">Tasks</span><span class="rounded bg-white/10 px-1.5 py-0.5 text-[10px]">8</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>📅</span><span class="flex-1">Calendar</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>👥</span><span class="flex-1">Leads</span><span class="rounded bg-white/10 px-1.5 py-0.5 text-[10px]">101.8K</span></a>
+      <a href="index.html" class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🤝</span><span class="flex-1">Deals</span><span class="rounded bg-white/10 px-1.5 py-0.5 text-[10px]">24</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🎯</span><span class="flex-1">Goals</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>👤</span><span class="flex-1">My Profile</span></a>
+
+      <div class="mt-4 mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">Operations</div>
+      <a href="agent.html" class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🧑‍💼</span><span class="flex-1">Agents</span></a>
+      <a href="recruiting.html" class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🎯</span><span class="flex-1">Recruiting</span></a>
+      <a href="commissions.html" class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>💰</span><span class="flex-1">Commissions</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🔧</span><span class="flex-1">Vendors</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>📁</span><span class="flex-1">Documents</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🎓</span><span class="flex-1">Training</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🛡️</span><span class="flex-1">Compliance</span></a>
+
+      <div class="mt-4 mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">Intelligence</div>
+      <a href="reporting.html" class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>📊</span><span class="flex-1">Reporting</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🌊</span><span class="flex-1">Pond</span><span class="rounded bg-amber-500 px-1.5 py-0.5 text-[10px] text-white">87</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>✨</span><span class="flex-1">Insights</span></a>
+
+      <div class="mt-4 mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">Admin</div>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🏢</span><span class="flex-1">Organization</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🔑</span><span class="flex-1">Users & Roles</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🔌</span><span class="flex-1">Integrations</span></a>
+    </nav>
+    <div class="border-t border-white/5 px-3 py-3">
+      <div class="flex items-center gap-3 px-2 py-1.5">
+        <div class="avatar flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold text-white" style="--c1:#2563eb;--c2:#1d4ed8;">RF</div>
+        <div class="min-w-0 flex-1"><div class="truncate text-sm font-medium">Ryan Fitzgerald</div><div class="truncate text-[11px] text-sidebar-muted">Raleigh Realty · Owner</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="flex min-w-0 flex-1 flex-col">
+    <header class="flex h-12 shrink-0 items-center justify-between border-b border-line bg-canvas px-5">
+      <div class="text-sm"><span class="text-ink-3">Work</span> <span class="text-ink-4">/</span> <span class="font-medium">Dashboard</span></div>
+      <div class="flex items-center gap-2 text-xs text-ink-3">
+        <button class="rounded-md border border-line px-2 py-1 hover:bg-canvas-3">Today</button>
+        <button class="rounded-md border border-line px-2 py-1 hover:bg-canvas-3">⚙</button>
+      </div>
+    </header>
+
+    <main class="flex-1 overflow-y-auto bg-canvas scroll-thin">
+      <!-- Welcome -->
+      <div class="border-b border-line px-10 pt-8 pb-6">
+        <div class="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-3">Wednesday, May 1, 2026</div>
+        <h1 class="mt-1 text-[26px] font-semibold tracking-tight">Good morning, Ryan</h1>
+        <p class="mt-1 text-sm text-ink-3">3 deals close this week · 12 unread messages · 2 license renewals upcoming</p>
+      </div>
+
+      <!-- KPI strip -->
+      <div class="grid grid-cols-4 gap-3 px-10 pt-6">
+        <div class="rounded-lg border border-line bg-canvas p-4">
+          <div class="text-[11px] font-medium uppercase tracking-wider text-ink-3">YTD volume</div>
+          <div class="mt-1 text-2xl font-semibold tracking-tight tabular-nums">$48.2M</div>
+          <div class="mt-1 flex items-center gap-1 text-xs"><span class="text-emerald-600">↑ 18.4%</span><span class="text-ink-4">vs last year</span></div>
+        </div>
+        <div class="rounded-lg border border-line bg-canvas p-4">
+          <div class="text-[11px] font-medium uppercase tracking-wider text-ink-3">YTD GCI</div>
+          <div class="mt-1 text-2xl font-semibold tracking-tight tabular-nums">$1.44M</div>
+          <div class="mt-1 flex items-center gap-1 text-xs"><span class="text-emerald-600">↑ 12.1%</span><span class="text-ink-4">vs last year</span></div>
+        </div>
+        <div class="rounded-lg border border-line bg-canvas p-4">
+          <div class="text-[11px] font-medium uppercase tracking-wider text-ink-3">Active agents</div>
+          <div class="mt-1 text-2xl font-semibold tracking-tight tabular-nums">52</div>
+          <div class="mt-1 flex items-center gap-1 text-xs"><span class="text-emerald-600">+3</span><span class="text-ink-4">this quarter</span></div>
+        </div>
+        <div class="rounded-lg border border-line bg-canvas p-4">
+          <div class="text-[11px] font-medium uppercase tracking-wider text-ink-3">Open deals</div>
+          <div class="mt-1 text-2xl font-semibold tracking-tight tabular-nums">24</div>
+          <div class="mt-1 text-xs text-ink-4">$14.2M projected</div>
+        </div>
+      </div>
+
+      <!-- Two-column grid -->
+      <div class="grid grid-cols-12 gap-5 px-10 pt-5 pb-10">
+
+        <!-- Pipeline funnel -->
+        <section class="col-span-8 rounded-lg border border-line bg-canvas p-5">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-[15px] font-semibold">Pipeline by stage</h2>
+              <p class="text-xs text-ink-3">Live count + projected GCI per stage</p>
+            </div>
+            <button class="text-xs text-ink-3 hover:text-ink">View all →</button>
+          </div>
+          <div class="mt-4 space-y-2.5">
+            <!-- bar -->
+            <div>
+              <div class="flex items-center justify-between text-xs"><span class="font-medium">Pre-listing</span><span class="text-ink-3 tabular-nums">3 · $52K</span></div>
+              <div class="mt-1 h-2 rounded-full bg-canvas-3"><div class="h-2 rounded-full bg-zinc-400" style="width: 12%"></div></div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between text-xs"><span class="font-medium">Active listing</span><span class="text-ink-3 tabular-nums">5 · $98K</span></div>
+              <div class="mt-1 h-2 rounded-full bg-canvas-3"><div class="h-2 rounded-full bg-violet-500" style="width: 23%"></div></div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between text-xs"><span class="font-medium">Under contract</span><span class="text-ink-3 tabular-nums">7 · $134K</span></div>
+              <div class="mt-1 h-2 rounded-full bg-canvas-3"><div class="h-2 rounded-full bg-blue-500" style="width: 31%"></div></div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between text-xs"><span class="font-medium">Pending</span><span class="text-ink-3 tabular-nums">6 · $112K</span></div>
+              <div class="mt-1 h-2 rounded-full bg-canvas-3"><div class="h-2 rounded-full bg-amber-500" style="width: 26%"></div></div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between text-xs"><span class="font-medium">Closed (this month)</span><span class="text-ink-3 tabular-nums">3 · $31K</span></div>
+              <div class="mt-1 h-2 rounded-full bg-canvas-3"><div class="h-2 rounded-full bg-emerald-500" style="width: 7%"></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Top performers -->
+        <section class="col-span-4 rounded-lg border border-line bg-canvas p-5">
+          <div class="flex items-center justify-between"><h2 class="text-[15px] font-semibold">Top performers</h2><span class="text-xs text-ink-3">YTD</span></div>
+          <div class="mt-4 space-y-3">
+            <div class="flex items-center gap-2.5">
+              <div class="avatar flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-semibold text-white" style="--c1:#16a34a;--c2:#15803d;">JP</div>
+              <div class="min-w-0 flex-1"><div class="truncate text-sm font-medium">Jamie Patel</div><div class="text-[11px] text-ink-3">8 deals</div></div>
+              <div class="text-sm font-medium tabular-nums">$8.4M</div>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <div class="avatar flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-semibold text-white" style="--c1:#2563eb;--c2:#1d4ed8;">SB</div>
+              <div class="min-w-0 flex-1"><div class="truncate text-sm font-medium">Sally Brooks</div><div class="text-[11px] text-ink-3">7 deals</div></div>
+              <div class="text-sm font-medium tabular-nums">$7.1M</div>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <div class="avatar flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-semibold text-white" style="--c1:#7c3aed;--c2:#5b21b6;">MC</div>
+              <div class="min-w-0 flex-1"><div class="truncate text-sm font-medium">Marcus Chen</div><div class="text-[11px] text-ink-3">6 deals</div></div>
+              <div class="text-sm font-medium tabular-nums">$5.8M</div>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <div class="avatar flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-semibold text-white" style="--c1:#ea580c;--c2:#c2410c;">AR</div>
+              <div class="min-w-0 flex-1"><div class="truncate text-sm font-medium">Alex Rivera</div><div class="text-[11px] text-ink-3">5 deals</div></div>
+              <div class="text-sm font-medium tabular-nums">$4.2M</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Deadlines this week -->
+        <section class="col-span-7 rounded-lg border border-line bg-canvas p-5">
+          <div class="flex items-center justify-between"><h2 class="text-[15px] font-semibold">Deadlines this week</h2><span class="text-xs text-ink-3">5 items</span></div>
+          <div class="mt-4 divide-y divide-line">
+            <div class="flex items-center gap-3 py-2.5">
+              <div class="flex h-9 w-9 flex-col items-center justify-center rounded bg-rose-50 text-rose-700"><div class="text-[9px] font-semibold uppercase">May</div><div class="text-sm font-semibold leading-none">2</div></div>
+              <div class="flex-1"><div class="text-sm font-medium">Inspection deadline · 4221 Six Forks Rd</div><div class="text-xs text-ink-3">Alex Rivera · Buyer side</div></div>
+              <span class="rounded-full bg-rose-50 px-2 py-0.5 text-[11px] font-medium text-rose-700">Tomorrow</span>
+            </div>
+            <div class="flex items-center gap-3 py-2.5">
+              <div class="flex h-9 w-9 flex-col items-center justify-center rounded bg-amber-50 text-amber-700"><div class="text-[9px] font-semibold uppercase">May</div><div class="text-sm font-semibold leading-none">3</div></div>
+              <div class="flex-1"><div class="text-sm font-medium">Financing contingency · 226 E Hargett</div><div class="text-xs text-ink-3">Jordan Nguyen · Listing side</div></div>
+              <span class="rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700">Fri</span>
+            </div>
+            <div class="flex items-center gap-3 py-2.5">
+              <div class="flex h-9 w-9 flex-col items-center justify-center rounded bg-emerald-50 text-emerald-700"><div class="text-[9px] font-semibold uppercase">May</div><div class="text-sm font-semibold leading-none">5</div></div>
+              <div class="flex-1"><div class="text-sm font-medium">Closing · 1808 Wake Forest Rd</div><div class="text-xs text-ink-3">Jamie Patel · $487K</div></div>
+              <span class="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700">Mon</span>
+            </div>
+            <div class="flex items-center gap-3 py-2.5">
+              <div class="flex h-9 w-9 flex-col items-center justify-center rounded bg-emerald-50 text-emerald-700"><div class="text-[9px] font-semibold uppercase">May</div><div class="text-sm font-semibold leading-none">7</div></div>
+              <div class="flex-1"><div class="text-sm font-medium">Closing · 511 W Jones St</div><div class="text-xs text-ink-3">Marcus Chen · $612K</div></div>
+              <span class="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700">Wed</span>
+            </div>
+            <div class="flex items-center gap-3 py-2.5">
+              <div class="flex h-9 w-9 flex-col items-center justify-center rounded bg-zinc-100 text-ink-2"><div class="text-[9px] font-semibold uppercase">May</div><div class="text-sm font-semibold leading-none">8</div></div>
+              <div class="flex-1"><div class="text-sm font-medium">License renewal · Riley O'Connor</div><div class="text-xs text-ink-3">NC #284921</div></div>
+              <span class="rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] font-medium text-ink-2">Thu</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Activity -->
+        <section class="col-span-5 rounded-lg border border-line bg-canvas p-5">
+          <div class="flex items-center justify-between"><h2 class="text-[15px] font-semibold">Recent activity</h2><button class="text-xs text-ink-3 hover:text-ink">All →</button></div>
+          <div class="mt-4 space-y-3.5 border-l border-line pl-4">
+            <div class="relative">
+              <div class="absolute -left-[20px] top-1 h-1.5 w-1.5 rounded-full bg-emerald-500 ring-4 ring-canvas"></div>
+              <div class="text-sm"><span class="font-medium">Jamie P.</span> closed <span class="font-medium">3306 Hillsborough</span></div>
+              <div class="text-[11px] text-ink-3">2h ago · GCI $14,850</div>
+            </div>
+            <div class="relative">
+              <div class="absolute -left-[20px] top-1 h-1.5 w-1.5 rounded-full bg-blue-500 ring-4 ring-canvas"></div>
+              <div class="text-sm"><span class="font-medium">Marcus C.</span> went under contract on <span class="font-medium">77 Boylan Ave</span></div>
+              <div class="text-[11px] text-ink-3">4h ago</div>
+            </div>
+            <div class="relative">
+              <div class="absolute -left-[20px] top-1 h-1.5 w-1.5 rounded-full bg-violet-500 ring-4 ring-canvas"></div>
+              <div class="text-sm"><span class="font-medium">Sally B.</span> listed <span class="font-medium">8 Oakwood Pl</span> at $629K</div>
+              <div class="text-[11px] text-ink-3">Yesterday</div>
+            </div>
+            <div class="relative">
+              <div class="absolute -left-[20px] top-1 h-1.5 w-1.5 rounded-full bg-zinc-400 ring-4 ring-canvas"></div>
+              <div class="text-sm"><span class="font-medium">Devon P.</span> joined Raleigh HQ team</div>
+              <div class="text-[11px] text-ink-3">2 days ago</div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+</body></html>

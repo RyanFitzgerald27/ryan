@@ -53,13 +53,33 @@ jobs:
           <body>
             <h1>AgentLoft OS — Mockups</h1>
             <p>Static design mockups. No interactivity beyond linking between pages.</p>
+            <a class="card" href="mockups/dashboard.html">
+              <div class="label">Dashboard →</div>
+              <div class="blurb">KPI tiles, pipeline funnel, top performers, deadlines, activity.</div>
+            </a>
             <a class="card" href="mockups/index.html">
               <div class="label">Deals list →</div>
-              <div class="blurb">Attio-style table, KPI strip, status pills, filters.</div>
+              <div class="blurb">Attio-style table with KPI strip, status pills, filters.</div>
             </a>
             <a class="card" href="mockups/deal.html">
               <div class="label">Deal detail →</div>
               <div class="blurb">Notion-style property panel + commission breakdown + activity.</div>
+            </a>
+            <a class="card" href="mockups/agent.html">
+              <div class="label">Agent profile →</div>
+              <div class="blurb">Tabs, KPIs, cap progress, recent deals, license &amp; comp.</div>
+            </a>
+            <a class="card" href="mockups/reporting.html">
+              <div class="label">Production report →</div>
+              <div class="blurb">Filter bar, summary tiles, leaderboard with inline bars.</div>
+            </a>
+            <a class="card" href="mockups/commissions.html">
+              <div class="label">Commissions / CDAs →</div>
+              <div class="blurb">Pending CDA cards + disbursement ledger.</div>
+            </a>
+            <a class="card" href="mockups/recruiting.html">
+              <div class="label">Recruiting pipeline →</div>
+              <div class="blurb">Kanban board for agent prospects.</div>
             </a>
           </body>
           </html>

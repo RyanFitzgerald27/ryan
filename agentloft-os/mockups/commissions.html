@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>AgentLoft OS · Commissions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
+  colors: {
+    canvas: { DEFAULT: '#fff', 2: '#fafafa', 3: '#f4f4f5' },
+    ink:    { DEFAULT: '#18181b', 2: '#3f3f46', 3: '#71717a', 4: '#a1a1aa' },
+    line:   { DEFAULT: '#e4e4e7', 2: '#d4d4d8' },
+    sidebar:{ DEFAULT: '#0b1220', 2: '#111a2e', text: '#e5e7eb', muted: '#6b7280', hover: '#1c2740', active: '#2a3656' },
+  },
+}}}
+</script>
+<style>
+  body { font-family: 'Inter', ui-sans-serif, system-ui; -webkit-font-smoothing: antialiased; }
+  .scroll-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+  .scroll-thin::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 8px; }
+  .avatar { background: linear-gradient(135deg, var(--c1, #2563eb), var(--c2, #1d4ed8)); }
+</style>
+</head>
+<body class="h-screen w-screen overflow-hidden bg-canvas-2 text-ink">
+<div class="flex h-screen w-screen">
+
+  <aside class="flex h-full w-64 shrink-0 flex-col bg-sidebar text-sidebar-text">
+    <div class="px-5 pt-5 pb-4 text-[15px] font-semibold tracking-wider">AGENTLOFT</div>
+    <div class="px-3 pb-3"><button class="flex w-full items-center gap-2 rounded-md bg-sidebar-2 px-3 py-2 text-sm text-sidebar-muted hover:text-sidebar-text"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="flex-1 text-left">Search…</span><kbd class="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 text-[10px]">⌘K</kbd></button></div>
+    <nav class="flex-1 overflow-y-auto px-2 pb-6 scroll-thin">
+      <div class="mt-2 mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">Work</div>
+      <a href="dashboard.html" class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🏠</span><span class="flex-1">Dashboard</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>✉️</span><span class="flex-1">Inbox</span><span class="rounded bg-red-500 px-1.5 py-0.5 text-[10px] text-white">12</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>✓</span><span class="flex-1">Tasks</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>📅</span><span class="flex-1">Calendar</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>👥</span><span class="flex-1">Leads</span><span class="rounded bg-white/10 px-1.5 py-0.5 text-[10px]">101.8K</span></a>
+      <a href="index.html" class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🤝</span><span class="flex-1">Deals</span><span class="rounded bg-white/10 px-1.5 py-0.5 text-[10px]">24</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🎯</span><span class="flex-1">Goals</span></a>
+
+      <div class="mt-4 mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">Operations</div>
+      <a href="agent.html" class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🧑‍💼</span><span class="flex-1">Agents</span></a>
+      <a href="recruiting.html" class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🎯</span><span class="flex-1">Recruiting</span></a>
+      <a href="commissions.html" class="flex items-center gap-2 rounded-md bg-sidebar-active px-3 py-1.5 text-sm text-white"><span>💰</span><span class="flex-1">Commissions</span></a>
+      <div class="ml-7 border-l border-white/5 pl-2">
+        <a class="flex items-center gap-2 rounded-md bg-sidebar-hover px-3 py-1.5 text-[13px] text-sidebar-text"><span class="flex-1">CDAs</span><span class="rounded bg-white/10 px-1.5 py-0.5 text-[10px]">6</span></a>
+        <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-[13px] text-sidebar-muted hover:bg-sidebar-hover hover:text-sidebar-text"><span class="flex-1">Payouts</span></a>
+        <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-[13px] text-sidebar-muted hover:bg-sidebar-hover hover:text-sidebar-text"><span class="flex-1">Agent Ledgers</span></a>
+        <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-[13px] text-sidebar-muted hover:bg-sidebar-hover hover:text-sidebar-text"><span class="flex-1">Referrals</span></a>
+      </div>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🔧</span><span class="flex-1">Vendors</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>📁</span><span class="flex-1">Documents</span></a>
+
+      <div class="mt-4 mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">Intelligence</div>
+      <a href="reporting.html" class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>📊</span><span class="flex-1">Reporting</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🌊</span><span class="flex-1">Pond</span><span class="rounded bg-amber-500 px-1.5 py-0.5 text-[10px] text-white">87</span></a>
+    </nav>
+    <div class="border-t border-white/5 px-3 py-3"><div class="flex items-center gap-3 px-2 py-1.5"><div class="avatar flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold text-white" style="--c1:#2563eb;--c2:#1d4ed8;">RF</div><div class="min-w-0 flex-1"><div class="truncate text-sm font-medium">Ryan Fitzgerald</div><div class="truncate text-[11px] text-sidebar-muted">Raleigh Realty · Owner</div></div></div></div>
+  </aside>
+
+  <div class="flex min-w-0 flex-1 flex-col">
+    <header class="flex h-12 shrink-0 items-center justify-between border-b border-line bg-canvas px-5">
+      <div class="text-sm"><span class="text-ink-3">Operations</span> <span class="text-ink-4">/</span> <a class="text-ink-3 hover:text-ink">Commissions</a> <span class="text-ink-4">/</span> <span class="font-medium">CDAs</span></div>
+      <div class="flex items-center gap-2 text-xs"><button class="rounded-md border border-line px-2 py-1 text-ink-3 hover:bg-canvas-3">Export ledger</button><button class="rounded-md bg-ink px-2.5 py-1 text-white">+ New CDA</button></div>
+    </header>
+
+    <main class="flex-1 overflow-y-auto bg-canvas scroll-thin">
+      <div class="border-b border-line px-10 pt-7 pb-5">
+        <div class="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-3">Commissions</div>
+        <h1 class="mt-1 text-[22px] font-semibold tracking-tight">Disbursement authorizations</h1>
+        <p class="mt-1 text-sm text-ink-3">6 awaiting approval · $87,420 in pending payouts · 14 disbursed this month</p>
+      </div>
+
+      <div class="grid grid-cols-12 gap-6 px-10 py-6">
+
+        <!-- Pending CDAs -->
+        <section class="col-span-7 min-w-0">
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="text-[14px] font-semibold">Awaiting approval <span class="ml-2 rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700">6</span></h2>
+            <button class="text-xs text-ink-3 hover:text-ink">Approve all eligible →</button>
+          </div>
+          <div class="space-y-2.5">
+
+            <!-- CDA card 1 -->
+            <article class="rounded-lg border border-line bg-canvas p-4 hover:border-line-2">
+              <div class="flex items-start justify-between">
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center gap-2">
+                    <a href="deal.html" class="text-sm font-medium hover:text-blue-600">3306 Hillsborough St</a>
+                    <span class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-medium text-amber-700"><span class="h-1 w-1 rounded-full bg-amber-500"></span>Awaiting docs</span>
+                  </div>
+                  <div class="mt-0.5 text-[12px] text-ink-3">Closed Apr 3 · GCI $14,850 · 2 agents</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-sm font-semibold tabular-nums">$13,055</div>
+                  <div class="text-[11px] text-ink-3">to disburse</div>
+                </div>
+              </div>
+              <div class="mt-3 grid grid-cols-2 gap-3 rounded-md bg-canvas-2 p-3 text-xs">
+                <div class="flex items-center gap-2"><div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white" style="--c1:#16a34a;--c2:#15803d;">JP</div><span class="flex-1">Jamie Patel · 70%</span><span class="font-medium tabular-nums">$9,139</span></div>
+                <div class="flex items-center gap-2"><div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white" style="--c1:#dc2626;--c2:#b91c1c;">RO</div><span class="flex-1">Riley O'Connor · 30%</span><span class="font-medium tabular-nums">$3,916</span></div>
+              </div>
+              <div class="mt-3 flex items-center justify-between">
+                <div class="text-[11px] text-rose-600">⚠ Final closing disclosure missing</div>
+                <div class="flex items-center gap-1.5">
+                  <button class="rounded-md border border-line px-2.5 py-1 text-xs text-ink-3 hover:bg-canvas-3">Reject</button>
+                  <button class="rounded-md bg-ink px-2.5 py-1 text-xs text-white">Review</button>
+                </div>
+              </div>
+            </article>
+
+            <!-- CDA card 2 -->
+            <article class="rounded-lg border border-line bg-canvas p-4 hover:border-line-2">
+              <div class="flex items-start justify-between">
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center gap-2">
+                    <a href="deal.html" class="text-sm font-medium hover:text-blue-600">1422 Glenwood Ave</a>
+                    <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700"><span class="h-1 w-1 rounded-full bg-emerald-500"></span>Ready</span>
+                  </div>
+                  <div class="mt-0.5 text-[12px] text-ink-3">Closed Apr 1 · GCI $12,600 · 1 agent</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-sm font-semibold tabular-nums">$11,179</div>
+                  <div class="text-[11px] text-ink-3">to disburse</div>
+                </div>
+              </div>
+              <div class="mt-3 rounded-md bg-canvas-2 p-3 text-xs">
+                <div class="flex items-center gap-2"><div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white" style="--c1:#2563eb;--c2:#1d4ed8;">SB</div><span class="flex-1">Sally Brooks · 100%</span><span class="font-medium tabular-nums">$11,179</span></div>
+              </div>
+              <div class="mt-3 flex items-center justify-between">
+                <div class="text-[11px] text-emerald-600">✓ All documents present</div>
+                <div class="flex items-center gap-1.5">
+                  <button class="rounded-md border border-line px-2.5 py-1 text-xs text-ink-3 hover:bg-canvas-3">Reject</button>
+                  <button class="rounded-md bg-emerald-600 px-2.5 py-1 text-xs text-white hover:bg-emerald-700">Approve & disburse</button>
+                </div>
+              </div>
+            </article>
+
+            <!-- CDA card 3 -->
+            <article class="rounded-lg border border-line bg-canvas p-4 hover:border-line-2">
+              <div class="flex items-start justify-between">
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center gap-2">
+                    <a href="deal.html" class="text-sm font-medium hover:text-blue-600">912 Highland Park</a>
+                    <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700"><span class="h-1 w-1 rounded-full bg-emerald-500"></span>Ready</span>
+                  </div>
+                  <div class="mt-0.5 text-[12px] text-ink-3">Closed Mar 28 · GCI $37,500 · 1 agent · Referral out 25%</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-sm font-semibold tabular-nums">$24,948</div>
+                  <div class="text-[11px] text-ink-3">to disburse</div>
+                </div>
+              </div>
+              <div class="mt-3 rounded-md bg-canvas-2 p-3 text-xs">
+                <div class="flex items-center gap-2"><div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white" style="--c1:#2563eb;--c2:#1d4ed8;">SB</div><span class="flex-1">Sally Brooks · 100%</span><span class="font-medium tabular-nums">$24,948</span></div>
+                <div class="mt-1 flex items-center gap-2 text-rose-600"><span>↗ Referral out</span><span class="flex-1">— Triangle Realty Network</span><span class="tabular-nums">−$9,375</span></div>
+              </div>
+              <div class="mt-3 flex items-center justify-end gap-1.5">
+                <button class="rounded-md border border-line px-2.5 py-1 text-xs text-ink-3 hover:bg-canvas-3">Reject</button>
+                <button class="rounded-md bg-emerald-600 px-2.5 py-1 text-xs text-white hover:bg-emerald-700">Approve & disburse</button>
+              </div>
+            </article>
+
+            <!-- Compact rows for the rest -->
+            <article class="flex items-center gap-3 rounded-lg border border-line bg-canvas p-3">
+              <div class="avatar flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-semibold text-white" style="--c1:#7c3aed;--c2:#5b21b6;">MC</div>
+              <div class="min-w-0 flex-1"><a href="deal.html" class="text-sm font-medium hover:text-blue-600">8 Oakwood Pl</a><div class="text-[11px] text-ink-3">Marcus Chen · Closed Apr 2</div></div>
+              <span class="rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-medium text-amber-700">Awaiting docs</span>
+              <span class="text-sm font-medium tabular-nums">$11,930</span>
+              <button class="rounded-md border border-line px-2 py-1 text-xs text-ink-3 hover:bg-canvas-3">Review</button>
+            </article>
+
+            <article class="flex items-center gap-3 rounded-lg border border-line bg-canvas p-3">
+              <div class="avatar flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-semibold text-white" style="--c1:#16a34a;--c2:#15803d;">JP</div>
+              <div class="min-w-0 flex-1"><a href="deal.html" class="text-sm font-medium hover:text-blue-600">408 Dixie Trail</a><div class="text-[11px] text-ink-3">Jamie Patel · Closed Mar 24</div></div>
+              <span class="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700">Ready</span>
+              <span class="text-sm font-medium tabular-nums">$15,805</span>
+              <button class="rounded-md bg-emerald-600 px-2.5 py-1 text-xs text-white">Approve</button>
+            </article>
+
+            <article class="flex items-center gap-3 rounded-lg border border-line bg-canvas p-3">
+              <div class="avatar flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-semibold text-white" style="--c1:#ea580c;--c2:#c2410c;">AR</div>
+              <div class="min-w-0 flex-1"><a href="deal.html" class="text-sm font-medium hover:text-blue-600">19 Whitaker Mill</a><div class="text-[11px] text-ink-3">Alex Rivera · Closed Mar 21</div></div>
+              <span class="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700">Ready</span>
+              <span class="text-sm font-medium tabular-nums">$10,503</span>
+              <button class="rounded-md bg-emerald-600 px-2.5 py-1 text-xs text-white">Approve</button>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- Right: ledger -->
+        <section class="col-span-5">
+          <div class="rounded-lg border border-line bg-canvas">
+            <div class="flex items-center justify-between border-b border-line px-5 py-3">
+              <div>
+                <h2 class="text-[14px] font-semibold">Recent disbursements</h2>
+                <p class="text-[11px] text-ink-3">Last 30 days · $187,420 total</p>
+              </div>
+              <button class="text-xs text-ink-3 hover:text-ink">All →</button>
+            </div>
+            <div class="divide-y divide-line">
+              <div class="flex items-center gap-3 px-5 py-3">
+                <div class="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 text-emerald-700 text-xs">↑</div>
+                <div class="min-w-0 flex-1"><div class="text-sm font-medium">Jamie Patel</div><div class="text-[11px] text-ink-3">3306 Hillsborough · ACH</div></div>
+                <div class="text-right"><div class="text-sm font-medium tabular-nums">$9,139</div><div class="text-[11px] text-ink-3">2h ago</div></div>
+              </div>
+              <div class="flex items-center gap-3 px-5 py-3">
+                <div class="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 text-emerald-700 text-xs">↑</div>
+                <div class="min-w-0 flex-1"><div class="text-sm font-medium">Riley O'Connor</div><div class="text-[11px] text-ink-3">3306 Hillsborough · ACH</div></div>
+                <div class="text-right"><div class="text-sm font-medium tabular-nums">$3,916</div><div class="text-[11px] text-ink-3">2h ago</div></div>
+              </div>
+              <div class="flex items-center gap-3 px-5 py-3">
+                <div class="flex h-8 w-8 items-center justify-center rounded-full bg-rose-50 text-rose-700 text-xs">↗</div>
+                <div class="min-w-0 flex-1"><div class="text-sm font-medium">Triangle Realty Network</div><div class="text-[11px] text-ink-3">912 Highland · Referral out · Wire</div></div>
+                <div class="text-right"><div class="text-sm font-medium tabular-nums text-rose-600">−$9,375</div><div class="text-[11px] text-ink-3">Yesterday</div></div>
+              </div>
+              <div class="flex items-center gap-3 px-5 py-3">
+                <div class="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 text-emerald-700 text-xs">↑</div>
+                <div class="min-w-0 flex-1"><div class="text-sm font-medium">Sally Brooks</div><div class="text-[11px] text-ink-3">912 Highland · ACH</div></div>
+                <div class="text-right"><div class="text-sm font-medium tabular-nums">$24,948</div><div class="text-[11px] text-ink-3">Yesterday</div></div>
+              </div>
+              <div class="flex items-center gap-3 px-5 py-3">
+                <div class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-700 text-xs">↓</div>
+                <div class="min-w-0 flex-1"><div class="text-sm font-medium">KW Northgate</div><div class="text-[11px] text-ink-3">408 Dixie · Referral in · Check</div></div>
+                <div class="text-right"><div class="text-sm font-medium tabular-nums text-emerald-600">+$2,400</div><div class="text-[11px] text-ink-3">Mar 24</div></div>
+              </div>
+              <div class="flex items-center gap-3 px-5 py-3">
+                <div class="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 text-emerald-700 text-xs">↑</div>
+                <div class="min-w-0 flex-1"><div class="text-sm font-medium">Marcus Chen</div><div class="text-[11px] text-ink-3">77 Boylan · ACH</div></div>
+                <div class="text-right"><div class="text-sm font-medium tabular-nums">$13,260</div><div class="text-[11px] text-ink-3">Mar 22</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mini summary -->
+          <div class="mt-4 rounded-lg border border-line bg-canvas p-5">
+            <h3 class="text-[14px] font-semibold">Brokerage net · April</h3>
+            <div class="mt-3 space-y-2 text-sm">
+              <div class="flex justify-between"><span class="text-ink-3">GCI collected</span><span class="tabular-nums font-medium">$112,400</span></div>
+              <div class="flex justify-between"><span class="text-ink-3">Agent payouts</span><span class="tabular-nums text-rose-600">−$87,420</span></div>
+              <div class="flex justify-between"><span class="text-ink-3">Referrals out</span><span class="tabular-nums text-rose-600">−$9,375</span></div>
+              <div class="flex justify-between"><span class="text-ink-3">Franchise fees</span><span class="tabular-nums text-rose-600">−$6,744</span></div>
+              <div class="flex justify-between"><span class="text-ink-3">Referrals in</span><span class="tabular-nums text-emerald-600">+$2,400</span></div>
+              <div class="mt-2 border-t border-line pt-2 flex justify-between"><span class="font-medium">Net</span><span class="tabular-nums font-semibold">$11,261</span></div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+</body></html>

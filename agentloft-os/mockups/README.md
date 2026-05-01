@@ -1,30 +1,40 @@
 # Mockups
 
-Self-contained HTML mockups — open directly in a browser, no build step. Tailwind via CDN, Inter from Google Fonts.
+Self-contained HTML mockups — open in a browser, no build step. Tailwind via CDN, Inter from Google Fonts. All linked together via the sidebar.
 
 ## Screens
 
-- [`index.html`](./index.html) — **Deals list** (Attio-style table, KPIs, filters, role-gated nav)
-- [`deal.html`](./deal.html) — **Deal detail** (Notion-style with property panel, commission breakdown, vendors, activity)
+| File | Screen | Pattern |
+|---|---|---|
+| `dashboard.html` | **Dashboard** | KPI tiles, pipeline funnel, top performers, deadlines, activity feed |
+| `index.html` | **Deals list** | Attio-style table with status pills, agent avatars, filters, KPI strip |
+| `deal.html` | **Deal detail** | Notion-style with property panel, status pipeline, commission breakdown, vendors, activity |
+| `agent.html` | **Agent profile** | Header + tabs, KPIs, cap progress, deal history, license & comp panels |
+| `reporting.html` | **Production report** | Filter bar, summary tiles, leaderboard table with inline bar charts |
+| `commissions.html` | **CDAs / Payouts** | Two-column: pending CDA cards (approve/reject) + recent disbursements ledger |
+| `recruiting.html` | **Recruiting kanban** | 6-column board (Prospect → Joined / Lost), prospect cards with last-year GCI |
 
-Click any deal row in the list to open the detail. Click "Deals" in the sidebar from detail to go back.
+Click sidebar items to navigate between them. Each highlights the active section.
 
 ## What these prove
 
-1. **Visual quality bar** — dense Attio table feel + Notion property panel + restrained color (status pills, no neon, generous whitespace)
-2. **Information architecture** — full sidebar matching AgentLoft mid-fi with Operations / Growth / Intelligence / Admin sections
-3. **Data depth** — commission breakdown shows splits, off-the-top fees, per-agent fees, brokerage net — all from the Prisma schema
-4. **Real numbers** — values match the seed data in `/api/prisma/seed.ts`
+1. **Visual quality bar** — Notion + Attio direction, restrained color, real empty states, generous typography
+2. **Information architecture** — full sidebar with WORK / OPERATIONS / GROWTH / INTELLIGENCE / ADMIN, role-gated, sub-nav for parent items
+3. **Pattern coverage** — table, detail, profile, dashboard, board, financial ledger, reporting — most major UI patterns the OS will need
+4. **Data depth** — every screen pulls from realistic seed data; numbers are internally consistent across screens (Sally's deals appear on her profile, in the leaderboard, in Deals list, etc.)
 
-## Not in the mockup
+## Not in the mockups
 
-- Interactivity (filters don't actually filter, etc.)
-- Other screens (Dashboard, Agent profile, Reporting) — add as needed
-- Mobile responsive breakpoints
+- Interactivity (filters don't filter, drag-drop doesn't drag)
+- Mobile breakpoints (designed for desktop ≥1280px)
+- Other modules: Documents, Training, Compliance, Vendors, Marketing Ops, Lead Sources detail, etc. — easy to add following the same patterns
 
 ## Translating to Angular
 
-Once the visual direction is locked, the mockup becomes the spec:
-1. Componentize each block (KPI tile, status pill, table, property panel, activity timeline)
-2. Wire to the GraphQL `transactions` and `transactionBreakdown` queries
-3. Drop into the existing Angular shell at `/web/src/app/features/deals`
+Each mockup decomposes into reusable components:
+- **Shell**: sidebar, topbar (already in `/web/src/app/shell`)
+- **Atoms**: button, input, status pill, avatar, kbd, badge, KPI tile
+- **Molecules**: filter bar, segmented control, property panel row, activity item, kanban card
+- **Organisms**: data table, kanban column, leaderboard row, CDA card, ledger list
+
+Once the visual direction is locked, build the component library, then drop these patterns into Angular routes.
