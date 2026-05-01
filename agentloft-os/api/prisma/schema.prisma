@@ -1,0 +1,341 @@
+// AgentLoft OS — Prisma schema
+//
+// Conventions:
+//   - All ids are cuid().
+//   - All tables have createdAt / updatedAt.
+//   - All money fields are stored in CENTS (Int) to avoid float drift. Display layer formats.
+//   - All percentages are stored as basis points (Int, 10000 = 100%) for the same reason.
+//   - All FKs are non-nullable unless the relationship is genuinely optional.
+//
+// When integrating into AgentLoft, the User / Brokerage / Office / Team / Agent models
+// here should be REPLACED with FK references to AgentLoft's existing models.
+// See docs/HANDOFF.md → "Core model integration".
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================
+// CORE — Identity / Org / People
+// ============================================================
+
+enum Role {
+  OWNER
+  BROKER
+  ADMIN
+  TRANSACTION_COORDINATOR
+  ACCOUNTANT
+  RECRUITER
+  AGENT
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  role      Role     @default(AGENT)
+  agentId   String?  @unique
+  agent     Agent?   @relation(fields: [agentId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Brokerage {
+  id        String   @id @default(cuid())
+  name      String
+  offices   Office[]
+  agents    Agent[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Office {
+  id          String    @id @default(cuid())
+  name        String
+  brokerageId String
+  brokerage   Brokerage @relation(fields: [brokerageId], references: [id])
+  agents      Agent[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  name      String
+  leadId    String?
+  agents    Agent[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Agent {
+  id            String         @id @default(cuid())
+  firstName     String
+  lastName      String
+  email         String         @unique
+  phone         String?
+  licenseNumber String?
+  licenseState  String?
+  licenseExpiry DateTime?
+  startDate     DateTime?
+  brokerageId   String
+  brokerage     Brokerage      @relation(fields: [brokerageId], references: [id])
+  officeId      String?
+  office        Office?        @relation(fields: [officeId], references: [id])
+  teamId        String?
+  team          Team?          @relation(fields: [teamId], references: [id])
+  user          User?
+  splits        AgentSplit[]
+  ledgerEntries CommissionLedgerEntry[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  type      ContactType
+  firstName String
+  lastName  String
+  email     String?
+  phone     String?
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  transactions TransactionContact[]
+}
+
+enum ContactType {
+  BUYER
+  SELLER
+  COOP_AGENT
+  OTHER
+}
+
+// ============================================================
+// TRANSACTIONS — pipeline, splits, commissions, fees, vendors, lead sources
+// ============================================================
+
+enum TransactionStatus {
+  PRE_LISTING
+  ACTIVE_LISTING
+  UNDER_CONTRACT
+  PENDING
+  CLOSED
+  TERMINATED
+  EXPIRED
+}
+
+enum TransactionSide {
+  BUY
+  SELL
+  DUAL
+}
+
+enum PropertyType {
+  SINGLE_FAMILY
+  CONDO
+  TOWNHOUSE
+  MULTI_FAMILY
+  LAND
+  COMMERCIAL
+  OTHER
+}
+
+model Transaction {
+  id              String              @id @default(cuid())
+  brokerageId     String
+  side            TransactionSide
+  status          TransactionStatus   @default(PRE_LISTING)
+  propertyType    PropertyType
+  addressLine1    String
+  addressLine2    String?
+  city            String
+  state           String
+  postalCode      String
+  mlsNumber       String?
+  listPriceCents  Int?
+  salePriceCents  Int?
+  contractDate    DateTime?
+  closeDate       DateTime?
+  inspectionDeadline   DateTime?
+  financingDeadline    DateTime?
+  appraisalDeadline    DateTime?
+  notes           String?
+
+  splits          AgentSplit[]
+  commissions     CommissionLine[]
+  fees            Fee[]
+  leadSources     TransactionLeadSource[]
+  vendors         TransactionVendor[]
+  contacts        TransactionContact[]
+  ledgerEntries   CommissionLedgerEntry[]
+
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  @@index([status])
+  @@index([brokerageId])
+}
+
+// Per-agent split on a transaction. Multiple agents can be on one deal (co-list, team).
+model AgentSplit {
+  id             String      @id @default(cuid())
+  transactionId  String
+  transaction    Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  agentId        String
+  agent          Agent       @relation(fields: [agentId], references: [id])
+  // Either splitBps OR flatCents — enforce one in service layer.
+  splitBps       Int?        // basis points of GCI (10000 = 100%)
+  flatCents      Int?
+  role           String      @default("primary") // primary | co-list | referral | team
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+// One line of commission income on a transaction (e.g., listing side, buyer side).
+// Sum of CommissionLine.amountCents = GCI for the transaction.
+model CommissionLine {
+  id             String      @id @default(cuid())
+  transactionId  String
+  transaction    Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  side           TransactionSide
+  amountCents    Int
+  description    String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+enum FeeType {
+  REFERRAL_OUT
+  REFERRAL_IN
+  ADMIN
+  FRANCHISE
+  EO_INSURANCE
+  TRANSACTION_COORDINATOR
+  OTHER
+}
+
+model Fee {
+  id             String      @id @default(cuid())
+  transactionId  String
+  transaction    Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  type           FeeType
+  description    String?
+  amountCents    Int?        // either flat amount...
+  bpsOfGci       Int?        // ...or basis points of GCI
+  payeeName      String?     // who gets paid (or who paid us, for REFERRAL_IN)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model LeadSource {
+  id           String                  @id @default(cuid())
+  name         String                  @unique
+  category     String?                 // PAID, ORGANIC, SPHERE, REFERRAL, TEAM, etc.
+  active       Boolean                 @default(true)
+  transactions TransactionLeadSource[]
+  createdAt    DateTime                @default(now())
+  updatedAt    DateTime                @updatedAt
+}
+
+// Many-to-many with attribution percentage (in case a deal is split across sources).
+model TransactionLeadSource {
+  id              String      @id @default(cuid())
+  transactionId   String
+  transaction     Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  leadSourceId    String
+  leadSource      LeadSource  @relation(fields: [leadSourceId], references: [id])
+  attributionBps  Int         @default(10000) // 10000 = 100%
+  createdAt       DateTime    @default(now())
+
+  @@unique([transactionId, leadSourceId])
+}
+
+enum VendorRole {
+  LENDER
+  TITLE
+  ESCROW
+  INSPECTOR
+  APPRAISER
+  PHOTOGRAPHER
+  STAGER
+  ATTORNEY
+  HOME_WARRANTY
+  OTHER
+}
+
+model Vendor {
+  id           String              @id @default(cuid())
+  name         String
+  defaultRole  VendorRole
+  email        String?
+  phone        String?
+  website      String?
+  notes        String?
+  transactions TransactionVendor[]
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+}
+
+model TransactionVendor {
+  id             String      @id @default(cuid())
+  transactionId  String
+  transaction    Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  vendorId       String
+  vendor         Vendor      @relation(fields: [vendorId], references: [id])
+  role           VendorRole
+  notes          String?
+  createdAt      DateTime    @default(now())
+
+  @@unique([transactionId, vendorId, role])
+}
+
+model TransactionContact {
+  id             String      @id @default(cuid())
+  transactionId  String
+  transaction    Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  contactId      String
+  contact        Contact     @relation(fields: [contactId], references: [id])
+  role           ContactType
+  createdAt      DateTime    @default(now())
+
+  @@unique([transactionId, contactId, role])
+}
+
+// Per-agent ledger snapshot — written when a transaction closes.
+// Lets us answer "what does Sally net on deal X" and "what's Sally's YTD" without recomputing.
+model CommissionLedgerEntry {
+  id              String      @id @default(cuid())
+  transactionId   String
+  transaction     Transaction @relation(fields: [transactionId], references: [id])
+  agentId         String
+  agent           Agent       @relation(fields: [agentId], references: [id])
+  grossCents      Int
+  feesCents       Int
+  netCents        Int
+  postedAt        DateTime    @default(now())
+
+  @@index([agentId, postedAt])
+}
+
+// ============================================================
+// AUDIT
+// ============================================================
+
+model AuditEvent {
+  id         String   @id @default(cuid())
+  actorId    String?  // userId
+  entityType String   // "Transaction", "Agent", etc.
+  entityId   String
+  action     String   // "create", "update", "delete", "status_change", etc.
+  diff       Json?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([actorId])
+}

@@ -1,0 +1,46 @@
+@import 'tailwindcss';
+
+/* AgentLoft OS — design tokens.
+   Sidebar palette mirrors the AgentLoft mid-fi (dark navy + muted labels).
+   Canvas + ink follow Notion/Attio (white canvas, near-black text, restrained accents). */
+
+@theme {
+  --color-canvas: #ffffff;
+  --color-canvas-2: #fafafa;
+  --color-canvas-3: #f4f4f5;
+  --color-ink: #18181b;
+  --color-ink-2: #3f3f46;
+  --color-ink-3: #71717a;
+  --color-ink-4: #a1a1aa;
+  --color-line: #e4e4e7;
+  --color-line-2: #d4d4d8;
+
+  --color-sidebar: #0b1220;
+  --color-sidebar-2: #111a2e;
+  --color-sidebar-text: #e5e7eb;
+  --color-sidebar-muted: #6b7280;
+  --color-sidebar-hover: #1c2740;
+  --color-sidebar-active: #2a3656;
+
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-danger: #dc2626;
+
+  --radius-sm: 0.375rem;
+  --radius: 0.5rem;
+  --radius-lg: 0.75rem;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-pop: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+html, body { height: 100%; }
+body { font-family: var(--font-sans); }
+
+/* Utility primitives used by the shell. */
+.row { display: flex; align-items: center; }
+.row-between { display: flex; align-items: center; justify-content: space-between; }
