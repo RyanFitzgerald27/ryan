@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>AgentLoft OS · Deals</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
+      colors: {
+        canvas:   { DEFAULT: '#ffffff', 2: '#fafafa', 3: '#f4f4f5' },
+        ink:      { DEFAULT: '#18181b', 2: '#3f3f46', 3: '#71717a', 4: '#a1a1aa' },
+        line:     { DEFAULT: '#e4e4e7', 2: '#d4d4d8' },
+        sidebar:  { DEFAULT: '#0b1220', 2: '#111a2e', text: '#e5e7eb', muted: '#6b7280', hover: '#1c2740', active: '#2a3656' },
+        accent:   { DEFAULT: '#2563eb', hover: '#1d4ed8' },
+      },
+    }
+  }
+}
+</script>
+<style>
+  body { font-family: 'Inter', ui-sans-serif, system-ui; -webkit-font-smoothing: antialiased; }
+  .scroll-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+  .scroll-thin::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 8px; }
+  .scroll-thin::-webkit-scrollbar-track { background: transparent; }
+  /* Attio-style table row hover effect */
+  .row-hover:hover .row-actions { opacity: 1; }
+  .row-actions { opacity: 0; transition: opacity .12s ease; }
+  /* Subtle gradient on the avatar group */
+  .avatar { background: linear-gradient(135deg, var(--c1, #2563eb), var(--c2, #1d4ed8)); }
+</style>
+</head>
+<body class="h-screen w-screen overflow-hidden bg-canvas-2 text-ink">
+<div class="flex h-screen w-screen">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="flex h-full w-64 shrink-0 flex-col bg-sidebar text-sidebar-text">
+    <div class="flex items-center gap-2 px-5 pt-5 pb-4 text-[15px] font-semibold tracking-wider">AGENTLOFT</div>
+
+    <div class="px-3 pb-3">
+      <button class="flex w-full items-center gap-2 rounded-md bg-sidebar-2 px-3 py-2 text-sm text-sidebar-muted hover:text-sidebar-text">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <span class="flex-1 text-left">Search…</span>
+        <kbd class="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 text-[10px] tracking-wide">⌘K</kbd>
+      </button>
+    </div>
+
+    <nav class="flex-1 overflow-y-auto px-2 pb-6 scroll-thin">
+      <!-- WORK -->
+      <div class="mt-2 mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">Work</div>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🏠</span><span class="flex-1">Dashboard</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>✉️</span><span class="flex-1">Inbox</span><span class="rounded bg-red-500 px-1.5 py-0.5 text-[10px] font-medium text-white">12</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>✓</span><span class="flex-1">Tasks</span><span class="rounded bg-white/10 px-1.5 py-0.5 text-[10px]">8</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>📅</span><span class="flex-1">Calendar</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>👥</span><span class="flex-1">Leads</span><span class="rounded bg-white/10 px-1.5 py-0.5 text-[10px]">101.8K</span></a>
+      <a href="index.html" class="flex items-center gap-2 rounded-md bg-sidebar-active px-3 py-1.5 text-sm text-white"><span>🤝</span><span class="flex-1">Deals</span><span class="rounded bg-white/15 px-1.5 py-0.5 text-[10px]">24</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🎯</span><span class="flex-1">Goals</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>👤</span><span class="flex-1">My Profile</span></a>
+
+      <!-- OPERATIONS -->
+      <div class="mt-4 mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">Operations</div>
+      <button class="flex w-full items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🧑‍💼</span><span class="flex-1 text-left">Agents</span><span class="text-sidebar-muted text-xs">▸</span></button>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🎯</span><span class="flex-1">Recruiting</span></a>
+      <button class="flex w-full items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>💰</span><span class="flex-1 text-left">Commissions</span><span class="text-sidebar-muted text-xs">▸</span></button>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🔧</span><span class="flex-1">Vendors</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>📁</span><span class="flex-1">Documents</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🎓</span><span class="flex-1">Training</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🛡️</span><span class="flex-1">Compliance</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>📣</span><span class="flex-1">Marketing Ops</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>📢</span><span class="flex-1">Announcements</span></a>
+
+      <!-- GROWTH -->
+      <div class="mt-4 mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">Growth</div>
+      <button class="flex w-full items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🌐</span><span class="flex-1 text-left">Website</span><span class="text-sidebar-muted text-xs">▾</span></button>
+      <div class="ml-7 border-l border-white/5 pl-2">
+        <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-[13px] text-sidebar-muted hover:bg-sidebar-hover hover:text-sidebar-text"><span class="flex-1">Listing pages</span><span class="rounded bg-white/10 px-1.5 py-0.5 text-[10px]">38</span></a>
+        <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-[13px] text-sidebar-muted hover:bg-sidebar-hover hover:text-sidebar-text"><span class="flex-1">Community pages</span><span class="rounded bg-white/10 px-1.5 py-0.5 text-[10px]">12</span></a>
+        <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-[13px] text-sidebar-muted hover:bg-sidebar-hover hover:text-sidebar-text"><span class="flex-1">Page builder</span></a>
+        <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-[13px] text-sidebar-muted hover:bg-sidebar-hover hover:text-sidebar-text"><span class="flex-1">Blog</span></a>
+        <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-[13px] text-sidebar-muted hover:bg-sidebar-hover hover:text-sidebar-text"><span class="flex-1">Resources</span></a>
+      </div>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>📨</span><span class="flex-1">Campaigns</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>📍</span><span class="flex-1">Lead Sources</span></a>
+
+      <!-- INTELLIGENCE -->
+      <div class="mt-4 mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">Intelligence</div>
+      <button class="flex w-full items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>📊</span><span class="flex-1 text-left">Reporting</span><span class="text-sidebar-muted text-xs">▸</span></button>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🌊</span><span class="flex-1">Pond</span><span class="rounded bg-amber-500 px-1.5 py-0.5 text-[10px] font-medium text-white">87</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>✨</span><span class="flex-1">Insights</span></a>
+
+      <!-- ADMIN -->
+      <div class="mt-4 mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">Admin</div>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🏢</span><span class="flex-1">Organization</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🔑</span><span class="flex-1">Users & Roles</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>🔌</span><span class="flex-1">Integrations</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>💳</span><span class="flex-1">Billing</span></a>
+      <a class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm hover:bg-sidebar-hover"><span>📜</span><span class="flex-1">Audit Log</span></a>
+    </nav>
+
+    <div class="border-t border-white/5 px-3 py-3">
+      <div class="flex items-center gap-3 rounded-md px-2 py-1.5">
+        <div class="flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold text-white avatar" style="--c1:#2563eb;--c2:#1d4ed8;">RF</div>
+        <div class="min-w-0 flex-1">
+          <div class="truncate text-sm font-medium">Ryan Fitzgerald</div>
+          <div class="truncate text-[11px] text-sidebar-muted">Raleigh Realty · Owner</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="flex min-w-0 flex-1 flex-col">
+
+    <!-- Topbar -->
+    <header class="flex h-12 shrink-0 items-center justify-between border-b border-line bg-canvas px-5">
+      <div class="flex items-center gap-2 text-sm">
+        <span class="text-ink-3">Work</span>
+        <span class="text-ink-4">/</span>
+        <span class="font-medium text-ink">Deals</span>
+      </div>
+      <div class="flex items-center gap-2 text-xs text-ink-3">
+        <button class="rounded-md border border-line px-2 py-1 hover:bg-canvas-3">Help</button>
+        <button class="rounded-md border border-line px-2 py-1 hover:bg-canvas-3">What's new</button>
+      </div>
+    </header>
+
+    <!-- Page content -->
+    <main class="flex-1 overflow-y-auto bg-canvas scroll-thin">
+
+      <!-- Page header -->
+      <div class="border-b border-line px-8 pb-5 pt-7">
+        <div class="flex items-end justify-between">
+          <div>
+            <div class="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-3">Pipeline</div>
+            <h1 class="mt-1 text-[22px] font-semibold tracking-tight text-ink">Deals</h1>
+            <p class="mt-1 text-sm text-ink-3">All transactions across the brokerage. 24 active · $14.2M volume YTD.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="flex items-center gap-1.5 rounded-md border border-line bg-canvas px-3 py-1.5 text-sm text-ink-2 hover:bg-canvas-3">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18m9-9H3"/></svg>
+              Import
+            </button>
+            <button class="flex items-center gap-1.5 rounded-md bg-ink px-3 py-1.5 text-sm font-medium text-white hover:bg-ink-2">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14m-7-7h14"/></svg>
+              New deal
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI strip -->
+        <div class="mt-6 grid grid-cols-4 gap-3">
+          <div class="rounded-lg border border-line bg-canvas p-4">
+            <div class="text-[11px] font-medium uppercase tracking-wider text-ink-3">Pipeline volume</div>
+            <div class="mt-1 text-xl font-semibold tracking-tight">$14.24M</div>
+            <div class="mt-1 flex items-center gap-1 text-xs"><span class="text-emerald-600">↑ 12.4%</span><span class="text-ink-4">vs last month</span></div>
+          </div>
+          <div class="rounded-lg border border-line bg-canvas p-4">
+            <div class="text-[11px] font-medium uppercase tracking-wider text-ink-3">GCI projected</div>
+            <div class="mt-1 text-xl font-semibold tracking-tight">$427.2K</div>
+            <div class="mt-1 flex items-center gap-1 text-xs"><span class="text-emerald-600">↑ 8.1%</span><span class="text-ink-4">vs last month</span></div>
+          </div>
+          <div class="rounded-lg border border-line bg-canvas p-4">
+            <div class="text-[11px] font-medium uppercase tracking-wider text-ink-3">Avg days to close</div>
+            <div class="mt-1 text-xl font-semibold tracking-tight">38</div>
+            <div class="mt-1 flex items-center gap-1 text-xs"><span class="text-rose-600">↑ 2 days</span><span class="text-ink-4">vs last month</span></div>
+          </div>
+          <div class="rounded-lg border border-line bg-canvas p-4">
+            <div class="text-[11px] font-medium uppercase tracking-wider text-ink-3">Closing this week</div>
+            <div class="mt-1 text-xl font-semibold tracking-tight">5</div>
+            <div class="mt-1 text-xs text-ink-4">$3.1M total volume</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toolbar (filters / views — Attio style) -->
+      <div class="flex items-center gap-2 border-b border-line bg-canvas px-8 py-3">
+        <div class="flex items-center gap-1 rounded-md border border-line bg-canvas-2 p-0.5 text-sm">
+          <button class="rounded bg-canvas px-2.5 py-1 text-ink shadow-sm">All</button>
+          <button class="rounded px-2.5 py-1 text-ink-3 hover:text-ink">Active</button>
+          <button class="rounded px-2.5 py-1 text-ink-3 hover:text-ink">Under contract</button>
+          <button class="rounded px-2.5 py-1 text-ink-3 hover:text-ink">Closing soon</button>
+          <button class="rounded px-2.5 py-1 text-ink-3 hover:text-ink">Closed</button>
+        </div>
+        <div class="ml-2 h-5 w-px bg-line"></div>
+        <button class="flex items-center gap-1.5 rounded-md border border-dashed border-line-2 px-2.5 py-1 text-xs text-ink-3 hover:bg-canvas-3 hover:text-ink">
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14m-7-7h14"/></svg>
+          Filter
+        </button>
+        <button class="flex items-center gap-1.5 rounded-md border border-dashed border-line-2 px-2.5 py-1 text-xs text-ink-3 hover:bg-canvas-3 hover:text-ink">
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
+          Sort
+        </button>
+        <button class="flex items-center gap-1.5 rounded-md border border-dashed border-line-2 px-2.5 py-1 text-xs text-ink-3 hover:bg-canvas-3 hover:text-ink">
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+          Group: Status
+        </button>
+        <div class="flex-1"></div>
+        <div class="flex items-center gap-1 text-xs text-ink-3">
+          <span>10 of 24</span>
+          <span class="text-ink-4">·</span>
+          <button class="hover:text-ink">Saved view: <span class="font-medium text-ink-2">Active pipeline</span></button>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="px-8 py-4">
+        <div class="overflow-hidden rounded-lg border border-line bg-canvas">
+          <table class="w-full text-sm">
+            <thead class="border-b border-line bg-canvas-2 text-[11px] font-medium uppercase tracking-wider text-ink-3">
+              <tr>
+                <th class="w-8 px-3 py-2 text-left"><input type="checkbox" class="rounded border-line-2"/></th>
+                <th class="px-3 py-2 text-left">Property</th>
+                <th class="px-3 py-2 text-left">Status</th>
+                <th class="px-3 py-2 text-left">Side</th>
+                <th class="px-3 py-2 text-right">Sale price</th>
+                <th class="px-3 py-2 text-right">GCI</th>
+                <th class="px-3 py-2 text-left">Agents</th>
+                <th class="px-3 py-2 text-left">Lead source</th>
+                <th class="px-3 py-2 text-left">Close date</th>
+                <th class="w-8 px-3 py-2"></th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-line">
+
+              <!-- Row 1 -->
+              <tr class="row-hover hover:bg-canvas-2">
+                <td class="px-3 py-2.5"><input type="checkbox" class="rounded border-line-2"/></td>
+                <td class="px-3 py-2.5">
+                  <a href="deal.html" class="block">
+                    <div class="font-medium text-ink hover:text-accent">1422 Glenwood Ave</div>
+                    <div class="text-xs text-ink-3">Raleigh, NC 27608 · MLS-100000</div>
+                  </a>
+                </td>
+                <td class="px-3 py-2.5">
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>Closed</span>
+                </td>
+                <td class="px-3 py-2.5 text-ink-2">Sell</td>
+                <td class="px-3 py-2.5 text-right tabular-nums">$420,000</td>
+                <td class="px-3 py-2.5 text-right tabular-nums font-medium">$12,600</td>
+                <td class="px-3 py-2.5">
+                  <div class="flex -space-x-1.5">
+                    <div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white ring-2 ring-canvas" style="--c1:#2563eb;--c2:#1d4ed8;">SB</div>
+                  </div>
+                </td>
+                <td class="px-3 py-2.5"><span class="rounded bg-canvas-3 px-1.5 py-0.5 text-[11px] text-ink-2">Zillow</span></td>
+                <td class="px-3 py-2.5 text-ink-2 tabular-nums">Apr 1, 2026</td>
+                <td class="px-3 py-2.5 row-actions text-right"><button class="text-ink-3 hover:text-ink">⋯</button></td>
+              </tr>
+
+              <!-- Row 2 -->
+              <tr class="row-hover hover:bg-canvas-2">
+                <td class="px-3 py-2.5"><input type="checkbox" class="rounded border-line-2"/></td>
+                <td class="px-3 py-2.5">
+                  <a href="deal.html" class="block">
+                    <div class="font-medium text-ink hover:text-accent">8 Oakwood Pl</div>
+                    <div class="text-xs text-ink-3">Raleigh, NC 27601 · MLS-100001</div>
+                  </a>
+                </td>
+                <td class="px-3 py-2.5">
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>Closed</span>
+                </td>
+                <td class="px-3 py-2.5 text-ink-2">Buy</td>
+                <td class="px-3 py-2.5 text-right tabular-nums">$457,500</td>
+                <td class="px-3 py-2.5 text-right tabular-nums font-medium">$13,725</td>
+                <td class="px-3 py-2.5">
+                  <div class="flex -space-x-1.5">
+                    <div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white ring-2 ring-canvas" style="--c1:#7c3aed;--c2:#5b21b6;">MC</div>
+                  </div>
+                </td>
+                <td class="px-3 py-2.5"><span class="rounded bg-canvas-3 px-1.5 py-0.5 text-[11px] text-ink-2">Sphere</span></td>
+                <td class="px-3 py-2.5 text-ink-2 tabular-nums">Apr 2, 2026</td>
+                <td class="px-3 py-2.5 row-actions text-right"><button class="text-ink-3 hover:text-ink">⋯</button></td>
+              </tr>
+
+              <!-- Row 3 (highlighted - the detail page) -->
+              <tr class="row-hover hover:bg-canvas-2">
+                <td class="px-3 py-2.5"><input type="checkbox" class="rounded border-line-2"/></td>
+                <td class="px-3 py-2.5">
+                  <a href="deal.html" class="block">
+                    <div class="font-medium text-ink hover:text-accent">3306 Hillsborough St</div>
+                    <div class="text-xs text-ink-3">Raleigh, NC 27607 · MLS-100002</div>
+                  </a>
+                </td>
+                <td class="px-3 py-2.5">
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>Closed</span>
+                </td>
+                <td class="px-3 py-2.5 text-ink-2">Sell</td>
+                <td class="px-3 py-2.5 text-right tabular-nums">$495,000</td>
+                <td class="px-3 py-2.5 text-right tabular-nums font-medium">$14,850</td>
+                <td class="px-3 py-2.5">
+                  <div class="flex -space-x-1.5">
+                    <div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white ring-2 ring-canvas" style="--c1:#16a34a;--c2:#15803d;">JP</div>
+                    <div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white ring-2 ring-canvas" style="--c1:#dc2626;--c2:#b91c1c;">RO</div>
+                  </div>
+                </td>
+                <td class="px-3 py-2.5"><span class="rounded bg-canvas-3 px-1.5 py-0.5 text-[11px] text-ink-2">Past Client</span></td>
+                <td class="px-3 py-2.5 text-ink-2 tabular-nums">Apr 3, 2026</td>
+                <td class="px-3 py-2.5 row-actions text-right"><button class="text-ink-3 hover:text-ink">⋯</button></td>
+              </tr>
+
+              <!-- Row 4 -->
+              <tr class="row-hover hover:bg-canvas-2">
+                <td class="px-3 py-2.5"><input type="checkbox" class="rounded border-line-2"/></td>
+                <td class="px-3 py-2.5">
+                  <a href="deal.html" class="block">
+                    <div class="font-medium text-ink hover:text-accent">405 Fayetteville St</div>
+                    <div class="text-xs text-ink-3">Raleigh, NC 27601 · MLS-100003</div>
+                  </a>
+                </td>
+                <td class="px-3 py-2.5">
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700"><span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>Pending</span>
+                </td>
+                <td class="px-3 py-2.5 text-ink-2">Buy</td>
+                <td class="px-3 py-2.5 text-right tabular-nums">—</td>
+                <td class="px-3 py-2.5 text-right tabular-nums font-medium text-ink-3">$15,975 <span class="text-[10px] text-ink-4">est</span></td>
+                <td class="px-3 py-2.5">
+                  <div class="flex -space-x-1.5">
+                    <div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white ring-2 ring-canvas" style="--c1:#ea580c;--c2:#c2410c;">AR</div>
+                  </div>
+                </td>
+                <td class="px-3 py-2.5"><span class="rounded bg-canvas-3 px-1.5 py-0.5 text-[11px] text-ink-2">Open House</span></td>
+                <td class="px-3 py-2.5 text-ink-2 tabular-nums">May 14, 2026</td>
+                <td class="px-3 py-2.5 row-actions text-right"><button class="text-ink-3 hover:text-ink">⋯</button></td>
+              </tr>
+
+              <!-- Row 5 -->
+              <tr class="row-hover hover:bg-canvas-2">
+                <td class="px-3 py-2.5"><input type="checkbox" class="rounded border-line-2"/></td>
+                <td class="px-3 py-2.5">
+                  <a href="deal.html" class="block">
+                    <div class="font-medium text-ink hover:text-accent">912 N Person St</div>
+                    <div class="text-xs text-ink-3">Raleigh, NC 27604 · MLS-100004</div>
+                  </a>
+                </td>
+                <td class="px-3 py-2.5">
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700"><span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>Pending</span>
+                </td>
+                <td class="px-3 py-2.5 text-ink-2">Sell</td>
+                <td class="px-3 py-2.5 text-right tabular-nums">—</td>
+                <td class="px-3 py-2.5 text-right tabular-nums font-medium text-ink-3">$17,025 <span class="text-[10px] text-ink-4">est</span></td>
+                <td class="px-3 py-2.5">
+                  <div class="flex -space-x-1.5">
+                    <div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white ring-2 ring-canvas" style="--c1:#0891b2;--c2:#0e7490;">DP</div>
+                  </div>
+                </td>
+                <td class="px-3 py-2.5"><span class="rounded bg-canvas-3 px-1.5 py-0.5 text-[11px] text-ink-2">Team Lead</span></td>
+                <td class="px-3 py-2.5 text-ink-2 tabular-nums">May 16, 2026</td>
+                <td class="px-3 py-2.5 row-actions text-right"><button class="text-ink-3 hover:text-ink">⋯</button></td>
+              </tr>
+
+              <!-- Row 6 -->
+              <tr class="row-hover hover:bg-canvas-2">
+                <td class="px-3 py-2.5"><input type="checkbox" class="rounded border-line-2"/></td>
+                <td class="px-3 py-2.5">
+                  <a href="deal.html" class="block">
+                    <div class="font-medium text-ink hover:text-accent">77 Boylan Ave</div>
+                    <div class="text-xs text-ink-3">Raleigh, NC 27603 · MLS-100005</div>
+                  </a>
+                </td>
+                <td class="px-3 py-2.5">
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700"><span class="h-1.5 w-1.5 rounded-full bg-blue-500"></span>Under contract</span>
+                </td>
+                <td class="px-3 py-2.5 text-ink-2">Buy</td>
+                <td class="px-3 py-2.5 text-right tabular-nums">—</td>
+                <td class="px-3 py-2.5 text-right tabular-nums font-medium text-ink-3">$18,075 <span class="text-[10px] text-ink-4">est</span></td>
+                <td class="px-3 py-2.5">
+                  <div class="flex -space-x-1.5">
+                    <div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white ring-2 ring-canvas" style="--c1:#9333ea;--c2:#6b21a8;">TS</div>
+                  </div>
+                </td>
+                <td class="px-3 py-2.5"><span class="rounded bg-canvas-3 px-1.5 py-0.5 text-[11px] text-ink-2">Realtor.com</span></td>
+                <td class="px-3 py-2.5 text-ink-2 tabular-nums">May 21, 2026</td>
+                <td class="px-3 py-2.5 row-actions text-right"><button class="text-ink-3 hover:text-ink">⋯</button></td>
+              </tr>
+
+              <!-- Row 7 -->
+              <tr class="row-hover hover:bg-canvas-2">
+                <td class="px-3 py-2.5"><input type="checkbox" class="rounded border-line-2"/></td>
+                <td class="px-3 py-2.5">
+                  <a href="deal.html" class="block">
+                    <div class="font-medium text-ink hover:text-accent">226 E Hargett St</div>
+                    <div class="text-xs text-ink-3">Raleigh, NC 27601 · MLS-100006</div>
+                  </a>
+                </td>
+                <td class="px-3 py-2.5">
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700"><span class="h-1.5 w-1.5 rounded-full bg-blue-500"></span>Under contract</span>
+                </td>
+                <td class="px-3 py-2.5 text-ink-2">Sell</td>
+                <td class="px-3 py-2.5 text-right tabular-nums">—</td>
+                <td class="px-3 py-2.5 text-right tabular-nums font-medium text-ink-3">$19,125 <span class="text-[10px] text-ink-4">est</span></td>
+                <td class="px-3 py-2.5">
+                  <div class="flex -space-x-1.5">
+                    <div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white ring-2 ring-canvas" style="--c1:#0d9488;--c2:#0f766e;">JN</div>
+                    <div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white ring-2 ring-canvas" style="--c1:#2563eb;--c2:#1d4ed8;">SB</div>
+                  </div>
+                </td>
+                <td class="px-3 py-2.5"><span class="rounded bg-canvas-3 px-1.5 py-0.5 text-[11px] text-ink-2">Website</span></td>
+                <td class="px-3 py-2.5 text-ink-2 tabular-nums">May 28, 2026</td>
+                <td class="px-3 py-2.5 row-actions text-right"><button class="text-ink-3 hover:text-ink">⋯</button></td>
+              </tr>
+
+              <!-- Row 8 -->
+              <tr class="row-hover hover:bg-canvas-2">
+                <td class="px-3 py-2.5"><input type="checkbox" class="rounded border-line-2"/></td>
+                <td class="px-3 py-2.5">
+                  <a href="deal.html" class="block">
+                    <div class="font-medium text-ink hover:text-accent">511 W Jones St</div>
+                    <div class="text-xs text-ink-3">Raleigh, NC 27603 · MLS-100007</div>
+                  </a>
+                </td>
+                <td class="px-3 py-2.5">
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-violet-50 px-2 py-0.5 text-[11px] font-medium text-violet-700"><span class="h-1.5 w-1.5 rounded-full bg-violet-500"></span>Active listing</span>
+                </td>
+                <td class="px-3 py-2.5 text-ink-2">Buy</td>
+                <td class="px-3 py-2.5 text-right tabular-nums">—</td>
+                <td class="px-3 py-2.5 text-right tabular-nums font-medium text-ink-3">$20,175 <span class="text-[10px] text-ink-4">est</span></td>
+                <td class="px-3 py-2.5">
+                  <div class="flex -space-x-1.5">
+                    <div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white ring-2 ring-canvas" style="--c1:#7c3aed;--c2:#5b21b6;">MC</div>
+                  </div>
+                </td>
+                <td class="px-3 py-2.5"><span class="rounded bg-canvas-3 px-1.5 py-0.5 text-[11px] text-ink-2">Agent Referral</span></td>
+                <td class="px-3 py-2.5 text-ink-2 tabular-nums">—</td>
+                <td class="px-3 py-2.5 row-actions text-right"><button class="text-ink-3 hover:text-ink">⋯</button></td>
+              </tr>
+
+              <!-- Row 9 -->
+              <tr class="row-hover hover:bg-canvas-2">
+                <td class="px-3 py-2.5"><input type="checkbox" class="rounded border-line-2"/></td>
+                <td class="px-3 py-2.5">
+                  <a href="deal.html" class="block">
+                    <div class="font-medium text-ink hover:text-accent">1808 Wake Forest Rd</div>
+                    <div class="text-xs text-ink-3">Raleigh, NC 27608 · MLS-100008</div>
+                  </a>
+                </td>
+                <td class="px-3 py-2.5">
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-violet-50 px-2 py-0.5 text-[11px] font-medium text-violet-700"><span class="h-1.5 w-1.5 rounded-full bg-violet-500"></span>Active listing</span>
+                </td>
+                <td class="px-3 py-2.5 text-ink-2">Sell</td>
+                <td class="px-3 py-2.5 text-right tabular-nums">—</td>
+                <td class="px-3 py-2.5 text-right tabular-nums font-medium text-ink-3">$21,225 <span class="text-[10px] text-ink-4">est</span></td>
+                <td class="px-3 py-2.5">
+                  <div class="flex -space-x-1.5">
+                    <div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white ring-2 ring-canvas" style="--c1:#16a34a;--c2:#15803d;">JP</div>
+                  </div>
+                </td>
+                <td class="px-3 py-2.5"><span class="rounded bg-canvas-3 px-1.5 py-0.5 text-[11px] text-ink-2">Zillow</span></td>
+                <td class="px-3 py-2.5 text-ink-2 tabular-nums">—</td>
+                <td class="px-3 py-2.5 row-actions text-right"><button class="text-ink-3 hover:text-ink">⋯</button></td>
+              </tr>
+
+              <!-- Row 10 -->
+              <tr class="row-hover hover:bg-canvas-2">
+                <td class="px-3 py-2.5"><input type="checkbox" class="rounded border-line-2"/></td>
+                <td class="px-3 py-2.5">
+                  <a href="deal.html" class="block">
+                    <div class="font-medium text-ink hover:text-accent">4221 Six Forks Rd</div>
+                    <div class="text-xs text-ink-3">Raleigh, NC 27609 · MLS-100009</div>
+                  </a>
+                </td>
+                <td class="px-3 py-2.5">
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] font-medium text-zinc-700"><span class="h-1.5 w-1.5 rounded-full bg-zinc-500"></span>Pre-listing</span>
+                </td>
+                <td class="px-3 py-2.5 text-ink-2">Buy</td>
+                <td class="px-3 py-2.5 text-right tabular-nums">—</td>
+                <td class="px-3 py-2.5 text-right tabular-nums font-medium text-ink-3">$22,275 <span class="text-[10px] text-ink-4">est</span></td>
+                <td class="px-3 py-2.5">
+                  <div class="flex -space-x-1.5">
+                    <div class="avatar flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold text-white ring-2 ring-canvas" style="--c1:#ea580c;--c2:#c2410c;">AR</div>
+                  </div>
+                </td>
+                <td class="px-3 py-2.5"><span class="rounded bg-canvas-3 px-1.5 py-0.5 text-[11px] text-ink-2">Sphere</span></td>
+                <td class="px-3 py-2.5 text-ink-2 tabular-nums">—</td>
+                <td class="px-3 py-2.5 row-actions text-right"><button class="text-ink-3 hover:text-ink">⋯</button></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-3 flex items-center justify-between text-xs text-ink-3">
+          <div>10 of 24</div>
+          <div class="flex items-center gap-1">
+            <button class="rounded border border-line px-2 py-1 hover:bg-canvas-3">‹ Prev</button>
+            <button class="rounded border border-line px-2 py-1 hover:bg-canvas-3">Next ›</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+</html>
