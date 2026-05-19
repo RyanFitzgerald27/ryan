@@ -17,15 +17,16 @@ logger = logging.getLogger(__name__)
 
 SMTP_HOST = "smtp.gmail.com"
 SMTP_PORT = 587
+DEFAULT_RECIPIENT = "ryanfitzgerald5@gmail.com"
 
 
 def _creds() -> tuple[str, str, str]:
     user = os.environ.get("GMAIL_USER", "")
     pw = os.environ.get("GMAIL_APP_PASSWORD", "")
-    recipient = os.environ.get("DIGEST_RECIPIENT", "")
-    if not (user and pw and recipient):
+    recipient = os.environ.get("DIGEST_RECIPIENT", "") or DEFAULT_RECIPIENT
+    if not (user and pw):
         raise RuntimeError(
-            "Missing GMAIL_USER / GMAIL_APP_PASSWORD / DIGEST_RECIPIENT env vars"
+            "Missing GMAIL_USER / GMAIL_APP_PASSWORD env vars"
         )
     return user, pw, recipient
 

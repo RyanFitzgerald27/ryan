@@ -51,14 +51,16 @@ password**:
 3. Create a password named e.g. "cup-handle-scanner". Google shows a
    16-character string.
 4. Use that string as `GMAIL_APP_PASSWORD` (no spaces). `GMAIL_USER` is
-   the full address; `DIGEST_RECIPIENT` is where the digest goes.
+   the full sending address. The digest goes to `DIGEST_RECIPIENT`, which
+   defaults to `ryanfitzgerald5@gmail.com` (see `DEFAULT_RECIPIENT` in
+   `src/email_sender.py`); set the env var/secret only to override it.
 
 Run locally:
 
 ```bash
 export GMAIL_USER="you@gmail.com"
 export GMAIL_APP_PASSWORD="abcd efgh ijkl mnop"   # 16 chars, no spaces
-export DIGEST_RECIPIENT="you@gmail.com"
+# DIGEST_RECIPIENT optional — defaults to ryanfitzgerald5@gmail.com
 python main.py
 ```
 
@@ -68,8 +70,8 @@ The workflow runs Mon–Fri at 22:00 UTC (6 PM ET / EDT). To enable it:
 
 1. Push this branch to GitHub.
 2. Repo → **Settings → Secrets and variables → Actions →
-   New repository secret**. Add three secrets: `GMAIL_USER`,
-   `GMAIL_APP_PASSWORD`, `DIGEST_RECIPIENT`.
+   New repository secret**. Add `GMAIL_USER` and `GMAIL_APP_PASSWORD`
+   (and optionally `DIGEST_RECIPIENT` to override the default recipient).
 3. Repo → **Actions** tab → enable workflows if prompted.
 4. Open **Daily Cup & Handle Scan** → **Run workflow** to test it
    immediately instead of waiting for the schedule.
