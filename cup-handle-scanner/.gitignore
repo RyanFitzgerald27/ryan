@@ -10,6 +10,7 @@ venv/
 cache/
 charts/
 logs/
+practice_email*.html
 
 # Env
 .env
