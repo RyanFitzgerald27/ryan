@@ -1,0 +1,16 @@
+# Cup-and-handle scan watchlist — one ticker per line, # for comments.
+# If this file contains only comments/blank lines, main.py falls back to
+# the live S&P 500 constituent list pulled from Wikipedia at runtime.
+#
+# A focused list earns its keep faster than scanning 500 names. Start
+# narrow (positions you understand + IBD-style leaders), expand later.
+AAPL
+MSFT
+NVDA
+DDOG
+MU
+COIN
+META
+AMD
+CRWD
+SNOW

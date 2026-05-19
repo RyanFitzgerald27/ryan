@@ -1,0 +1,60 @@
+name: Daily Cup & Handle Scan
+
+on:
+  schedule:
+    # 22:00 UTC = 6 PM ET (EDT). Adjust to 23:00 in winter (EST) if desired.
+    - cron: "0 22 * * 1-5"
+  workflow_dispatch: {}
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cup-handle-scanner
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: cup-handle-scanner/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run scan
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DIGEST_RECIPIENT: ${{ secrets.DIGEST_RECIPIENT }}
+        run: python main.py
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scan-logs
+          path: cup-handle-scanner/logs/
+          retention-days: 14
+
+      - name: Notify on workflow failure
+        if: failure()
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DIGEST_RECIPIENT: ${{ secrets.DIGEST_RECIPIENT }}
+        run: |
+          python - <<'PY'
+          import os, smtplib
+          from email.mime.text import MIMEText
+          u, p, r = (os.environ["GMAIL_USER"],
+                     os.environ["GMAIL_APP_PASSWORD"],
+                     os.environ["DIGEST_RECIPIENT"])
+          m = MIMEText("Cup & Handle daily scan workflow FAILED. Check Actions logs.")
+          m["Subject"] = "[ALERT] Cup & Handle scan workflow failed"
+          m["From"], m["To"] = u, r
+          with smtplib.SMTP("smtp.gmail.com", 587, timeout=30) as s:
+              s.starttls(); s.login(u, p); s.send_message(m)
+          PY
