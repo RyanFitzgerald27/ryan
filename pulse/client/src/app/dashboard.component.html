@@ -1,0 +1,193 @@
+<div class="container-fluid py-4 px-3 px-lg-4">
+
+  <!-- Toolbar: date range + sync -->
+  <div class="d-flex flex-wrap gap-3 justify-content-between align-items-center mb-3">
+    <div class="btn-group btn-group-sm flex-wrap" role="group" aria-label="Date range">
+      @for (r of ranges; track r.value) {
+        <button
+          type="button"
+          class="btn"
+          [class.btn-primary]="range === r.value"
+          [class.btn-outline-secondary]="range !== r.value"
+          (click)="setRange(r.value)"
+        >{{ r.label }}</button>
+      }
+    </div>
+
+    <div class="d-flex align-items-center gap-3">
+      <span class="text-muted small d-none d-md-inline">
+        Last sync: {{ fullDateTime(sync?.lastCallSync?.finished_at) }}
+      </span>
+      <button
+        type="button"
+        class="btn btn-sm btn-success"
+        (click)="syncNow()"
+        [disabled]="syncing"
+      >
+        @if (syncing) {
+          <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+          Syncing…
+        } @else {
+          <i class="bi bi-arrow-repeat me-1"></i> Sync now
+        }
+      </button>
+    </div>
+  </div>
+
+  <!-- Alerts -->
+  @if (config && !config.fubConfigured) {
+    <div class="alert alert-warning d-flex gap-2 align-items-start">
+      <i class="bi bi-exclamation-triangle-fill mt-1"></i>
+      <div>
+        <strong>Follow Up Boss is not connected.</strong>
+        Add your <code>FUB_API_KEY</code> to <code>pulse/server/.env</code>,
+        restart the API server, then click <em>Sync now</em>.
+      </div>
+    </div>
+  }
+  @if (error) {
+    <div class="alert alert-danger d-flex gap-2 align-items-start">
+      <i class="bi bi-x-octagon-fill mt-1"></i>
+      <div>{{ error }}</div>
+    </div>
+  }
+
+  <!-- Stat cards -->
+  <div class="row g-3">
+    @for (c of cards; track c.label) {
+      <div class="col-6 col-md-4 col-xl-2">
+        <div class="card stat-card h-100 accent-{{ c.accent }}">
+          <div class="card-body">
+            <div class="stat-icon"><i class="bi {{ c.icon }}"></i></div>
+            <div class="stat-value">{{ c.value }}</div>
+            <div class="stat-label">{{ c.label }}</div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Trend chart -->
+  <div class="row g-3 mt-1">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span class="fw-semibold">
+            <i class="bi bi-bar-chart-line me-2"></i>Activity Trend
+          </span>
+          <span class="text-muted small">{{ rangeMeta?.label }}</span>
+        </div>
+        <div class="card-body">
+          @if (summary && summary.calls > 0) {
+            <app-trend-chart [points]="trend"></app-trend-chart>
+          } @else {
+            <p class="text-muted text-center my-5">
+              No call activity in this range yet.
+            </p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaderboard + recent calls -->
+  <div class="row g-3 mt-1">
+    <div class="col-lg-7">
+      <div class="card h-100">
+        <div class="card-header fw-semibold">
+          <i class="bi bi-trophy me-2"></i>Agent Leaderboard
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead>
+              <tr>
+                <th style="width: 3rem">#</th>
+                <th>Agent</th>
+                <th class="text-end">Calls</th>
+                <th class="text-end">Convos</th>
+                <th class="text-end">Rate</th>
+                <th class="text-end">Talk Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (a of agents; track a.rank) {
+                <tr>
+                  <td>
+                    <span class="rank-badge {{ rankClass(a.rank) }}">{{ a.rank }}</span>
+                  </td>
+                  <td class="fw-semibold">{{ a.agentName }}</td>
+                  <td class="text-end">{{ num(a.calls) }}</td>
+                  <td class="text-end">{{ num(a.conversations) }}</td>
+                  <td class="text-end">{{ pct(a.conversationRate) }}</td>
+                  <td class="text-end">{{ duration(a.talkSeconds) }}</td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="6" class="text-center text-muted py-4">
+                    No calls in this range.
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card h-100">
+        <div class="card-header fw-semibold">
+          <i class="bi bi-clock-history me-2"></i>Recent Calls
+        </div>
+        <div class="table-responsive recent-scroll">
+          <table class="table table-sm table-hover align-middle mb-0">
+            <thead>
+              <tr>
+                <th>When</th>
+                <th>Agent</th>
+                <th class="text-center">Dir</th>
+                <th class="text-end">Length</th>
+                <th>Outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (c of calls; track c.id) {
+                <tr>
+                  <td class="text-nowrap small">{{ dateTime(c.createdAt) }}</td>
+                  <td class="small">{{ c.agentName || '—' }}</td>
+                  <td class="text-center">
+                    @if (c.isIncoming) {
+                      <i class="bi bi-telephone-inbound text-primary" title="Inbound"></i>
+                    } @else {
+                      <i class="bi bi-telephone-outbound text-secondary" title="Outbound"></i>
+                    }
+                  </td>
+                  <td class="text-end small">{{ duration(c.duration) }}</td>
+                  <td>
+                    <span class="small">{{ c.outcome || '—' }}</span>
+                    @if (c.isConversation) {
+                      <span class="badge convo-badge ms-1">convo</span>
+                    }
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="5" class="text-center text-muted py-4">
+                    No calls in this range.
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="text-muted small text-center mt-4 mb-0">
+    A call counts as a <strong>conversation</strong> when it lasts at least
+    {{ config?.conversation?.minSeconds ?? 90 }}s or its outcome marks a
+    contact. Tune this in <code>pulse/server/.env</code>.
+  </p>
+
+</div>

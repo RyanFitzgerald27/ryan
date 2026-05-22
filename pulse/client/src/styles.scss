@@ -1,0 +1,18 @@
+/* Pulse global styles */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #f4f6f8;
+  color: #101828;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.table > :not(caption) > * > * {
+  padding-top: 0.55rem;
+  padding-bottom: 0.55rem;
+}
