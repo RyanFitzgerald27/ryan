@@ -1,0 +1,12 @@
+.text-purple {
+  color: #6f42c1;
+}
+
+.activity-detail {
+  display: inline-block;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
