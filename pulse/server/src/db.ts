@@ -45,6 +45,29 @@ CREATE TABLE IF NOT EXISTS sync_runs (
   message     TEXT
 );
 
+CREATE TABLE IF NOT EXISTS deals (
+  id               INTEGER PRIMARY KEY AUTOINCREMENT,
+  source           TEXT NOT NULL DEFAULT 'fub',
+  source_id        TEXT NOT NULL,
+  name             TEXT,
+  pipeline         TEXT,
+  stage            TEXT,
+  status           TEXT NOT NULL DEFAULT 'open',
+  price            REAL NOT NULL DEFAULT 0,
+  commission       REAL,
+  agent_id         INTEGER,
+  agent_name       TEXT,
+  projected_close  TEXT,
+  closed_date      TEXT,
+  created_at       TEXT,
+  updated_at       TEXT,
+  synced_at        TEXT NOT NULL,
+  UNIQUE(source, source_id)
+);
+CREATE INDEX IF NOT EXISTS idx_deals_status ON deals(status);
+CREATE INDEX IF NOT EXISTS idx_deals_closed ON deals(closed_date);
+CREATE INDEX IF NOT EXISTS idx_deals_agent ON deals(agent_id);
+
 CREATE TABLE IF NOT EXISTS meta (
   key   TEXT PRIMARY KEY,
   value TEXT NOT NULL

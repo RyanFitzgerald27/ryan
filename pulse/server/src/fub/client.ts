@@ -25,6 +25,36 @@ export interface FubCall {
   userId?: number;
 }
 
+/**
+ * A deal in Follow Up Boss. Field shapes vary by account (some return nested
+ * objects, some flat ids/names), so optional/loose typing is intentional —
+ * `sync.ts` normalizes whatever shape arrives.
+ */
+export interface FubDeal {
+  id: number;
+  created?: string;
+  updated?: string;
+  name?: string;
+  status?: string;
+  stage?: unknown;
+  stageId?: number;
+  stageName?: string;
+  pipeline?: unknown;
+  pipelineId?: number;
+  pipelineName?: string;
+  price?: number;
+  value?: number;
+  commissionValue?: number;
+  commission?: number;
+  projectedCloseDate?: string;
+  closedDate?: string;
+  wonDate?: string;
+  lostDate?: string;
+  owner?: unknown;
+  ownerId?: number;
+  users?: unknown;
+}
+
 function authHeader(): string {
   return 'Basic ' + Buffer.from(config.fub.apiKey + ':').toString('base64');
 }
@@ -113,4 +143,9 @@ export function fetchUsers(): AsyncGenerator<FubUser[]> {
 /** Calls are requested newest-first so sync can stop early once past the window. */
 export function fetchCalls(): AsyncGenerator<FubCall[]> {
   return fubPages<FubCall>('/calls', 'calls', { sort: '-created' });
+}
+
+/** Deals are fully re-synced each run so status changes (won/lost) are caught. */
+export function fetchDeals(): AsyncGenerator<FubDeal[]> {
+  return fubPages<FubDeal>('/deals', 'deals', { sort: '-created' });
 }

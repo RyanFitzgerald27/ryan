@@ -45,6 +45,16 @@
       </div>
     </div>
   }
+  @if (config && config.fubConfigured && config.totals.deals === 0) {
+    <div class="alert alert-info d-flex gap-2 align-items-start">
+      <i class="bi bi-info-circle-fill mt-1"></i>
+      <div>
+        <strong>No deals synced yet.</strong>
+        Deals come from the Follow Up Boss <em>Deals</em> feature — make sure it
+        is enabled in FUB, then click <em>Sync now</em>.
+      </div>
+    </div>
+  }
   @if (error) {
     <div class="alert alert-danger d-flex gap-2 align-items-start">
       <i class="bi bi-x-octagon-fill mt-1"></i>
@@ -67,35 +77,60 @@
     }
   </div>
 
-  <!-- Trend chart -->
+  <!-- Trend + pipeline -->
   <div class="row g-3 mt-1">
-    <div class="col-12">
-      <div class="card">
+    <div class="col-lg-7">
+      <div class="card h-100">
         <div class="card-header d-flex justify-content-between align-items-center">
           <span class="fw-semibold">
-            <i class="bi bi-bar-chart-line me-2"></i>Activity Trend
+            <i class="bi bi-graph-up me-2"></i>Closed Deals Trend
           </span>
           <span class="text-muted small">{{ rangeMeta?.label }}</span>
         </div>
         <div class="card-body">
-          @if (summary && summary.calls > 0) {
-            <app-trend-chart [points]="trend"></app-trend-chart>
+          @if (summary && summary.wonDeals > 0) {
+            <app-deals-chart [points]="trend"></app-deals-chart>
           } @else {
             <p class="text-muted text-center my-5">
-              No call activity in this range yet.
+              No deals closed in this range yet.
             </p>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card h-100">
+        <div class="card-header fw-semibold">
+          <i class="bi bi-funnel me-2"></i>Open Pipeline by Stage
+        </div>
+        <div class="card-body">
+          @for (s of pipeline; track s.stage) {
+            <div class="pipeline-row">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <span class="fw-semibold small">{{ s.stage }}</span>
+                <span class="text-muted small">
+                  {{ s.count }} · {{ currency(s.value) }}
+                </span>
+              </div>
+              <div class="pipeline-track mt-1">
+                <div class="pipeline-fill" [style.width]="barWidth(s.value)"></div>
+              </div>
+            </div>
+          } @empty {
+            <p class="text-muted text-center my-4">No open deals.</p>
           }
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Leaderboard + recent calls -->
+  <!-- Leaderboard + recent deals -->
   <div class="row g-3 mt-1">
     <div class="col-lg-7">
       <div class="card h-100">
         <div class="card-header fw-semibold">
-          <i class="bi bi-trophy me-2"></i>Agent Leaderboard
+          <i class="bi bi-trophy me-2"></i>Agent Deals Leaderboard
         </div>
         <div class="table-responsive">
           <table class="table table-hover align-middle mb-0">
@@ -103,10 +138,11 @@
               <tr>
                 <th style="width: 3rem">#</th>
                 <th>Agent</th>
-                <th class="text-end">Calls</th>
-                <th class="text-end">Convos</th>
-                <th class="text-end">Rate</th>
-                <th class="text-end">Talk Time</th>
+                <th class="text-end">Open</th>
+                <th class="text-end">Pipeline</th>
+                <th class="text-end">Won</th>
+                <th class="text-end">Volume</th>
+                <th class="text-end">Commission</th>
               </tr>
             </thead>
             <tbody>
@@ -116,15 +152,16 @@
                     <span class="rank-badge {{ rankClass(a.rank) }}">{{ a.rank }}</span>
                   </td>
                   <td class="fw-semibold">{{ a.agentName }}</td>
-                  <td class="text-end">{{ num(a.calls) }}</td>
-                  <td class="text-end">{{ num(a.conversations) }}</td>
-                  <td class="text-end">{{ pct(a.conversationRate) }}</td>
-                  <td class="text-end">{{ duration(a.talkSeconds) }}</td>
+                  <td class="text-end">{{ num(a.openDeals) }}</td>
+                  <td class="text-end">{{ currency(a.pipelineValue) }}</td>
+                  <td class="text-end">{{ num(a.wonDeals) }}</td>
+                  <td class="text-end">{{ currency(a.wonVolume) }}</td>
+                  <td class="text-end">{{ currency(a.commission) }}</td>
                 </tr>
               } @empty {
                 <tr>
-                  <td colspan="6" class="text-center text-muted py-4">
-                    No calls in this range.
+                  <td colspan="7" class="text-center text-muted py-4">
+                    No deals to rank yet.
                   </td>
                 </tr>
               }
@@ -137,43 +174,37 @@
     <div class="col-lg-5">
       <div class="card h-100">
         <div class="card-header fw-semibold">
-          <i class="bi bi-clock-history me-2"></i>Recent Calls
+          <i class="bi bi-clock-history me-2"></i>Recent Deals
         </div>
         <div class="table-responsive recent-scroll">
           <table class="table table-sm table-hover align-middle mb-0">
             <thead>
               <tr>
-                <th>When</th>
+                <th>Deal</th>
                 <th>Agent</th>
-                <th class="text-center">Dir</th>
-                <th class="text-end">Length</th>
-                <th>Outcome</th>
+                <th>Status</th>
+                <th class="text-end">Value</th>
               </tr>
             </thead>
             <tbody>
-              @for (c of calls; track c.id) {
+              @for (d of deals; track d.id) {
                 <tr>
-                  <td class="text-nowrap small">{{ dateTime(c.createdAt) }}</td>
-                  <td class="small">{{ c.agentName || '—' }}</td>
-                  <td class="text-center">
-                    @if (c.isIncoming) {
-                      <i class="bi bi-telephone-inbound text-primary" title="Inbound"></i>
-                    } @else {
-                      <i class="bi bi-telephone-outbound text-secondary" title="Outbound"></i>
-                    }
+                  <td class="small">
+                    <div class="fw-semibold">{{ d.name || '—' }}</div>
+                    <div class="text-muted">{{ d.stage || d.pipeline || '—' }}</div>
                   </td>
-                  <td class="text-end small">{{ duration(c.duration) }}</td>
+                  <td class="small">{{ d.agentName || '—' }}</td>
                   <td>
-                    <span class="small">{{ c.outcome || '—' }}</span>
-                    @if (c.isConversation) {
-                      <span class="badge convo-badge ms-1">convo</span>
-                    }
+                    <span class="badge status-badge {{ statusClass(d.status) }}">
+                      {{ d.status }}
+                    </span>
                   </td>
+                  <td class="text-end small">{{ currency(d.price) }}</td>
                 </tr>
               } @empty {
                 <tr>
-                  <td colspan="5" class="text-center text-muted py-4">
-                    No calls in this range.
+                  <td colspan="4" class="text-center text-muted py-4">
+                    No deals synced yet.
                   </td>
                 </tr>
               }
@@ -185,9 +216,8 @@
   </div>
 
   <p class="text-muted small text-center mt-4 mb-0">
-    A call counts as a <strong>conversation</strong> when it lasts at least
-    {{ config?.conversation?.minSeconds ?? 90 }}s or its outcome marks a
-    contact. Tune this in <code>pulse/server/.env</code>.
+    Open Deals &amp; Pipeline Value are current totals. Deals Won, Volume,
+    Commission and Win Rate cover deals closed in the selected range.
   </p>
 
 </div>

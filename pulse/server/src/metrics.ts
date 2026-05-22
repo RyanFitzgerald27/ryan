@@ -93,9 +93,15 @@ export function resolveRange(name: string): Range {
       label = 'This Year';
       break;
     case 'all': {
-      const row = db.prepare('SELECT MIN(created_at) AS earliest FROM calls').get() as {
-        earliest: string | null;
-      };
+      const row = db
+        .prepare(
+          `SELECT MIN(d) AS earliest FROM (
+             SELECT MIN(created_at) AS d FROM calls
+             UNION ALL SELECT MIN(created_at) FROM deals
+             UNION ALL SELECT MIN(closed_date) FROM deals
+           )`,
+        )
+        .get() as { earliest: string | null };
       start = row.earliest ? new Date(row.earliest) : new Date(todayStart.getTime() - 29 * DAY_MS);
       label = 'All Time';
       break;
@@ -293,4 +299,229 @@ export function recentCalls(opts: {
        LIMIT ?`,
     )
     .all(...conv.params, ...whereParams, opts.limit) as CallRow[];
+}
+
+// ---------------------------------------------------------------------------
+// Deals
+// ---------------------------------------------------------------------------
+
+export interface DealSummary {
+  openDeals: number;
+  pipelineValue: number;
+  wonDeals: number;
+  wonVolume: number;
+  lostDeals: number;
+  commission: number;
+  winRate: number;
+  avgWonPrice: number;
+}
+
+/**
+ * Open-pipeline figures are point-in-time (all open deals, range-independent);
+ * won/lost figures are filtered to deals closed within the range.
+ */
+export function dealSummary(range: Range): DealSummary {
+  const open = db
+    .prepare(
+      "SELECT COUNT(*) AS n, COALESCE(SUM(price), 0) AS v FROM deals WHERE status = 'open'",
+    )
+    .get() as { n: number; v: number };
+
+  const won = db
+    .prepare(
+      `SELECT COUNT(*) AS n,
+              COALESCE(SUM(price), 0) AS v,
+              COALESCE(SUM(COALESCE(commission, 0)), 0) AS c
+       FROM deals
+       WHERE status = 'won' AND closed_date IS NOT NULL
+         AND closed_date >= ? AND closed_date <= ?`,
+    )
+    .get(range.start, range.end) as { n: number; v: number; c: number };
+
+  const lost = db
+    .prepare(
+      `SELECT COUNT(*) AS n FROM deals
+       WHERE status = 'lost' AND closed_date IS NOT NULL
+         AND closed_date >= ? AND closed_date <= ?`,
+    )
+    .get(range.start, range.end) as { n: number };
+
+  const decided = won.n + lost.n;
+  return {
+    openDeals: open.n,
+    pipelineValue: open.v,
+    wonDeals: won.n,
+    wonVolume: won.v,
+    lostDeals: lost.n,
+    commission: won.c,
+    winRate: decided > 0 ? won.n / decided : 0,
+    avgWonPrice: won.n > 0 ? won.v / won.n : 0,
+  };
+}
+
+export interface DealAgentStat {
+  rank: number;
+  agentId: number | null;
+  agentName: string;
+  openDeals: number;
+  pipelineValue: number;
+  wonDeals: number;
+  wonVolume: number;
+  commission: number;
+}
+
+export function dealLeaderboard(range: Range): DealAgentStat[] {
+  const rows = db
+    .prepare(
+      `SELECT
+         d.agent_id AS agentId,
+         COALESCE(d.agent_name, a.name, 'Unassigned') AS agentName,
+         COALESCE(SUM(CASE WHEN d.status = 'open' THEN 1 ELSE 0 END), 0) AS openDeals,
+         COALESCE(SUM(CASE WHEN d.status = 'open' THEN d.price ELSE 0 END), 0) AS pipelineValue,
+         COALESCE(SUM(CASE WHEN d.status = 'won' AND d.closed_date >= ? AND d.closed_date <= ?
+                           THEN 1 ELSE 0 END), 0) AS wonDeals,
+         COALESCE(SUM(CASE WHEN d.status = 'won' AND d.closed_date >= ? AND d.closed_date <= ?
+                           THEN d.price ELSE 0 END), 0) AS wonVolume,
+         COALESCE(SUM(CASE WHEN d.status = 'won' AND d.closed_date >= ? AND d.closed_date <= ?
+                           THEN COALESCE(d.commission, 0) ELSE 0 END), 0) AS commission
+       FROM deals d
+       LEFT JOIN agents a ON a.id = d.agent_id
+       GROUP BY d.agent_id
+       HAVING openDeals > 0 OR wonDeals > 0 OR pipelineValue > 0
+       ORDER BY wonVolume DESC, pipelineValue DESC`,
+    )
+    .all(
+      range.start,
+      range.end,
+      range.start,
+      range.end,
+      range.start,
+      range.end,
+    ) as Omit<DealAgentStat, 'rank'>[];
+
+  return rows.map((r, i) => ({ ...r, rank: i + 1 }));
+}
+
+export interface PipelineStage {
+  stage: string;
+  count: number;
+  value: number;
+}
+
+export function dealPipeline(): PipelineStage[] {
+  return db
+    .prepare(
+      `SELECT COALESCE(NULLIF(TRIM(stage), ''), '(no stage)') AS stage,
+              COUNT(*) AS count,
+              COALESCE(SUM(price), 0) AS value
+       FROM deals
+       WHERE status = 'open'
+       GROUP BY COALESCE(NULLIF(TRIM(stage), ''), '(no stage)')
+       ORDER BY value DESC, count DESC`,
+    )
+    .all() as PipelineStage[];
+}
+
+export interface DealTrendPoint {
+  date: string;
+  deals: number;
+  volume: number;
+}
+
+export function dealTrend(range: Range): DealTrendPoint[] {
+  const rows = db
+    .prepare(
+      `SELECT closed_date AS closedDate, price
+       FROM deals
+       WHERE status = 'won' AND closed_date IS NOT NULL
+         AND closed_date >= ? AND closed_date <= ?`,
+    )
+    .all(range.start, range.end) as { closedDate: string; price: number }[];
+
+  const byMonth = range.name === 'year' || range.name === 'all';
+  const buckets = new Map<string, DealTrendPoint>();
+  for (const r of rows) {
+    const key = bucketKey(new Date(r.closedDate), byMonth);
+    const b = buckets.get(key) ?? { date: key, deals: 0, volume: 0 };
+    b.deals += 1;
+    b.volume += r.price || 0;
+    buckets.set(key, b);
+  }
+
+  const series: DealTrendPoint[] = [];
+  if (byMonth) {
+    const startP = zonedParts(new Date(range.start));
+    const endP = zonedParts(new Date(range.end));
+    let year = startP.year;
+    let month = startP.month;
+    for (let guard = 0; guard < 600; guard++) {
+      const key = `${year}-${String(month).padStart(2, '0')}`;
+      series.push(buckets.get(key) ?? { date: key, deals: 0, volume: 0 });
+      if (year === endP.year && month === endP.month) break;
+      month += 1;
+      if (month > 12) {
+        month = 1;
+        year += 1;
+      }
+    }
+  } else {
+    const endKey = bucketKey(new Date(range.end), false);
+    let cursor = new Date(range.start).getTime();
+    for (let guard = 0; guard < 400; guard++) {
+      const key = bucketKey(new Date(cursor), false);
+      series.push(buckets.get(key) ?? { date: key, deals: 0, volume: 0 });
+      if (key >= endKey) break;
+      cursor += DAY_MS;
+    }
+  }
+  return series;
+}
+
+export interface DealRow {
+  id: number;
+  source: string;
+  sourceId: string;
+  name: string | null;
+  pipeline: string | null;
+  stage: string | null;
+  status: string;
+  price: number;
+  commission: number | null;
+  agentId: number | null;
+  agentName: string | null;
+  projectedClose: string | null;
+  closedDate: string | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+}
+
+export function recentDeals(opts: {
+  limit: number;
+  status?: string;
+  agentId?: number;
+}): DealRow[] {
+  const clauses: string[] = [];
+  const params: (string | number)[] = [];
+  if (opts.status) {
+    clauses.push('status = ?');
+    params.push(opts.status);
+  }
+  if (opts.agentId != null) {
+    clauses.push('agent_id = ?');
+    params.push(opts.agentId);
+  }
+  const where = clauses.length ? `WHERE ${clauses.join(' AND ')}` : '';
+
+  return db
+    .prepare(
+      `SELECT id, source, source_id AS sourceId, name, pipeline, stage, status,
+              price, commission, agent_id AS agentId, agent_name AS agentName,
+              projected_close AS projectedClose, closed_date AS closedDate,
+              created_at AS createdAt, updated_at AS updatedAt
+       FROM deals
+       ${where}
+       ORDER BY COALESCE(updated_at, created_at, closed_date) DESC
+       LIMIT ?`,
+    )
+    .all(...params, opts.limit) as DealRow[];
 }

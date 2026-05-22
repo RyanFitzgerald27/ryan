@@ -1,14 +1,15 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ApiService } from './api.service';
 import { SyncService } from './sync.service';
-import { TrendChartComponent } from './trend-chart.component';
+import { DealsChartComponent } from './deals-chart.component';
 import {
-  AgentStat,
   AppConfig,
-  CallRow,
+  DealAgentStat,
+  DealRow,
+  DealSummary,
+  DealTrendPoint,
+  PipelineStage,
   RangeMeta,
-  Summary,
-  TrendPoint,
 } from './models';
 
 interface RangeOption {
@@ -24,12 +25,12 @@ interface StatCard {
 }
 
 @Component({
-  selector: 'app-dashboard',
-  imports: [TrendChartComponent],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss',
+  selector: 'app-deals',
+  imports: [DealsChartComponent],
+  templateUrl: './deals.component.html',
+  styleUrl: './deals.component.scss',
 })
-export class DashboardComponent implements OnInit {
+export class DealsComponent implements OnInit {
   private readonly api = inject(ApiService);
   readonly syncService = inject(SyncService);
 
@@ -43,14 +44,15 @@ export class DashboardComponent implements OnInit {
     { value: 'all', label: 'All Time' },
   ];
 
-  range = 'last30';
+  range = 'year';
 
   config?: AppConfig;
   rangeMeta?: RangeMeta;
-  summary?: Summary;
-  agents: AgentStat[] = [];
-  trend: TrendPoint[] = [];
-  calls: CallRow[] = [];
+  summary?: DealSummary;
+  agents: DealAgentStat[] = [];
+  pipeline: PipelineStage[] = [];
+  trend: DealTrendPoint[] = [];
+  deals: DealRow[] = [];
 
   loading = false;
   error: string | null = null;
@@ -71,24 +73,28 @@ export class DashboardComponent implements OnInit {
     this.loading = true;
     this.error = null;
 
-    this.api.getSummary(this.range).subscribe({
+    this.api.getDealSummary(this.range).subscribe({
       next: (r) => {
         this.summary = r.summary;
         this.rangeMeta = r.range;
       },
       error: (e) => this.fail(e),
     });
-    this.api.getLeaderboard(this.range).subscribe({
+    this.api.getDealLeaderboard(this.range).subscribe({
       next: (r) => (this.agents = r.agents),
       error: (e) => this.fail(e),
     });
-    this.api.getTrend(this.range).subscribe({
+    this.api.getDealPipeline().subscribe({
+      next: (r) => (this.pipeline = r.stages),
+      error: (e) => this.fail(e),
+    });
+    this.api.getDealTrend(this.range).subscribe({
       next: (r) => (this.trend = r.points),
       error: (e) => this.fail(e),
     });
-    this.api.getRecentCalls(this.range, 25).subscribe({
+    this.api.getDeals(25).subscribe({
       next: (r) => {
-        this.calls = r.calls;
+        this.deals = r.deals;
         this.loading = false;
       },
       error: (e) => this.fail(e),
@@ -117,13 +123,21 @@ export class DashboardComponent implements OnInit {
   get cards(): StatCard[] {
     const s = this.summary;
     return [
-      { label: 'Total Calls', value: this.num(s?.calls), icon: 'bi-telephone', accent: 'blue' },
-      { label: 'Conversations', value: this.num(s?.conversations), icon: 'bi-chat-dots', accent: 'green' },
-      { label: 'Conversation Rate', value: this.pct(s?.conversationRate), icon: 'bi-graph-up-arrow', accent: 'teal' },
-      { label: 'Talk Time', value: this.duration(s?.talkSeconds), icon: 'bi-stopwatch', accent: 'purple' },
-      { label: 'Outbound Calls', value: this.num(s?.outbound), icon: 'bi-telephone-outbound', accent: 'orange' },
-      { label: 'Active Agents', value: this.num(s?.activeAgents), icon: 'bi-people', accent: 'slate' },
+      { label: 'Open Deals', value: this.num(s?.openDeals), icon: 'bi-folder2-open', accent: 'blue' },
+      { label: 'Pipeline Value', value: this.money(s?.pipelineValue), icon: 'bi-cash-stack', accent: 'teal' },
+      { label: 'Deals Won', value: this.num(s?.wonDeals), icon: 'bi-trophy', accent: 'green' },
+      { label: 'Won Volume', value: this.money(s?.wonVolume), icon: 'bi-graph-up-arrow', accent: 'purple' },
+      { label: 'Commission', value: this.money(s?.commission), icon: 'bi-coin', accent: 'orange' },
+      { label: 'Win Rate', value: this.pct(s?.winRate), icon: 'bi-bullseye', accent: 'slate' },
     ];
+  }
+
+  get pipelineMax(): number {
+    return this.pipeline.reduce((max, s) => Math.max(max, s.value), 0) || 1;
+  }
+
+  barWidth(value: number): string {
+    return `${Math.round((value / this.pipelineMax) * 100)}%`;
   }
 
   num(value: number | null | undefined): string {
@@ -134,24 +148,29 @@ export class DashboardComponent implements OnInit {
     return `${Math.round((value ?? 0) * 100)}%`;
   }
 
-  duration(seconds: number | null | undefined): string {
-    const total = Math.max(0, Math.round(seconds ?? 0));
-    if (total === 0) return '0s';
-    if (total < 60) return `${total}s`;
-    const h = Math.floor(total / 3600);
-    const m = Math.floor((total % 3600) / 60);
-    const s = total % 60;
-    if (h > 0) return `${h}h ${m}m`;
-    return s > 0 ? `${m}m ${s}s` : `${m}m`;
+  /** Compact money for stat cards, e.g. $1.3M / $540K. */
+  money(value: number | null | undefined): string {
+    const v = value ?? 0;
+    if (Math.abs(v) >= 1_000_000) return `$${(v / 1_000_000).toFixed(2)}M`;
+    if (Math.abs(v) >= 1_000) return `$${Math.round(v / 1_000)}K`;
+    return `$${Math.round(v)}`;
   }
 
-  dateTime(iso: string | null | undefined): string {
+  /** Full currency for tables. */
+  currency(value: number | null | undefined): string {
+    return (value ?? 0).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits: 0,
+    });
+  }
+
+  dateOnly(iso: string | null | undefined): string {
     if (!iso) return '—';
-    return new Date(iso).toLocaleString(undefined, {
+    return new Date(iso).toLocaleDateString(undefined, {
       month: 'short',
       day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
+      year: 'numeric',
     });
   }
 
@@ -165,5 +184,9 @@ export class DashboardComponent implements OnInit {
     if (rank === 2) return 'rank-silver';
     if (rank === 3) return 'rank-bronze';
     return '';
+  }
+
+  statusClass(status: string): string {
+    return `status-${status}`;
   }
 }

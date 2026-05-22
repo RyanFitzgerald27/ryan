@@ -45,6 +45,58 @@ export interface CallRow {
   isConversation: number;
 }
 
+export interface DealSummary {
+  openDeals: number;
+  pipelineValue: number;
+  wonDeals: number;
+  wonVolume: number;
+  lostDeals: number;
+  commission: number;
+  winRate: number;
+  avgWonPrice: number;
+}
+
+export interface DealAgentStat {
+  rank: number;
+  agentId: number | null;
+  agentName: string;
+  openDeals: number;
+  pipelineValue: number;
+  wonDeals: number;
+  wonVolume: number;
+  commission: number;
+}
+
+export interface PipelineStage {
+  stage: string;
+  count: number;
+  value: number;
+}
+
+export interface DealTrendPoint {
+  date: string;
+  deals: number;
+  volume: number;
+}
+
+export interface DealRow {
+  id: number;
+  source: string;
+  sourceId: string;
+  name: string | null;
+  pipeline: string | null;
+  stage: string | null;
+  status: string;
+  price: number;
+  commission: number | null;
+  agentId: number | null;
+  agentName: string | null;
+  projectedClose: string | null;
+  closedDate: string | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+}
+
 export interface SyncRun {
   id: number;
   entity: string;
@@ -68,5 +120,5 @@ export interface AppConfig {
   timezone: string;
   conversation: { minSeconds: number; outcomes: string[] };
   autoSyncMinutes: number;
-  totals: { calls: number; agents: number };
+  totals: { calls: number; agents: number; deals: number };
 }

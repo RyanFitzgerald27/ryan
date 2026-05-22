@@ -1,11 +1,12 @@
-# Pulse — Brokerage Calls & Conversations Tracker
+# Pulse — Brokerage Activity & Deals Tracker
 
-An internal dashboard for tracking call activity and conversations across the
-brokerage, with a per-agent leaderboard. Activity is synced live from the
-**Follow Up Boss** API.
+An internal dashboard for the brokerage with two areas:
 
-This is the MVP (calls & conversations). Company/agent **deals tracking** is the
-planned next phase — see the roadmap below.
+- **Activity** — calls & conversations across the team, with a per-agent leaderboard.
+- **Deals** — company and agent deals: open pipeline by stage, closed volume,
+  commission, win rate, and a per-agent leaderboard.
+
+All data is synced live from the **Follow Up Boss** API.
 
 ## Architecture
 
@@ -18,8 +19,8 @@ pulse/
 - The **server** owns the Follow Up Boss integration and all metrics. The sync
   layer (`server/src/fub/`) is self-contained so it can later be lifted into the
   AgentLoft backend.
-- The **client** is a single-page Angular dashboard, built with Bootstrap to
-  stay visually consistent with AgentLoft.
+- The **client** is an Angular single-page app with two routes — `/activity`
+  and `/deals` — built with Bootstrap to stay visually consistent with AgentLoft.
 - Data lives in a local **SQLite** file (`server/data/pulse.db`). It sits behind
   a thin data layer (`server/src/db.ts` + `metrics.ts`) so it can be swapped for
   Postgres later with no API changes.
@@ -90,25 +91,30 @@ You can pull activity from Follow Up Boss three ways:
 - `npm run sync` in `pulse/server` — a one-shot run, ideal for a cron job.
 - Set `SYNC_INTERVAL_MINUTES` to sync automatically while the server runs.
 
-The first sync pulls `SYNC_LOOKBACK_DAYS` of history (default 365). Later syncs
-are incremental — only calls since the last successful sync are fetched. All
-records are upserted by FUB id, so re-syncing never creates duplicates.
+Each sync covers agents, calls, and deals. The first call sync pulls
+`SYNC_LOOKBACK_DAYS` of history (default 365); later call syncs are incremental.
+Deals are fully re-synced every run so status changes (open → won/lost) are
+always caught. Everything is upserted by id, so re-syncing never creates
+duplicates. If the FUB **Deals** feature is off, the deals step is skipped and
+the call sync still succeeds.
 
-## What counts as a "conversation"
+## How the metrics are defined
 
-A call is counted as a conversation when **either**:
+**Conversations.** A call counts as a conversation when **either** it lasted at
+least `CONVERSATION_MIN_SECONDS` seconds, **or** its Follow Up Boss outcome is
+listed in `CONVERSATION_OUTCOMES`. Outcome names vary per FUB account — edit
+`CONVERSATION_OUTCOMES` in `.env` to match the outcomes your team actually uses.
 
-- it lasted at least `CONVERSATION_MIN_SECONDS` seconds, **or**
-- its Follow Up Boss outcome is listed in `CONVERSATION_OUTCOMES`.
-
-Outcome names vary per FUB account — edit `CONVERSATION_OUTCOMES` in `.env` to
-match the outcomes your team actually uses.
+**Deal ranges.** On the **Deals** page, *Open Deals* and *Pipeline Value* are
+current totals (every open deal, regardless of the date range). *Deals Won*,
+*Volume*, *Commission*, and *Win Rate* cover deals closed within the selected
+date range.
 
 ## Roadmap
 
-- **Deals tracking** — company deals and agent deals (pipeline, volume,
-  commissions, closed vs. pending).
-- **Real Scale** — Real Scale currently only exposes SMTP, so the plan is to
-  ingest its emailed reports rather than a live API.
+- **Real Scale** — deals also live in Real Scale, which exposes the same
+  transactions as FUB. Since Real Scale only offers SMTP, the plan is to ingest
+  its emailed reports and de-duplicate against FUB deals (the `deals` table
+  already carries `source` + `source_id` for exactly this).
 - **AgentLoft integration** — fold the FUB sync layer and metrics into the
   AgentLoft backend so Pulse is reachable from inside AgentLoft.

@@ -3,7 +3,9 @@ import { syncAll } from './fub/sync';
 /** One-shot sync runner — handy for cron jobs: `npm run sync`. */
 syncAll()
   .then((result) => {
-    console.log(`Sync complete — ${result.agents} agents, ${result.calls} calls updated.`);
+    console.log(
+      `Sync complete — ${result.agents} agents, ${result.calls} calls, ${result.deals} deals updated.`,
+    );
     process.exit(0);
   })
   .catch((err) => {

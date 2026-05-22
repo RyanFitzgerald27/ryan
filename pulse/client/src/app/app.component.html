@@ -1,12 +1,23 @@
-<nav class="navbar navbar-dark pulse-navbar">
+<nav class="navbar navbar-dark navbar-expand pulse-navbar">
   <div class="container-fluid">
     <span class="navbar-brand mb-0 d-flex align-items-center">
       <i class="bi bi-soundwave me-2"></i>
       <span class="fw-bold">Pulse</span>
-      <span class="navbar-sub d-none d-sm-inline">Calls &amp; Conversations</span>
+      <span class="navbar-sub d-none d-sm-inline">Raleigh Realty</span>
     </span>
-    <span class="navbar-text small">Raleigh Realty</span>
+    <ul class="navbar-nav flex-row gap-1">
+      <li class="nav-item">
+        <a class="nav-link px-3" routerLink="/activity" routerLinkActive="active">
+          <i class="bi bi-telephone me-1"></i>Activity
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link px-3" routerLink="/deals" routerLinkActive="active">
+          <i class="bi bi-briefcase me-1"></i>Deals
+        </a>
+      </li>
+    </ul>
   </div>
 </nav>
 
-<app-dashboard></app-dashboard>
+<router-outlet></router-outlet>

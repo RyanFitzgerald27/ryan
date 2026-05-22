@@ -1,7 +1,18 @@
 import { Router } from 'express';
 import { config, fubConfigured } from './config';
 import { db } from './db';
-import { leaderboard, recentCalls, resolveRange, summary, trend } from './metrics';
+import {
+  dealLeaderboard,
+  dealPipeline,
+  dealSummary,
+  dealTrend,
+  leaderboard,
+  recentCalls,
+  recentDeals,
+  resolveRange,
+  summary,
+  trend,
+} from './metrics';
 import { syncState, triggerSync } from './fub/sync';
 
 export const apiRouter = Router();
@@ -29,12 +40,13 @@ apiRouter.get(
   handle((_req, res) => {
     const totalCalls = (db.prepare('SELECT COUNT(*) AS n FROM calls').get() as { n: number }).n;
     const totalAgents = (db.prepare('SELECT COUNT(*) AS n FROM agents').get() as { n: number }).n;
+    const totalDeals = (db.prepare('SELECT COUNT(*) AS n FROM deals').get() as { n: number }).n;
     res.json({
       fubConfigured: fubConfigured(),
       timezone: config.timezone,
       conversation: config.conversation,
       autoSyncMinutes: config.sync.intervalMinutes,
-      totals: { calls: totalCalls, agents: totalAgents },
+      totals: { calls: totalCalls, agents: totalAgents, deals: totalDeals },
     });
   }),
 );
@@ -72,6 +84,47 @@ apiRouter.get(
     res.json({
       calls: recentCalls({ range, agentId, limit }),
     });
+  }),
+);
+
+apiRouter.get(
+  '/deals/summary',
+  handle((req, res) => {
+    const range = resolveRange(String(req.query.range ?? 'year'));
+    res.json({ range, summary: dealSummary(range) });
+  }),
+);
+
+apiRouter.get(
+  '/deals/leaderboard',
+  handle((req, res) => {
+    const range = resolveRange(String(req.query.range ?? 'year'));
+    res.json({ range, agents: dealLeaderboard(range) });
+  }),
+);
+
+apiRouter.get(
+  '/deals/pipeline',
+  handle((_req, res) => {
+    res.json({ stages: dealPipeline() });
+  }),
+);
+
+apiRouter.get(
+  '/deals/trend',
+  handle((req, res) => {
+    const range = resolveRange(String(req.query.range ?? 'year'));
+    res.json({ range, points: dealTrend(range) });
+  }),
+);
+
+apiRouter.get(
+  '/deals/list',
+  handle((req, res) => {
+    const limit = Math.min(500, Math.max(1, Number(req.query.limit ?? 50)));
+    const status = req.query.status ? String(req.query.status) : undefined;
+    const agentId = req.query.agentId ? Number(req.query.agentId) : undefined;
+    res.json({ deals: recentDeals({ limit, status, agentId }) });
   }),
 );
 
