@@ -7,7 +7,7 @@ import {
   dealSummary,
   dealTrend,
   leaderboard,
-  recentCalls,
+  recentActivity,
   recentDeals,
   resolveRange,
   summary,
@@ -38,15 +38,19 @@ apiRouter.get(
 apiRouter.get(
   '/config',
   handle((_req, res) => {
-    const totalCalls = (db.prepare('SELECT COUNT(*) AS n FROM calls').get() as { n: number }).n;
-    const totalAgents = (db.prepare('SELECT COUNT(*) AS n FROM agents').get() as { n: number }).n;
-    const totalDeals = (db.prepare('SELECT COUNT(*) AS n FROM deals').get() as { n: number }).n;
+    const count = (table: string): number =>
+      (db.prepare(`SELECT COUNT(*) AS n FROM ${table}`).get() as { n: number }).n;
     res.json({
       fubConfigured: fubConfigured(),
       timezone: config.timezone,
       conversation: config.conversation,
       autoSyncMinutes: config.sync.intervalMinutes,
-      totals: { calls: totalCalls, agents: totalAgents, deals: totalDeals },
+      totals: {
+        calls: count('calls'),
+        agents: count('agents'),
+        messages: count('messages'),
+        deals: count('deals'),
+      },
     });
   }),
 );
@@ -76,14 +80,11 @@ apiRouter.get(
 );
 
 apiRouter.get(
-  '/calls',
+  '/activity',
   handle((req, res) => {
-    const range = req.query.range ? resolveRange(String(req.query.range)) : undefined;
-    const agentId = req.query.agentId ? Number(req.query.agentId) : undefined;
+    const range = resolveRange(String(req.query.range ?? 'last30'));
     const limit = Math.min(500, Math.max(1, Number(req.query.limit ?? 50)));
-    res.json({
-      calls: recentCalls({ range, agentId, limit }),
-    });
+    res.json({ activity: recentActivity({ range, limit }) });
   }),
 );
 

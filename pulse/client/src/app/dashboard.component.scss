@@ -1,5 +1,12 @@
-.convo-badge {
-  background: #e3f5ec;
-  color: #0f7a47;
-  font-weight: 600;
+.text-purple {
+  color: #6f42c1;
+}
+
+.activity-detail {
+  display: inline-block;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
 }

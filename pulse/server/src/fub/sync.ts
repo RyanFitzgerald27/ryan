@@ -1,6 +1,17 @@
 import { config, fubConfigured } from '../config';
 import { db, getMeta, setMeta } from '../db';
-import { fetchCalls, fetchDeals, fetchUsers, FubCall, FubDeal, FubUser } from './client';
+import {
+  fetchCalls,
+  fetchDeals,
+  fetchEmails,
+  fetchTextMessages,
+  fetchUsers,
+  FubCall,
+  FubDeal,
+  FubEmail,
+  FubTextMessage,
+  FubUser,
+} from './client';
 
 function userDisplayName(u: FubUser): string {
   if (u.name && u.name.trim()) return u.name.trim();
@@ -256,6 +267,137 @@ export async function syncDeals(): Promise<number> {
   }
 }
 
+interface NormalizedMessage {
+  source_id: string;
+  agent_id: number | null;
+  person_id: number | null;
+  is_incoming: number;
+  body: string | null;
+  created_at: string;
+}
+
+/** Shared incremental sync for a message channel (texts or emails). */
+async function syncMessageChannel(
+  entity: string,
+  type: 'text' | 'email',
+  watermarkKey: string,
+  pages: () => AsyncGenerator<unknown[]>,
+  normalize: (raw: never) => NormalizedMessage | null,
+): Promise<number> {
+  const runId = startRun(entity);
+  let count = 0;
+  try {
+    const lastSynced = getMeta(watermarkKey);
+    const since = lastSynced
+      ? new Date(Date.parse(lastSynced) - 24 * 60 * 60 * 1000)
+      : new Date(Date.now() - config.sync.lookbackDays * 24 * 60 * 60 * 1000);
+    const sinceMs = since.getTime();
+
+    const lookupAgent = db.prepare('SELECT name FROM agents WHERE id = ?');
+    const upsert = db.prepare(`
+      INSERT INTO messages
+        (source, type, source_id, agent_id, agent_name, person_id, is_incoming, body, created_at, synced_at)
+      VALUES
+        ('fub', @type, @source_id, @agent_id, @agent_name, @person_id, @is_incoming, @body, @created_at, @synced_at)
+      ON CONFLICT(source, type, source_id) DO UPDATE SET
+        agent_id = excluded.agent_id, agent_name = excluded.agent_name,
+        person_id = excluded.person_id, is_incoming = excluded.is_incoming,
+        body = excluded.body, created_at = excluded.created_at, synced_at = excluded.synced_at
+    `);
+    const now = new Date().toISOString();
+    let reachedWindowEnd = false;
+
+    for await (const page of pages()) {
+      const normalized = (page as never[])
+        .map(normalize)
+        .filter((r): r is NormalizedMessage => r !== null);
+      const fresh = normalized.filter((r) => Date.parse(r.created_at) >= sinceMs);
+
+      const writePage = db.transaction((rows: NormalizedMessage[]) => {
+        for (const r of rows) {
+          const agentRow = r.agent_id
+            ? (lookupAgent.get(r.agent_id) as { name: string } | undefined)
+            : undefined;
+          upsert.run({
+            type,
+            source_id: r.source_id,
+            agent_id: r.agent_id,
+            agent_name: agentRow?.name ?? null,
+            person_id: r.person_id,
+            is_incoming: r.is_incoming,
+            body: r.body,
+            created_at: r.created_at,
+            synced_at: now,
+          });
+          count++;
+        }
+      });
+      writePage(fresh);
+
+      // Messages arrive newest-first; stop once a whole page predates the window.
+      if (normalized.length > 0 && normalized.every((r) => Date.parse(r.created_at) < sinceMs)) {
+        reachedWindowEnd = true;
+      }
+      if (reachedWindowEnd) break;
+    }
+
+    setMeta(watermarkKey, now);
+    finishRun(runId, count, 'success', null);
+    return count;
+  } catch (err) {
+    finishRun(runId, count, 'error', String((err as Error)?.message ?? err));
+    throw err;
+  }
+}
+
+function normalizeText(t: FubTextMessage): NormalizedMessage | null {
+  const created = toIso(t.created);
+  if (!created) return null;
+  const body = (t.message ?? t.body ?? '').trim();
+  return {
+    source_id: String(t.id),
+    agent_id: t.userId ?? null,
+    person_id: t.personId ?? null,
+    is_incoming: t.isIncoming ? 1 : 0,
+    body: body ? body.slice(0, 280) : null,
+    created_at: created,
+  };
+}
+
+function normalizeEmail(e: FubEmail): NormalizedMessage | null {
+  const created = toIso(e.created);
+  if (!created) return null;
+  const subject = (e.subject ?? '').trim();
+  return {
+    source_id: String(e.id),
+    agent_id: e.userId ?? null,
+    person_id: e.personId ?? null,
+    is_incoming: e.isIncoming ? 1 : 0,
+    body: subject ? subject.slice(0, 280) : null,
+    created_at: created,
+  };
+}
+
+export function syncTexts(): Promise<number> {
+  return syncMessageChannel(
+    'texts',
+    'text',
+    'texts_last_synced',
+    fetchTextMessages,
+    normalizeText as (raw: never) => NormalizedMessage | null,
+  );
+}
+
+export function syncEmails(): Promise<number> {
+  return syncMessageChannel(
+    'emails',
+    'email',
+    'emails_last_synced',
+    fetchEmails,
+    normalizeEmail as (raw: never) => NormalizedMessage | null,
+  );
+}
+
 let running = false;
 let lastError: string | null = null;
 let lastFinishedAt: string | null = null;
@@ -264,24 +406,43 @@ export function syncState(): { running: boolean; lastError: string | null; lastF
   return { running, lastError, lastFinishedAt };
 }
 
-/** Runs a full sync (agents, calls, deals). Throws if FUB is not configured. */
-export async function syncAll(): Promise<{ agents: number; calls: number; deals: number }> {
+export interface SyncResult {
+  agents: number;
+  calls: number;
+  texts: number;
+  emails: number;
+  deals: number;
+}
+
+/** Runs an optional sync step; a failure is logged but never aborts the run. */
+async function syncOptional(label: string, fn: () => Promise<number>): Promise<number> {
+  try {
+    return await fn();
+  } catch (err) {
+    console.error(
+      `[sync] ${label} sync failed (continuing):`,
+      String((err as Error)?.message ?? err),
+    );
+    return 0;
+  }
+}
+
+/** Runs a full sync (agents, calls, texts, emails, deals). */
+export async function syncAll(): Promise<SyncResult> {
   if (!fubConfigured()) {
     throw new Error('FUB_API_KEY is not set — add it to pulse/server/.env to enable syncing.');
   }
   const agents = await syncAgents();
   const calls = await syncCalls();
 
-  // A deals failure (e.g. the FUB Deals feature is off) must not lose the
-  // call sync — it is recorded in sync_runs and surfaced separately.
-  let deals = 0;
-  try {
-    deals = await syncDeals();
-  } catch (err) {
-    console.error('[sync] deals sync failed (continuing):', String((err as Error)?.message ?? err));
-  }
+  // Texts, emails and deals are optional: a failure on one (feature disabled,
+  // endpoint unavailable) must not lose the others. Each is recorded in
+  // sync_runs and surfaced separately.
+  const texts = await syncOptional('texts', syncTexts);
+  const emails = await syncOptional('emails', syncEmails);
+  const deals = await syncOptional('deals', syncDeals);
 
-  return { agents, calls, deals };
+  return { agents, calls, texts, emails, deals };
 }
 
 /** Starts a sync in the background. Returns false if one is already running. */

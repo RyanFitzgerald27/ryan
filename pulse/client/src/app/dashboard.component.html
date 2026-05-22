@@ -78,11 +78,11 @@
           <span class="text-muted small">{{ rangeMeta?.label }}</span>
         </div>
         <div class="card-body">
-          @if (summary && summary.calls > 0) {
+          @if (hasActivity) {
             <app-trend-chart [points]="trend"></app-trend-chart>
           } @else {
             <p class="text-muted text-center my-5">
-              No call activity in this range yet.
+              No call, text or email activity in this range yet.
             </p>
           }
         </div>
@@ -90,7 +90,7 @@
     </div>
   </div>
 
-  <!-- Leaderboard + recent calls -->
+  <!-- Leaderboard + recent activity -->
   <div class="row g-3 mt-1">
     <div class="col-lg-7">
       <div class="card h-100">
@@ -104,8 +104,9 @@
                 <th style="width: 3rem">#</th>
                 <th>Agent</th>
                 <th class="text-end">Calls</th>
+                <th class="text-end">Texts</th>
+                <th class="text-end">Emails</th>
                 <th class="text-end">Convos</th>
-                <th class="text-end">Rate</th>
                 <th class="text-end">Talk Time</th>
               </tr>
             </thead>
@@ -117,14 +118,15 @@
                   </td>
                   <td class="fw-semibold">{{ a.agentName }}</td>
                   <td class="text-end">{{ num(a.calls) }}</td>
-                  <td class="text-end">{{ num(a.conversations) }}</td>
-                  <td class="text-end">{{ pct(a.conversationRate) }}</td>
+                  <td class="text-end">{{ num(a.texts) }}</td>
+                  <td class="text-end">{{ num(a.emails) }}</td>
+                  <td class="text-end fw-semibold">{{ num(a.conversations) }}</td>
                   <td class="text-end">{{ duration(a.talkSeconds) }}</td>
                 </tr>
               } @empty {
                 <tr>
-                  <td colspan="6" class="text-center text-muted py-4">
-                    No calls in this range.
+                  <td colspan="7" class="text-center text-muted py-4">
+                    No activity in this range.
                   </td>
                 </tr>
               }
@@ -137,7 +139,7 @@
     <div class="col-lg-5">
       <div class="card h-100">
         <div class="card-header fw-semibold">
-          <i class="bi bi-clock-history me-2"></i>Recent Calls
+          <i class="bi bi-clock-history me-2"></i>Recent Activity
         </div>
         <div class="table-responsive recent-scroll">
           <table class="table table-sm table-hover align-middle mb-0">
@@ -145,35 +147,34 @@
               <tr>
                 <th>When</th>
                 <th>Agent</th>
-                <th class="text-center">Dir</th>
-                <th class="text-end">Length</th>
-                <th>Outcome</th>
+                <th class="text-center">Type</th>
+                <th>Detail</th>
               </tr>
             </thead>
             <tbody>
-              @for (c of calls; track c.id) {
+              @for (row of activity; track row.channel + '-' + row.id) {
                 <tr>
-                  <td class="text-nowrap small">{{ dateTime(c.createdAt) }}</td>
-                  <td class="small">{{ c.agentName || '—' }}</td>
+                  <td class="text-nowrap small">{{ dateTime(row.createdAt) }}</td>
+                  <td class="small">{{ row.agentName || '—' }}</td>
                   <td class="text-center">
-                    @if (c.isIncoming) {
-                      <i class="bi bi-telephone-inbound text-primary" title="Inbound"></i>
-                    } @else {
-                      <i class="bi bi-telephone-outbound text-secondary" title="Outbound"></i>
-                    }
+                    <i
+                      class="bi {{ channelIcon(row.channel) }} {{ channelClass(row.channel) }}"
+                      [title]="row.channel"
+                    ></i>
                   </td>
-                  <td class="text-end small">{{ duration(c.duration) }}</td>
-                  <td>
-                    <span class="small">{{ c.outcome || '—' }}</span>
-                    @if (c.isConversation) {
-                      <span class="badge convo-badge ms-1">convo</span>
+                  <td class="small">
+                    @if (row.isIncoming) {
+                      <i class="bi bi-arrow-down-left text-success me-1" title="Inbound"></i>
+                    } @else {
+                      <i class="bi bi-arrow-up-right text-secondary me-1" title="Outbound"></i>
                     }
+                    <span class="activity-detail">{{ activityDetail(row) }}</span>
                   </td>
                 </tr>
               } @empty {
                 <tr>
-                  <td colspan="5" class="text-center text-muted py-4">
-                    No calls in this range.
+                  <td colspan="4" class="text-center text-muted py-4">
+                    No activity in this range.
                   </td>
                 </tr>
               }
@@ -185,9 +186,9 @@
   </div>
 
   <p class="text-muted small text-center mt-4 mb-0">
-    A call counts as a <strong>conversation</strong> when it lasts at least
-    {{ config?.conversation?.minSeconds ?? 90 }}s or its outcome marks a
-    contact. Tune this in <code>pulse/server/.env</code>.
+    A <strong>conversation</strong> is a connected call, plus each lead who
+    replied by text or email. Tune the call threshold in
+    <code>pulse/server/.env</code>.
   </p>
 
 </div>

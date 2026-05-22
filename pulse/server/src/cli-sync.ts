@@ -4,7 +4,8 @@ import { syncAll } from './fub/sync';
 syncAll()
   .then((result) => {
     console.log(
-      `Sync complete — ${result.agents} agents, ${result.calls} calls, ${result.deals} deals updated.`,
+      `Sync complete — ${result.agents} agents, ${result.calls} calls, ` +
+        `${result.texts} texts, ${result.emails} emails, ${result.deals} deals updated.`,
     );
     process.exit(0);
   })

@@ -2,7 +2,8 @@
 
 An internal dashboard for the brokerage with two areas:
 
-- **Activity** — calls & conversations across the team, with a per-agent leaderboard.
+- **Activity** — calls, texts, emails and conversations across the team, with a
+  per-agent leaderboard and a unified activity feed.
 - **Deals** — company and agent deals: open pipeline by stage, closed volume,
   commission, win rate, and a per-agent leaderboard.
 
@@ -91,19 +92,26 @@ You can pull activity from Follow Up Boss three ways:
 - `npm run sync` in `pulse/server` — a one-shot run, ideal for a cron job.
 - Set `SYNC_INTERVAL_MINUTES` to sync automatically while the server runs.
 
-Each sync covers agents, calls, and deals. The first call sync pulls
-`SYNC_LOOKBACK_DAYS` of history (default 365); later call syncs are incremental.
-Deals are fully re-synced every run so status changes (open → won/lost) are
-always caught. Everything is upserted by id, so re-syncing never creates
-duplicates. If the FUB **Deals** feature is off, the deals step is skipped and
-the call sync still succeeds.
+Each sync covers agents, calls, texts, emails, and deals. The first sync of
+calls/texts/emails pulls `SYNC_LOOKBACK_DAYS` of history (default 365); later
+syncs are incremental. Deals are fully re-synced every run so status changes
+(open → won/lost) are always caught. Everything is upserted by id, so re-syncing
+never creates duplicates. Texts, emails, and deals are each optional — if a FUB
+feature is off or an endpoint is unavailable, that step is skipped and the rest
+of the sync still succeeds.
 
 ## How the metrics are defined
 
-**Conversations.** A call counts as a conversation when **either** it lasted at
-least `CONVERSATION_MIN_SECONDS` seconds, **or** its Follow Up Boss outcome is
-listed in `CONVERSATION_OUTCOMES`. Outcome names vary per FUB account — edit
-`CONVERSATION_OUTCOMES` in `.env` to match the outcomes your team actually uses.
+**Conversations.** A conversation is a meaningful two-way contact within the
+range, counted across channels:
+
+- a connected phone call — it lasted at least `CONVERSATION_MIN_SECONDS`
+  seconds, **or** its FUB outcome is listed in `CONVERSATION_OUTCOMES`; plus
+- each lead who replied by **text** (counted once per lead); plus
+- each lead who replied by **email** (counted once per lead).
+
+Outcome names vary per FUB account — edit `CONVERSATION_OUTCOMES` in `.env` to
+match the outcomes your team actually uses.
 
 **Deal ranges.** On the **Deals** page, *Open Deals* and *Pipeline Value* are
 current totals (every open deal, regardless of the date range). *Deals Won*,

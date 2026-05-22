@@ -3,9 +3,9 @@ import { ApiService } from './api.service';
 import { SyncService } from './sync.service';
 import { TrendChartComponent } from './trend-chart.component';
 import {
+  ActivityRow,
   AgentStat,
   AppConfig,
-  CallRow,
   RangeMeta,
   Summary,
   TrendPoint,
@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
   summary?: Summary;
   agents: AgentStat[] = [];
   trend: TrendPoint[] = [];
-  calls: CallRow[] = [];
+  activity: ActivityRow[] = [];
 
   loading = false;
   error: string | null = null;
@@ -86,9 +86,9 @@ export class DashboardComponent implements OnInit {
       next: (r) => (this.trend = r.points),
       error: (e) => this.fail(e),
     });
-    this.api.getRecentCalls(this.range, 25).subscribe({
+    this.api.getRecentActivity(this.range, 30).subscribe({
       next: (r) => {
-        this.calls = r.calls;
+        this.activity = r.activity;
         this.loading = false;
       },
       error: (e) => this.fail(e),
@@ -114,24 +114,25 @@ export class DashboardComponent implements OnInit {
       e?.error?.error || e?.message || 'Request failed — is the API server running?';
   }
 
+  get hasActivity(): boolean {
+    const s = this.summary;
+    return !!s && s.calls + s.texts + s.emails > 0;
+  }
+
   get cards(): StatCard[] {
     const s = this.summary;
     return [
-      { label: 'Total Calls', value: this.num(s?.calls), icon: 'bi-telephone', accent: 'blue' },
+      { label: 'Calls', value: this.num(s?.calls), icon: 'bi-telephone', accent: 'blue' },
+      { label: 'Texts', value: this.num(s?.texts), icon: 'bi-chat-text', accent: 'teal' },
+      { label: 'Emails', value: this.num(s?.emails), icon: 'bi-envelope', accent: 'purple' },
       { label: 'Conversations', value: this.num(s?.conversations), icon: 'bi-chat-dots', accent: 'green' },
-      { label: 'Conversation Rate', value: this.pct(s?.conversationRate), icon: 'bi-graph-up-arrow', accent: 'teal' },
-      { label: 'Talk Time', value: this.duration(s?.talkSeconds), icon: 'bi-stopwatch', accent: 'purple' },
-      { label: 'Outbound Calls', value: this.num(s?.outbound), icon: 'bi-telephone-outbound', accent: 'orange' },
+      { label: 'Talk Time', value: this.duration(s?.talkSeconds), icon: 'bi-stopwatch', accent: 'orange' },
       { label: 'Active Agents', value: this.num(s?.activeAgents), icon: 'bi-people', accent: 'slate' },
     ];
   }
 
   num(value: number | null | undefined): string {
     return (value ?? 0).toLocaleString();
-  }
-
-  pct(value: number | null | undefined): string {
-    return `${Math.round((value ?? 0) * 100)}%`;
   }
 
   duration(seconds: number | null | undefined): string {
@@ -165,5 +166,22 @@ export class DashboardComponent implements OnInit {
     if (rank === 2) return 'rank-silver';
     if (rank === 3) return 'rank-bronze';
     return '';
+  }
+
+  channelIcon(channel: string): string {
+    if (channel === 'text') return 'bi-chat-text';
+    if (channel === 'email') return 'bi-envelope';
+    return 'bi-telephone';
+  }
+
+  channelClass(channel: string): string {
+    if (channel === 'text') return 'text-success';
+    if (channel === 'email') return 'text-purple';
+    return 'text-primary';
+  }
+
+  activityDetail(row: ActivityRow): string {
+    if (row.channel === 'call') return row.outcome || 'Call';
+    return row.detail || (row.channel === 'text' ? 'Text message' : 'Email');
   }
 }

@@ -55,6 +55,30 @@ export interface FubDeal {
   users?: unknown;
 }
 
+/** A logged text message in Follow Up Boss. */
+export interface FubTextMessage {
+  id: number;
+  created?: string;
+  updated?: string;
+  isIncoming?: boolean;
+  personId?: number;
+  userId?: number;
+  message?: string;
+  body?: string;
+  status?: string;
+}
+
+/** A logged email in Follow Up Boss. */
+export interface FubEmail {
+  id: number;
+  created?: string;
+  updated?: string;
+  isIncoming?: boolean;
+  personId?: number;
+  userId?: number;
+  subject?: string;
+}
+
 function authHeader(): string {
   return 'Basic ' + Buffer.from(config.fub.apiKey + ':').toString('base64');
 }
@@ -122,7 +146,17 @@ export async function* fubPages<T>(
     params.set('offset', String(offset));
 
     const data = await fubGet(`${endpoint}?${params.toString()}`);
-    const items: T[] = Array.isArray(data?.[collection]) ? data[collection] : [];
+    // `collection` is a hint; fall back to the first array-valued property so
+    // the exact key casing FUB returns (e.g. textmessages) does not matter.
+    let items: T[] = Array.isArray(data?.[collection]) ? data[collection] : [];
+    if (items.length === 0 && data && typeof data === 'object') {
+      for (const [key, value] of Object.entries(data)) {
+        if (key !== '_metadata' && Array.isArray(value)) {
+          items = value as T[];
+          break;
+        }
+      }
+    }
     if (items.length === 0) break;
 
     yield items;
@@ -148,4 +182,12 @@ export function fetchCalls(): AsyncGenerator<FubCall[]> {
 /** Deals are fully re-synced each run so status changes (won/lost) are caught. */
 export function fetchDeals(): AsyncGenerator<FubDeal[]> {
   return fubPages<FubDeal>('/deals', 'deals', { sort: '-created' });
+}
+
+export function fetchTextMessages(): AsyncGenerator<FubTextMessage[]> {
+  return fubPages<FubTextMessage>('/textMessages', 'textmessages', { sort: '-created' });
+}
+
+export function fetchEmails(): AsyncGenerator<FubEmail[]> {
+  return fubPages<FubEmail>('/emails', 'emails', { sort: '-created' });
 }

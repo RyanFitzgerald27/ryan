@@ -68,6 +68,24 @@ CREATE INDEX IF NOT EXISTS idx_deals_status ON deals(status);
 CREATE INDEX IF NOT EXISTS idx_deals_closed ON deals(closed_date);
 CREATE INDEX IF NOT EXISTS idx_deals_agent ON deals(agent_id);
 
+CREATE TABLE IF NOT EXISTS messages (
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  source       TEXT NOT NULL DEFAULT 'fub',
+  type         TEXT NOT NULL,
+  source_id    TEXT NOT NULL,
+  agent_id     INTEGER,
+  agent_name   TEXT,
+  person_id    INTEGER,
+  is_incoming  INTEGER NOT NULL DEFAULT 0,
+  body         TEXT,
+  created_at   TEXT NOT NULL,
+  synced_at    TEXT NOT NULL,
+  UNIQUE(source, type, source_id)
+);
+CREATE INDEX IF NOT EXISTS idx_messages_created ON messages(created_at);
+CREATE INDEX IF NOT EXISTS idx_messages_agent ON messages(agent_id);
+CREATE INDEX IF NOT EXISTS idx_messages_type ON messages(type);
+
 CREATE TABLE IF NOT EXISTS meta (
   key   TEXT PRIMARY KEY,
   value TEXT NOT NULL

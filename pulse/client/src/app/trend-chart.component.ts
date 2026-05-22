@@ -40,12 +40,12 @@ export class TrendChartComponent implements AfterViewInit, OnChanges, OnDestroy 
   private render(): void {
     const labels = this.points.map((p) => this.shortLabel(p.date));
     const calls = this.points.map((p) => p.calls);
-    const conversations = this.points.map((p) => p.conversations);
+    const messages = this.points.map((p) => p.messages);
 
     if (this.chart) {
       this.chart.data.labels = labels;
       this.chart.data.datasets[0].data = calls;
-      this.chart.data.datasets[1].data = conversations;
+      this.chart.data.datasets[1].data = messages;
       this.chart.update();
       return;
     }
@@ -65,8 +65,8 @@ export class TrendChartComponent implements AfterViewInit, OnChanges, OnDestroy 
             order: 2,
           },
           {
-            label: 'Conversations',
-            data: conversations,
+            label: 'Messages',
+            data: messages,
             type: 'line',
             borderColor: '#198754',
             backgroundColor: '#198754',

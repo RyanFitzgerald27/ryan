@@ -7,11 +7,13 @@ export interface RangeMeta {
 
 export interface Summary {
   calls: number;
+  texts: number;
+  emails: number;
+  callConversations: number;
+  textConversations: number;
+  emailConversations: number;
   conversations: number;
-  conversationRate: number;
   talkSeconds: number;
-  outbound: number;
-  inbound: number;
   activeAgents: number;
 }
 
@@ -20,29 +22,29 @@ export interface AgentStat {
   agentId: number | null;
   agentName: string;
   calls: number;
+  texts: number;
+  emails: number;
   conversations: number;
-  conversationRate: number;
   talkSeconds: number;
 }
 
 export interface TrendPoint {
   date: string;
   calls: number;
-  conversations: number;
+  messages: number;
 }
 
-export interface CallRow {
+export interface ActivityRow {
+  channel: string;
   id: number;
-  agentId: number | null;
   agentName: string | null;
   personId: number | null;
-  phone: string | null;
   isIncoming: number;
-  duration: number;
+  duration: number | null;
   outcome: string | null;
-  note: string | null;
-  createdAt: string;
+  detail: string | null;
   isConversation: number;
+  createdAt: string;
 }
 
 export interface DealSummary {
@@ -120,5 +122,5 @@ export interface AppConfig {
   timezone: string;
   conversation: { minSeconds: number; outcomes: string[] };
   autoSyncMinutes: number;
-  totals: { calls: number; agents: number; deals: number };
+  totals: { calls: number; agents: number; messages: number; deals: number };
 }

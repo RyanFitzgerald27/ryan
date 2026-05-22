@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
+  ActivityRow,
   AgentStat,
   AppConfig,
-  CallRow,
   DealAgentStat,
   DealRow,
   DealSummary,
@@ -50,8 +50,11 @@ export class ApiService {
     );
   }
 
-  getRecentCalls(range: string, limit = 25): Observable<{ calls: CallRow[] }> {
-    return this.http.get<{ calls: CallRow[] }>(`${this.base}/calls`, {
+  getRecentActivity(
+    range: string,
+    limit = 30,
+  ): Observable<{ activity: ActivityRow[] }> {
+    return this.http.get<{ activity: ActivityRow[] }>(`${this.base}/activity`, {
       params: { range, limit },
     });
   }

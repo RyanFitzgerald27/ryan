@@ -97,6 +97,7 @@ export function resolveRange(name: string): Range {
         .prepare(
           `SELECT MIN(d) AS earliest FROM (
              SELECT MIN(created_at) AS d FROM calls
+             UNION ALL SELECT MIN(created_at) FROM messages
              UNION ALL SELECT MIN(created_at) FROM deals
              UNION ALL SELECT MIN(closed_date) FROM deals
            )`,
@@ -127,35 +128,85 @@ function conversationExpr(alias = ''): { sql: string; params: (string | number)[
   return { sql: `(${col}duration >= ?)`, params: [config.conversation.minSeconds] };
 }
 
+// ---------------------------------------------------------------------------
+// Activity (calls, texts, emails)
+//
+// A "conversation" is a meaningful two-way contact within the range:
+//   - a connected phone call (>= threshold seconds, or a contact outcome), and
+//   - each lead who replied by text   (counted once per lead), and
+//   - each lead who replied by email  (counted once per lead).
+// ---------------------------------------------------------------------------
+
 export interface Summary {
   calls: number;
+  texts: number;
+  emails: number;
+  callConversations: number;
+  textConversations: number;
+  emailConversations: number;
   conversations: number;
-  conversationRate: number;
   talkSeconds: number;
-  outbound: number;
-  inbound: number;
   activeAgents: number;
 }
 
 export function summary(range: Range): Summary {
   const conv = conversationExpr();
-  const row = db
+  const callRow = db
     .prepare(
-      `SELECT
-         COUNT(*) AS calls,
-         COALESCE(SUM(CASE WHEN ${conv.sql} THEN 1 ELSE 0 END), 0) AS conversations,
-         COALESCE(SUM(duration), 0) AS talkSeconds,
-         COALESCE(SUM(CASE WHEN is_incoming = 0 THEN 1 ELSE 0 END), 0) AS outbound,
-         COALESCE(SUM(CASE WHEN is_incoming = 1 THEN 1 ELSE 0 END), 0) AS inbound,
-         COUNT(DISTINCT agent_id) AS activeAgents
+      `SELECT COUNT(*) AS calls,
+              COALESCE(SUM(CASE WHEN ${conv.sql} THEN 1 ELSE 0 END), 0) AS callConversations,
+              COALESCE(SUM(duration), 0) AS talkSeconds
        FROM calls
        WHERE created_at >= ? AND created_at <= ?`,
     )
-    .get(...conv.params, range.start, range.end) as Omit<Summary, 'conversationRate'>;
+    .get(...conv.params, range.start, range.end) as {
+    calls: number;
+    callConversations: number;
+    talkSeconds: number;
+  };
+
+  const msgRow = db
+    .prepare(
+      `SELECT
+         COALESCE(SUM(CASE WHEN type = 'text' THEN 1 ELSE 0 END), 0) AS texts,
+         COALESCE(SUM(CASE WHEN type = 'email' THEN 1 ELSE 0 END), 0) AS emails,
+         COUNT(DISTINCT CASE WHEN type = 'text' AND is_incoming = 1 THEN person_id END) AS textConversations,
+         COUNT(DISTINCT CASE WHEN type = 'email' AND is_incoming = 1 THEN person_id END) AS emailConversations
+       FROM messages
+       WHERE created_at >= ? AND created_at <= ?`,
+    )
+    .get(range.start, range.end) as {
+    texts: number;
+    emails: number;
+    textConversations: number;
+    emailConversations: number;
+  };
+
+  const activeAgents = (
+    db
+      .prepare(
+        `SELECT COUNT(*) AS n FROM (
+           SELECT agent_id FROM calls
+             WHERE created_at >= ? AND created_at <= ? AND agent_id IS NOT NULL
+           UNION
+           SELECT agent_id FROM messages
+             WHERE created_at >= ? AND created_at <= ? AND agent_id IS NOT NULL
+         )`,
+      )
+      .get(range.start, range.end, range.start, range.end) as { n: number }
+  ).n;
 
   return {
-    ...row,
-    conversationRate: row.calls > 0 ? row.conversations / row.calls : 0,
+    calls: callRow.calls,
+    texts: msgRow.texts,
+    emails: msgRow.emails,
+    callConversations: callRow.callConversations,
+    textConversations: msgRow.textConversations,
+    emailConversations: msgRow.emailConversations,
+    conversations:
+      callRow.callConversations + msgRow.textConversations + msgRow.emailConversations,
+    talkSeconds: callRow.talkSeconds,
+    activeAgents,
   };
 }
 
@@ -164,65 +215,118 @@ export interface AgentStat {
   agentId: number | null;
   agentName: string;
   calls: number;
+  texts: number;
+  emails: number;
   conversations: number;
-  conversationRate: number;
   talkSeconds: number;
 }
 
 export function leaderboard(range: Range): AgentStat[] {
   const conv = conversationExpr('c');
-  const rows = db
+  const callRows = db
     .prepare(
-      `SELECT
-         c.agent_id AS agentId,
-         COALESCE(c.agent_name, a.name, 'Unassigned') AS agentName,
-         COUNT(*) AS calls,
-         COALESCE(SUM(CASE WHEN ${conv.sql} THEN 1 ELSE 0 END), 0) AS conversations,
-         COALESCE(SUM(c.duration), 0) AS talkSeconds
+      `SELECT c.agent_id AS agentId,
+              COALESCE(c.agent_name, a.name, 'Unassigned') AS agentName,
+              COUNT(*) AS calls,
+              COALESCE(SUM(CASE WHEN ${conv.sql} THEN 1 ELSE 0 END), 0) AS callConversations,
+              COALESCE(SUM(c.duration), 0) AS talkSeconds
        FROM calls c
        LEFT JOIN agents a ON a.id = c.agent_id
        WHERE c.created_at >= ? AND c.created_at <= ?
-       GROUP BY c.agent_id
-       ORDER BY conversations DESC, calls DESC`,
+       GROUP BY c.agent_id`,
     )
-    .all(...conv.params, range.start, range.end) as Omit<
-    AgentStat,
-    'rank' | 'conversationRate'
-  >[];
+    .all(...conv.params, range.start, range.end) as {
+    agentId: number | null;
+    agentName: string;
+    calls: number;
+    callConversations: number;
+    talkSeconds: number;
+  }[];
 
-  return rows.map((r, i) => ({
-    ...r,
-    rank: i + 1,
-    conversationRate: r.calls > 0 ? r.conversations / r.calls : 0,
-  }));
+  const msgRows = db
+    .prepare(
+      `SELECT m.agent_id AS agentId,
+              COALESCE(m.agent_name, a.name, 'Unassigned') AS agentName,
+              COALESCE(SUM(CASE WHEN m.type = 'text' THEN 1 ELSE 0 END), 0) AS texts,
+              COALESCE(SUM(CASE WHEN m.type = 'email' THEN 1 ELSE 0 END), 0) AS emails,
+              COUNT(DISTINCT CASE WHEN m.type = 'text' AND m.is_incoming = 1 THEN m.person_id END) AS textConversations,
+              COUNT(DISTINCT CASE WHEN m.type = 'email' AND m.is_incoming = 1 THEN m.person_id END) AS emailConversations
+       FROM messages m
+       LEFT JOIN agents a ON a.id = m.agent_id
+       WHERE m.created_at >= ? AND m.created_at <= ?
+       GROUP BY m.agent_id`,
+    )
+    .all(range.start, range.end) as {
+    agentId: number | null;
+    agentName: string;
+    texts: number;
+    emails: number;
+    textConversations: number;
+    emailConversations: number;
+  }[];
+
+  const merged = new Map<number | null, AgentStat>();
+  for (const c of callRows) {
+    merged.set(c.agentId, {
+      rank: 0,
+      agentId: c.agentId,
+      agentName: c.agentName,
+      calls: c.calls,
+      texts: 0,
+      emails: 0,
+      conversations: c.callConversations,
+      talkSeconds: c.talkSeconds,
+    });
+  }
+  for (const m of msgRows) {
+    const existing = merged.get(m.agentId);
+    if (existing) {
+      existing.texts = m.texts;
+      existing.emails = m.emails;
+      existing.conversations += m.textConversations + m.emailConversations;
+    } else {
+      merged.set(m.agentId, {
+        rank: 0,
+        agentId: m.agentId,
+        agentName: m.agentName,
+        calls: 0,
+        texts: m.texts,
+        emails: m.emails,
+        conversations: m.textConversations + m.emailConversations,
+        talkSeconds: 0,
+      });
+    }
+  }
+
+  return [...merged.values()]
+    .sort((a, b) => b.conversations - a.conversations || b.calls - a.calls)
+    .map((s, i) => ({ ...s, rank: i + 1 }));
 }
 
 export interface TrendPoint {
   date: string;
   calls: number;
-  conversations: number;
+  messages: number;
 }
 
 export function trend(range: Range): TrendPoint[] {
-  const conv = conversationExpr();
-  const rows = db
-    .prepare(
-      `SELECT created_at AS createdAt,
-              CASE WHEN ${conv.sql} THEN 1 ELSE 0 END AS isConv
-       FROM calls
-       WHERE created_at >= ? AND created_at <= ?`,
-    )
-    .all(...conv.params, range.start, range.end) as { createdAt: string; isConv: number }[];
+  const callRows = db
+    .prepare('SELECT created_at AS createdAt FROM calls WHERE created_at >= ? AND created_at <= ?')
+    .all(range.start, range.end) as { createdAt: string }[];
+  const msgRows = db
+    .prepare('SELECT created_at AS createdAt FROM messages WHERE created_at >= ? AND created_at <= ?')
+    .all(range.start, range.end) as { createdAt: string }[];
 
   const byMonth = range.name === 'year' || range.name === 'all';
   const buckets = new Map<string, TrendPoint>();
-  for (const r of rows) {
-    const key = bucketKey(new Date(r.createdAt), byMonth);
-    const b = buckets.get(key) ?? { date: key, calls: 0, conversations: 0 };
-    b.calls += 1;
-    if (r.isConv) b.conversations += 1;
+  const add = (createdAt: string, field: 'calls' | 'messages') => {
+    const key = bucketKey(new Date(createdAt), byMonth);
+    const b = buckets.get(key) ?? { date: key, calls: 0, messages: 0 };
+    b[field] += 1;
     buckets.set(key, b);
-  }
+  };
+  for (const r of callRows) add(r.createdAt, 'calls');
+  for (const r of msgRows) add(r.createdAt, 'messages');
 
   // Emit a continuous series so the chart has no gaps.
   const series: TrendPoint[] = [];
@@ -233,7 +337,7 @@ export function trend(range: Range): TrendPoint[] {
     let month = startP.month;
     for (let guard = 0; guard < 600; guard++) {
       const key = `${year}-${String(month).padStart(2, '0')}`;
-      series.push(buckets.get(key) ?? { date: key, calls: 0, conversations: 0 });
+      series.push(buckets.get(key) ?? { date: key, calls: 0, messages: 0 });
       if (year === endP.year && month === endP.month) break;
       month += 1;
       if (month > 12) {
@@ -246,7 +350,7 @@ export function trend(range: Range): TrendPoint[] {
     let cursor = new Date(range.start).getTime();
     for (let guard = 0; guard < 400; guard++) {
       const key = bucketKey(new Date(cursor), false);
-      series.push(buckets.get(key) ?? { date: key, calls: 0, conversations: 0 });
+      series.push(buckets.get(key) ?? { date: key, calls: 0, messages: 0 });
       if (key >= endKey) break;
       cursor += DAY_MS;
     }
@@ -254,51 +358,48 @@ export function trend(range: Range): TrendPoint[] {
   return series;
 }
 
-export interface CallRow {
+export interface ActivityRow {
+  channel: string; // 'call' | 'text' | 'email'
   id: number;
-  agentId: number | null;
   agentName: string | null;
   personId: number | null;
-  phone: string | null;
   isIncoming: number;
-  duration: number;
+  duration: number | null;
   outcome: string | null;
-  note: string | null;
-  createdAt: string;
+  detail: string | null;
   isConversation: number;
+  createdAt: string;
 }
 
-export function recentCalls(opts: {
-  range?: Range;
-  agentId?: number;
-  limit: number;
-}): CallRow[] {
+/** Unified newest-first feed of calls, texts and emails. */
+export function recentActivity(opts: { range: Range; limit: number }): ActivityRow[] {
   const conv = conversationExpr();
-  const clauses: string[] = [];
-  const whereParams: (string | number)[] = [];
-
-  if (opts.range) {
-    clauses.push('created_at >= ? AND created_at <= ?');
-    whereParams.push(opts.range.start, opts.range.end);
-  }
-  if (opts.agentId != null) {
-    clauses.push('agent_id = ?');
-    whereParams.push(opts.agentId);
-  }
-  const where = clauses.length ? `WHERE ${clauses.join(' AND ')}` : '';
-
   return db
     .prepare(
-      `SELECT id, agent_id AS agentId, agent_name AS agentName, person_id AS personId,
-              phone, is_incoming AS isIncoming, duration, outcome, note,
-              created_at AS createdAt,
-              CASE WHEN ${conv.sql} THEN 1 ELSE 0 END AS isConversation
+      `SELECT 'call' AS channel, id, agent_name AS agentName, person_id AS personId,
+              is_incoming AS isIncoming, duration, outcome, note AS detail,
+              CASE WHEN ${conv.sql} THEN 1 ELSE 0 END AS isConversation,
+              created_at AS createdAt
        FROM calls
-       ${where}
-       ORDER BY created_at DESC
+       WHERE created_at >= ? AND created_at <= ?
+       UNION ALL
+       SELECT type AS channel, id, agent_name, person_id,
+              is_incoming, NULL, NULL, body,
+              CASE WHEN is_incoming = 1 THEN 1 ELSE 0 END,
+              created_at
+       FROM messages
+       WHERE created_at >= ? AND created_at <= ?
+       ORDER BY createdAt DESC
        LIMIT ?`,
     )
-    .all(...conv.params, ...whereParams, opts.limit) as CallRow[];
+    .all(
+      ...conv.params,
+      opts.range.start,
+      opts.range.end,
+      opts.range.start,
+      opts.range.end,
+      opts.limit,
+    ) as ActivityRow[];
 }
 
 // ---------------------------------------------------------------------------
