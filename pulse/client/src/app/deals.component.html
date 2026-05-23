@@ -183,6 +183,7 @@
                 <th>Deal</th>
                 <th>Agent</th>
                 <th>Status</th>
+                <th>Closed</th>
                 <th class="text-end">Value</th>
               </tr>
             </thead>
@@ -199,11 +200,12 @@
                       {{ d.status }}
                     </span>
                   </td>
+                  <td class="small text-nowrap">{{ dateOnly(d.closedDate) }}</td>
                   <td class="text-end small">{{ currency(d.price) }}</td>
                 </tr>
               } @empty {
                 <tr>
-                  <td colspan="4" class="text-center text-muted py-4">
+                  <td colspan="5" class="text-center text-muted py-4">
                     No deals synced yet.
                   </td>
                 </tr>
