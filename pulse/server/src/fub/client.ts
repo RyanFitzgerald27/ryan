@@ -136,16 +136,18 @@ export async function* fubPages<T>(
   query: Record<string, string | number>,
 ): AsyncGenerator<T[]> {
   const limit = config.sync.pageSize;
-  let offset = 0;
+
+  // First request uses offset=0; subsequent requests follow `_metadata.nextLink`
+  // because FUB disables offset-based pagination past 2000 records.
+  const initialParams = new URLSearchParams();
+  for (const [k, v] of Object.entries(query)) initialParams.set(k, String(v));
+  initialParams.set('limit', String(limit));
+  initialParams.set('offset', '0');
+  let nextUrl: string | null = `${endpoint}?${initialParams.toString()}`;
 
   // Hard cap so a misbehaving response can never loop forever.
-  for (let page = 0; page < 5000; page++) {
-    const params = new URLSearchParams();
-    for (const [k, v] of Object.entries(query)) params.set(k, String(v));
-    params.set('limit', String(limit));
-    params.set('offset', String(offset));
-
-    const data = await fubGet(`${endpoint}?${params.toString()}`);
+  for (let page = 0; page < 5000 && nextUrl; page++) {
+    const data = await fubGet(nextUrl);
     // `collection` is a hint; fall back to the first array-valued property so
     // the exact key casing FUB returns (e.g. textmessages) does not matter.
     let items: T[] = Array.isArray(data?.[collection]) ? data[collection] : [];
@@ -161,10 +163,9 @@ export async function* fubPages<T>(
 
     yield items;
 
-    offset += items.length;
-    const total = Number(data?._metadata?.total ?? 0);
-    if (total > 0 && offset >= total) break;
-    if (items.length < limit) break;
+    const link = data?._metadata?.nextLink;
+    nextUrl = typeof link === 'string' && link ? link : null;
+    if (!nextUrl && items.length < limit) break;
 
     await sleep(250); // be polite to the API
   }
