@@ -100,6 +100,16 @@ export class ApiService {
     });
   }
 
+  getRecentClosedDeals(
+    range: string,
+    limit = 10,
+  ): Observable<{ range: RangeMeta; deals: DealRow[] }> {
+    return this.http.get<{ range: RangeMeta; deals: DealRow[] }>(
+      `${this.base}/deals/closed`,
+      { params: { range, limit } },
+    );
+  }
+
   // --- Sync ---
 
   getSyncStatus(): Observable<SyncStatus> {

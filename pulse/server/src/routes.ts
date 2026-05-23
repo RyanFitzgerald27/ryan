@@ -8,6 +8,7 @@ import {
   dealTrend,
   leaderboard,
   recentActivity,
+  recentClosedDeals,
   recentDeals,
   resolveRange,
   summary,
@@ -126,6 +127,15 @@ apiRouter.get(
     const status = req.query.status ? String(req.query.status) : undefined;
     const agentId = req.query.agentId ? Number(req.query.agentId) : undefined;
     res.json({ deals: recentDeals({ limit, status, agentId }) });
+  }),
+);
+
+apiRouter.get(
+  '/deals/closed',
+  handle((req, res) => {
+    const range = resolveRange(String(req.query.range ?? 'last30'));
+    const limit = Math.min(100, Math.max(1, Number(req.query.limit ?? 10)));
+    res.json({ range, deals: recentClosedDeals(range, limit) });
   }),
 );
 

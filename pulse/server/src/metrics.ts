@@ -626,3 +626,21 @@ export function recentDeals(opts: {
     )
     .all(...params, opts.limit) as DealRow[];
 }
+
+/** Won + lost deals with closed_date inside `range`, newest closing first. */
+export function recentClosedDeals(range: Range, limit: number): DealRow[] {
+  return db
+    .prepare(
+      `SELECT id, source, source_id AS sourceId, name, pipeline, stage, status,
+              price, commission, agent_id AS agentId, agent_name AS agentName,
+              projected_close AS projectedClose, closed_date AS closedDate,
+              created_at AS createdAt, updated_at AS updatedAt
+       FROM deals
+       WHERE status IN ('won', 'lost')
+         AND closed_date IS NOT NULL
+         AND closed_date >= ? AND closed_date <= ?
+       ORDER BY closed_date DESC
+       LIMIT ?`,
+    )
+    .all(range.start, range.end, limit) as DealRow[];
+}

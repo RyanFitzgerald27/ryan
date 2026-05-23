@@ -53,6 +53,7 @@ export class DealsComponent implements OnInit {
   pipeline: PipelineStage[] = [];
   trend: DealTrendPoint[] = [];
   deals: DealRow[] = [];
+  closedInRange: DealRow[] = [];
 
   loading = false;
   error: string | null = null;
@@ -90,6 +91,10 @@ export class DealsComponent implements OnInit {
     });
     this.api.getDealTrend(this.range).subscribe({
       next: (r) => (this.trend = r.points),
+      error: (e) => this.fail(e),
+    });
+    this.api.getRecentClosedDeals(this.range, 10).subscribe({
+      next: (r) => (this.closedInRange = r.deals),
       error: (e) => this.fail(e),
     });
     this.api.getDeals(25).subscribe({
