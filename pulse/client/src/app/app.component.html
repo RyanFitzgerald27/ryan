@@ -1,23 +1,84 @@
-<nav class="navbar navbar-dark navbar-expand pulse-navbar">
-  <div class="container-fluid">
-    <span class="navbar-brand mb-0 d-flex align-items-center">
-      <i class="bi bi-soundwave me-2"></i>
-      <span class="fw-bold">Pulse</span>
-      <span class="navbar-sub d-none d-sm-inline">Raleigh Realty</span>
-    </span>
-    <ul class="navbar-nav flex-row gap-1">
-      <li class="nav-item">
-        <a class="nav-link px-3" routerLink="/activity" routerLinkActive="active">
-          <i class="bi bi-telephone me-1"></i>Activity
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link px-3" routerLink="/deals" routerLinkActive="active">
-          <i class="bi bi-briefcase me-1"></i>Deals
-        </a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<div class="pulse-shell">
 
-<router-outlet></router-outlet>
+  <!-- Top bar -->
+  <div class="pulse-topbar">
+    <div class="pulse-brand">
+      <i class="bi bi-soundwave"></i>
+      <span>Pulse</span>
+      <span class="brand-sub d-none d-md-inline">Raleigh Realty</span>
+    </div>
+    <div class="pulse-topbar-spacer"></div>
+    <div class="pulse-topbar-right">
+      <div class="pulse-theme-switch d-none d-md-inline-flex" role="group" aria-label="Theme">
+        @for (t of themes; track t.id) {
+          <button type="button" [class.active]="theme === t.id" (click)="setTheme(t.id)">
+            {{ t.label }}
+          </button>
+        }
+      </div>
+
+      <button
+        type="button"
+        class="pulse-nav-btn"
+        [class.active]="compact"
+        (click)="toggleCompact()"
+        [attr.aria-pressed]="compact"
+        title="Toggle compact rows"
+      >
+        <i class="bi" [class.bi-arrows-collapse]="!compact" [class.bi-arrows-expand]="compact"></i>
+        <span class="d-none d-lg-inline">{{ compact ? 'Comfortable' : 'Compact' }}</span>
+      </button>
+
+      <span
+        class="pulse-sync-chip"
+        [class.is-syncing]="syncChipState === 'syncing'"
+        [class.is-stale]="syncChipState === 'stale' || syncChipState === 'never'"
+      >
+        <span class="dot"></span>{{ syncChipLabel }}
+      </span>
+
+      <button
+        type="button"
+        class="pulse-nav-btn"
+        (click)="triggerSync()"
+        [disabled]="syncService.syncing"
+      >
+        <i class="bi bi-arrow-repeat"></i>
+        <span class="d-none d-md-inline">Sync</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Left sidebar -->
+  <aside class="pulse-sidebar">
+    <div class="pulse-sidebar-section">Activity</div>
+    <a routerLink="/activity" [class.active]="isActivityActive(null)">
+      <i class="bi bi-list-ul"></i>All activity
+    </a>
+    <a routerLink="/activity" [queryParams]="{ channel: 'call' }" [class.active]="isActivityActive('call')">
+      <i class="bi bi-telephone"></i>Calls
+    </a>
+    <a routerLink="/activity" [queryParams]="{ channel: 'text' }" [class.active]="isActivityActive('text')">
+      <i class="bi bi-chat-text"></i>Texts
+    </a>
+    <a routerLink="/activity" [queryParams]="{ channel: 'email' }" [class.active]="isActivityActive('email')">
+      <i class="bi bi-envelope"></i>Emails
+    </a>
+
+    <div class="pulse-sidebar-section">Deals</div>
+    <a routerLink="/deals" [class.active]="isDealsActive()">
+      <i class="bi bi-briefcase"></i>Pipeline
+    </a>
+
+    <div class="pulse-sidebar-foot">
+      <div><strong>{{ syncChipLabel }}</strong></div>
+      <div class="mt-1">Auto-sync every 15&nbsp;min</div>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="pulse-content">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>
