@@ -33,9 +33,9 @@
         <div class="contact-avatar">{{ initials() || 'RM' }}</div>
         <div style="flex:1; min-width:0;">
           <h2 class="contact-name">{{ lead()?.name ?? 'Richard Mitchell' }} <i class="bi bi-pencil edit-pencil"></i></h2>
-          <div class="contact-last"><span class="dot"></span>Last contact <strong style="color:var(--text)">32 min ago</strong></div>
+          <div class="contact-last"><span class="dot"></span>Last contact <strong style="color:var(--text)">{{ relativeTime(lead()?.lastCommunication ?? lead()?.lastActivity ?? null) || '32 min ago' }}</strong></div>
         </div>
-        <span class="lead-score-chip" title="Lead score"><i class="bi bi-fire"></i>92</span>
+        <span class="lead-score-chip" title="Lead score" *ngIf="lead()?.score != null || !lead()"><i class="bi bi-fire"></i>{{ lead()?.score ?? 92 }}</span>
       </div>
 
       <div class="contact-actions">
@@ -56,7 +56,7 @@
         <div class="detail-row"><i class="bi bi-telephone-fill lead-icon" style="color:var(--green)"></i><span class="v">{{ lead()?.phone ?? '(602) 653-6083' }}</span><span style="color:var(--text-muted);font-size:11px">mobile</span><button class="qa"><i class="bi bi-copy"></i></button></div>
         <div class="detail-row"><i class="bi bi-envelope-fill lead-icon" style="color:var(--blue)"></i><span class="v">{{ lead()?.email ?? 'rmit403@gmail.com' }}</span><button class="qa"><i class="bi bi-copy"></i></button></div>
         <div class="detail-row"><i class="bi bi-geo-alt-fill lead-icon" style="color:var(--accent)"></i><span class="v plain">{{ lead()?.city ?? 'San Antonio' }}, {{ lead()?.state ?? 'TX' }} <small *ngIf="lead()?.postalCode || true">· {{ lead()?.postalCode ?? '78201' }}</small></span></div>
-        <div class="detail-row"><i class="bi bi-globe lead-icon"></i><span class="v">raleighrealty.com</span></div>
+        <div class="detail-row"><i class="bi bi-globe lead-icon"></i><span class="v">{{ lead()?.sourceUrl ?? lead()?.source ?? 'raleighrealty.com' }}</span></div>
       </div>
     </div>
 
@@ -67,20 +67,26 @@
         <i class="bi bi-chevron-down chev"></i>
       </div>
       <div class="details-body">
-        <div class="kv-row"><span class="k">Stage</span><span class="v"><span class="stage-pill"><span class="swatch"></span>Lead</span></span></div>
-        <div class="kv-row"><span class="k">Assigned</span><span class="v link">Miranda Herring</span></div>
-        <div class="kv-row"><span class="k">Source</span><span class="v link">raleighrealty.com</span></div>
-        <div class="kv-row"><span class="k">Created</span><span class="v">34 min ago</span></div>
-        <div class="kv-row"><span class="k">Price</span><span class="v accent">$894,024</span></div>
+        <div class="kv-row"><span class="k">Stage</span><span class="v"><span class="stage-pill"><span class="swatch"></span>{{ lead()?.stage ?? 'Lead' }}</span></span></div>
+        <div class="kv-row"><span class="k">Assigned</span><span class="v link">{{ lead()?.assignedName ?? 'Miranda Herring' }}</span></div>
+        <div class="kv-row"><span class="k">Source</span><span class="v link">{{ lead()?.source ?? 'raleighrealty.com' }}</span></div>
+        <div class="kv-row"><span class="k">Created</span><span class="v">{{ relativeTime(lead()?.created ?? null) || '34 min ago' }}</span></div>
+        <div class="kv-row"><span class="k">Price</span><span class="v accent">{{ formatPrice(lead()?.price ?? null) || '$894,024' }}</span></div>
         <div class="kv-row"><span class="k">Target buy</span><span class="v"><input type="date" class="date-input" [ngModel]="lead()?.targetBuyDate ?? ''" (ngModelChange)="onTargetBuyDateChange($event)" [disabled]="!lead()" /></span></div>
         <div class="kv-row" style="margin-top:6px"><span class="k">Tags</span><span class="v">
-          <div class="tags-row">
-            <span class="tag-chip">27703 <i class="bi bi-x"></i></span>
-            <span class="tag-chip">Ad–Google <i class="bi bi-x"></i></span>
-            <span class="tag-chip">Durham <i class="bi bi-x"></i></span>
-            <span class="tag-chip">Email Registration <i class="bi bi-x"></i></span>
+          <div class="tags-row" *ngIf="(lead()?.tags?.length ?? 0) > 0; else fallbackTags">
+            <span class="tag-chip" *ngFor="let tag of lead()!.tags">{{ tag }} <i class="bi bi-x"></i></span>
             <button class="tag-add"><i class="bi bi-plus"></i></button>
           </div>
+          <ng-template #fallbackTags>
+            <div class="tags-row">
+              <span class="tag-chip">27703 <i class="bi bi-x"></i></span>
+              <span class="tag-chip">Ad–Google <i class="bi bi-x"></i></span>
+              <span class="tag-chip">Durham <i class="bi bi-x"></i></span>
+              <span class="tag-chip">Email Registration <i class="bi bi-x"></i></span>
+              <button class="tag-add"><i class="bi bi-plus"></i></button>
+            </div>
+          </ng-template>
         </span></div>
       </div>
     </div>
@@ -167,15 +173,62 @@
     </div>
 
     <div class="activity-filters">
-      <button class="afilter" [class.active]="filter === 'all'" (click)="setFilter('all')"><span class="lbl"><i class="bi bi-list-ul"></i>All</span><span class="c">(16)</span></button>
-      <button class="afilter call" [class.active]="filter === 'calls'" (click)="setFilter('calls')"><span class="lbl"><i class="bi bi-telephone-fill"></i>Calls</span><span class="c">(1)</span></button>
-      <button class="afilter text" [class.active]="filter === 'texts'" (click)="setFilter('texts')"><span class="lbl"><i class="bi bi-chat-text-fill"></i>Texts</span><span class="c">(3)</span></button>
-      <button class="afilter email" [class.active]="filter === 'emails'" (click)="setFilter('emails')"><span class="lbl"><i class="bi bi-envelope-fill"></i>Emails</span><span class="c">(2)</span></button>
-      <button class="afilter note" [class.active]="filter === 'notes'" (click)="setFilter('notes')"><span class="lbl"><i class="bi bi-pin-angle-fill"></i>Notes</span><span class="c">(1)</span></button>
-      <button class="afilter activity" [class.active]="filter === 'activity'" (click)="setFilter('activity')"><span class="lbl"><i class="bi bi-activity"></i>Activity</span><span class="c">(12)</span></button>
-      <button class="afilter search" [class.active]="filter === 'searches'" (click)="setFilter('searches')"><span class="lbl"><i class="bi bi-search"></i>Searches</span><span class="c">(5)</span></button>
+      <button class="afilter" [class.active]="filter === 'all'" (click)="setFilter('all')"><span class="lbl"><i class="bi bi-list-ul"></i>All</span><span class="c">({{ lead() ? counts().total : 16 }})</span></button>
+      <button class="afilter call" [class.active]="filter === 'calls'" (click)="setFilter('calls')"><span class="lbl"><i class="bi bi-telephone-fill"></i>Calls</span><span class="c">({{ lead() ? counts().call : 1 }})</span></button>
+      <button class="afilter text" [class.active]="filter === 'texts'" (click)="setFilter('texts')"><span class="lbl"><i class="bi bi-chat-text-fill"></i>Texts</span><span class="c">({{ lead() ? counts().text : 3 }})</span></button>
+      <button class="afilter email" [class.active]="filter === 'emails'" (click)="setFilter('emails')"><span class="lbl"><i class="bi bi-envelope-fill"></i>Emails</span><span class="c">({{ lead() ? counts().email : 2 }})</span></button>
+      <button class="afilter note" [class.active]="filter === 'notes'" (click)="setFilter('notes')"><span class="lbl"><i class="bi bi-pin-angle-fill"></i>Notes</span><span class="c">({{ lead() ? counts().note : 1 }})</span></button>
+      <button class="afilter activity" [class.active]="filter === 'activity'" (click)="setFilter('activity')" *ngIf="!lead()"><span class="lbl"><i class="bi bi-activity"></i>Activity</span><span class="c">(12)</span></button>
+      <button class="afilter search" [class.active]="filter === 'searches'" (click)="setFilter('searches')" *ngIf="!lead()"><span class="lbl"><i class="bi bi-search"></i>Searches</span><span class="c">(5)</span></button>
     </div>
 
+    <div class="timeline" *ngIf="lead(); else demoTimeline">
+      <div class="empty-timeline" *ngIf="filteredEvents().length === 0">
+        <i class="bi bi-calendar2-x"></i>
+        <div>No {{ filter === 'all' ? 'events' : filter }} yet for this lead.</div>
+      </div>
+      <ng-container *ngFor="let e of filteredEvents()">
+        <div class="event">
+          <span class="event-avatar"
+                [class.miranda]="e.kind !== 'note' && !e.isIncoming"
+                [class.lead]="e.isIncoming === true">
+            {{ eventAvatar(e) }}
+            <span class="channel-chip"
+                  [class.call]="e.kind === 'call'"
+                  [class.text]="e.kind === 'text'"
+                  [class.email]="e.kind === 'email'"
+                  [class.note]="e.kind === 'note'">
+              <i class="bi" [class.bi-telephone-fill]="e.kind==='call'" [class.bi-chat-text-fill]="e.kind==='text'" [class.bi-envelope-fill]="e.kind==='email'" [class.bi-pin-angle-fill]="e.kind==='note'"></i>
+            </span>
+          </span>
+          <div class="event-body-flush">
+            <div class="event-head">
+              <span class="who">{{ e.agentName ?? (e.kind === 'note' ? 'Note' : (e.isIncoming ? (lead()?.name ?? 'Lead') : 'Agent')) }}</span>
+              <span class="verb" *ngIf="e.kind === 'note'">added a note</span>
+              <span class="verb" *ngIf="e.kind === 'call'">{{ e.isIncoming ? 'called in' : 'made a call' }}</span>
+              <span class="verb" *ngIf="e.kind === 'text'">{{ e.isIncoming ? '←' : '→' }}</span>
+              <span class="verb" *ngIf="e.kind === 'email'">{{ e.isIncoming ? '← email from' : '→ email to' }}</span>
+              <span class="target" *ngIf="(e.kind === 'text' || e.kind === 'email') && lead()">{{ lead()?.name }}</span>
+              <span class="ts">{{ formatTime(e.createdAt) }}</span>
+            </div>
+            <div class="sticky-note" *ngIf="e.kind === 'note' && e.body">{{ e.body }}</div>
+            <div class="event-text" *ngIf="e.kind === 'call'">
+              <strong *ngIf="e.outcome">{{ e.outcome }}</strong>
+              <span *ngIf="e.outcome && formatDuration(e.durationSeconds)"> · </span>
+              <span *ngIf="formatDuration(e.durationSeconds)">{{ formatDuration(e.durationSeconds) }}</span>
+              <div *ngIf="e.body" style="margin-top:4px;color:var(--text-muted)">{{ e.body }}</div>
+            </div>
+            <div class="chat-bubble" *ngIf="e.kind === 'text' && e.body" [class.outbound]="!e.isIncoming" [class.inbound]="e.isIncoming">{{ e.body }}</div>
+            <div class="event-text" *ngIf="e.kind === 'email' && e.body">
+              <div *ngIf="e.subject" style="font-weight:600;margin-bottom:2px">{{ e.subject }}</div>
+              <div>{{ e.body }}</div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <ng-template #demoTimeline>
     <div class="timeline">
 
       <div class="timeline-day">Today · May 24, 2026</div>
@@ -294,6 +347,7 @@
       </div>
 
     </div>
+    </ng-template>
   </section>
 
   <!-- RIGHT: Context rail -->

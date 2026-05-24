@@ -138,7 +138,28 @@ export interface Lead {
   lastActivity: string | null;
   lastCommunication: string | null;
   price: number | null;
+  score: number | null;
   targetBuyDate: string | null;
+}
+
+export interface LeadEvent {
+  kind: 'call' | 'text' | 'email' | 'note';
+  id: string;
+  createdAt: string;
+  isIncoming: boolean | null;
+  agentName: string | null;
+  body: string | null;
+  durationSeconds: number | null;
+  outcome: string | null;
+  subject: string | null;
+}
+
+export interface LeadEventCounts {
+  total: number;
+  call: number;
+  text: number;
+  email: number;
+  note: number;
 }
 
 export interface AppConfig {

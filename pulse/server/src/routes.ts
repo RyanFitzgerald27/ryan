@@ -15,7 +15,7 @@ import {
   trend,
 } from './metrics';
 import { syncState, triggerSync } from './fub/sync';
-import { fetchPerson, type FubPerson } from './fub/client';
+import { fetchNotesForPerson, fetchPerson, type FubPerson } from './fub/client';
 
 export const apiRouter = Router();
 
@@ -82,6 +82,7 @@ function shapePerson(p: FubPerson) {
     lastActivity: p.lastActivity ?? null,
     lastCommunication: p.lastCommunication ?? null,
     price: p.price ?? null,
+    score: typeof p.score === 'number' ? p.score : null,
     targetBuyDate: getLeadMetadata(p.id).targetBuyDate,
   };
 }
@@ -220,6 +221,122 @@ apiRouter.get(
       return;
     }
     res.json({ person: shapePerson(person) });
+  }),
+);
+
+apiRouter.get(
+  '/people/:id/events',
+  asyncHandle(async (req, res) => {
+    const id = Number(req.params.id);
+    if (!Number.isFinite(id) || id <= 0) {
+      res.status(400).json({ error: 'Invalid person id' });
+      return;
+    }
+
+    type Event = {
+      kind: 'call' | 'text' | 'email' | 'note';
+      id: string;
+      createdAt: string;
+      isIncoming: boolean | null;
+      agentName: string | null;
+      body: string | null;
+      durationSeconds: number | null;
+      outcome: string | null;
+      subject: string | null;
+    };
+
+    const calls = db
+      .prepare(
+        `SELECT id, agent_name, is_incoming, duration, outcome, note, created_at
+         FROM calls WHERE person_id = ? ORDER BY created_at DESC LIMIT 200`,
+      )
+      .all(id) as Array<{
+      id: number;
+      agent_name: string | null;
+      is_incoming: number;
+      duration: number;
+      outcome: string | null;
+      note: string | null;
+      created_at: string;
+    }>;
+
+    const messages = db
+      .prepare(
+        `SELECT id, type, agent_name, is_incoming, body, created_at
+         FROM messages WHERE person_id = ? ORDER BY created_at DESC LIMIT 200`,
+      )
+      .all(id) as Array<{
+      id: number;
+      type: string;
+      agent_name: string | null;
+      is_incoming: number;
+      body: string | null;
+      created_at: string;
+    }>;
+
+    const events: Event[] = [];
+
+    for (const c of calls) {
+      events.push({
+        kind: 'call',
+        id: `call-${c.id}`,
+        createdAt: c.created_at,
+        isIncoming: c.is_incoming === 1,
+        agentName: c.agent_name,
+        body: c.note,
+        durationSeconds: c.duration,
+        outcome: c.outcome,
+        subject: null,
+      });
+    }
+    for (const m of messages) {
+      const kind = m.type === 'email' ? 'email' : 'text';
+      events.push({
+        kind,
+        id: `${kind}-${m.id}`,
+        createdAt: m.created_at,
+        isIncoming: m.is_incoming === 1,
+        agentName: m.agent_name,
+        body: m.body,
+        durationSeconds: null,
+        outcome: null,
+        subject: null,
+      });
+    }
+
+    if (fubConfigured()) {
+      try {
+        const notes = await fetchNotesForPerson(id, 50);
+        for (const n of notes) {
+          events.push({
+            kind: 'note',
+            id: `note-${n.id}`,
+            createdAt: n.created ?? new Date().toISOString(),
+            isIncoming: null,
+            agentName: null,
+            body: n.body ?? null,
+            durationSeconds: null,
+            outcome: null,
+            subject: n.subject ?? null,
+          });
+        }
+      } catch (err) {
+        console.warn('[api] fetchNotesForPerson failed:', (err as Error)?.message);
+      }
+    }
+
+    events.sort((a, b) => (a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0));
+
+    const counts = events.reduce(
+      (acc, e) => {
+        acc[e.kind] += 1;
+        acc.total += 1;
+        return acc;
+      },
+      { total: 0, call: 0, text: 0, email: 0, note: 0 } as Record<string, number>,
+    );
+
+    res.json({ events, counts });
   }),
 );
 

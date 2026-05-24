@@ -10,6 +10,8 @@ import {
   DealSummary,
   DealTrendPoint,
   Lead,
+  LeadEvent,
+  LeadEventCounts,
   PipelineStage,
   RangeMeta,
   Summary,
@@ -115,6 +117,14 @@ export class ApiService {
 
   getPerson(id: number | string): Observable<{ person: Lead }> {
     return this.http.get<{ person: Lead }>(`${this.base}/people/${id}`);
+  }
+
+  getPersonEvents(
+    id: number | string,
+  ): Observable<{ events: LeadEvent[]; counts: LeadEventCounts }> {
+    return this.http.get<{ events: LeadEvent[]; counts: LeadEventCounts }>(
+      `${this.base}/people/${id}/events`,
+    );
   }
 
   updateLeadMetadata(

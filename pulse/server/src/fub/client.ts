@@ -33,6 +33,19 @@ export interface FubPerson {
   lastCommunication?: string;
   contacted?: number;
   price?: number;
+  score?: number;
+}
+
+/** A note in FUB attached to a person. */
+export interface FubNote {
+  id: number;
+  personId?: number;
+  userId?: number;
+  subject?: string;
+  body?: string;
+  created?: string;
+  updated?: string;
+  isHtml?: boolean;
 }
 
 /** A logged call in Follow Up Boss. */
@@ -207,6 +220,24 @@ export async function fetchPerson(id: number): Promise<FubPerson | null> {
   } catch (err) {
     const msg = String((err as Error)?.message ?? '');
     if (msg.includes('FUB API 404')) return null;
+    throw err;
+  }
+}
+
+/** Fetches notes for a single person (newest first). Empty array on 404. */
+export async function fetchNotesForPerson(personId: number, limit = 50): Promise<FubNote[]> {
+  try {
+    const params = new URLSearchParams({
+      personId: String(personId),
+      sort: '-created',
+      limit: String(Math.min(100, Math.max(1, limit))),
+    });
+    const data = await fubGet(`/notes?${params.toString()}`);
+    const notes = Array.isArray(data?.notes) ? data.notes : [];
+    return notes as FubNote[];
+  } catch (err) {
+    const msg = String((err as Error)?.message ?? '');
+    if (msg.includes('FUB API 404')) return [];
     throw err;
   }
 }
