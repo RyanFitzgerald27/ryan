@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { UiService } from './ui.service';
 
 interface Lead {
   id: string;
@@ -26,6 +27,7 @@ interface Lead {
 })
 export class DashboardComponent {
   private readonly router = inject(Router);
+  readonly ui = inject(UiService);
 
   railCollapsed = true;
 

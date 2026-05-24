@@ -7,8 +7,7 @@ import {
 } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
 import { SyncService } from './sync.service';
-
-const COLLAPSE_KEY = 'agentloft.sidebarCollapsed';
+import { UiService } from './ui.service';
 
 @Component({
   selector: 'app-root',
@@ -18,17 +17,13 @@ const COLLAPSE_KEY = 'agentloft.sidebarCollapsed';
 })
 export class AppComponent implements OnInit, OnDestroy {
   readonly syncService = inject(SyncService);
+  readonly ui = inject(UiService);
   private readonly router = inject(Router);
 
-  sideCollapsed = false;
   currentPath = '/leads';
-
   private sub?: Subscription;
 
   ngOnInit(): void {
-    if (typeof localStorage !== 'undefined') {
-      this.sideCollapsed = localStorage.getItem(COLLAPSE_KEY) === '1';
-    }
     this.syncService.refresh();
     this.updatePath(this.router.url);
     this.sub = this.router.events
@@ -38,13 +33,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe();
-  }
-
-  toggleSide(): void {
-    this.sideCollapsed = !this.sideCollapsed;
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem(COLLAPSE_KEY, this.sideCollapsed ? '1' : '0');
-    }
   }
 
   private updatePath(url: string): void {

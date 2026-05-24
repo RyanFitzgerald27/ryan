@@ -1,5 +1,8 @@
 <!-- Top bar with breadcrumbs + paging -->
 <div class="topbar">
+  <button class="menu-toggle" (click)="ui.toggleSide()" title="Toggle sidebar">
+    <i class="bi bi-list"></i>
+  </button>
   <div class="crumbs">
     <i class="bi bi-people"></i>
     <a (click)="back()" style="cursor:pointer">Leads</a>
