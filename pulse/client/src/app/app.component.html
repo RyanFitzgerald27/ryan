@@ -1,83 +1,53 @@
-<div class="pulse-shell">
+<div class="app" [class.side-collapsed]="sideCollapsed">
 
-  <!-- Top bar -->
-  <div class="pulse-topbar">
-    <div class="pulse-brand">
-      <i class="bi bi-soundwave"></i>
-      <span>Pulse</span>
-      <span class="brand-sub d-none d-md-inline">Raleigh Realty</span>
+  <aside class="side">
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <div class="brand-word">Agent<em>loft</em></div>
+      <button class="side-collapse-btn" (click)="toggleSide()" [title]="sideCollapsed ? 'Expand sidebar' : 'Collapse sidebar'">
+        <i class="bi" [class.bi-chevron-double-left]="!sideCollapsed" [class.bi-chevron-double-right]="sideCollapsed"></i>
+      </button>
     </div>
-    <div class="pulse-topbar-spacer"></div>
-    <div class="pulse-topbar-right">
-      <div class="pulse-theme-switch d-none d-md-inline-flex" role="group" aria-label="Theme">
-        @for (t of themes; track t.id) {
-          <button type="button" [class.active]="theme === t.id" (click)="setTheme(t.id)">
-            {{ t.label }}
-          </button>
-        }
+
+    <div class="search-wrap">
+      <i class="bi bi-search"></i>
+      <input class="search" placeholder="Search anything..." />
+      <span class="kbd">⌘K</span>
+    </div>
+
+    <div class="nav-scroll">
+      <div class="nav-section">Work</div>
+      <a class="nav-item" routerLink="/dashboard" [class.active]="isActive('/dashboard')"><i class="bi bi-grid-1x2"></i><span>Dashboard</span></a>
+      <a class="nav-item" routerLink="/leads" [class.active]="isActive('/leads')"><i class="bi bi-people"></i><span>Leads</span><span class="badge badge-count">101.8K</span></a>
+      <a class="nav-item" routerLink="/inbox" [class.active]="isActive('/inbox')"><i class="bi bi-inbox"></i><span>Inbox</span><span class="badge badge-urgent">12</span></a>
+      <a class="nav-item" routerLink="/tasks" [class.active]="isActive('/tasks')"><i class="bi bi-check2-square"></i><span>Tasks</span><span class="badge badge-count">8</span></a>
+      <a class="nav-item" routerLink="/calendar" [class.active]="isActive('/calendar')"><i class="bi bi-calendar-event"></i><span>Calendar</span></a>
+      <a class="nav-item" routerLink="/deals" [class.active]="isActive('/deals')"><i class="bi bi-bag"></i><span>Deals</span><span class="badge badge-count">24</span></a>
+
+      <div class="nav-section">Growth</div>
+      <a class="nav-item" routerLink="/website" [class.active]="isActive('/website')"><i class="bi bi-globe2"></i><span>Website</span></a>
+      <a class="nav-item" routerLink="/listings" [class.active]="isActive('/listings')"><i class="bi bi-house"></i><span>Listings</span><span class="badge badge-count">38</span></a>
+      <a class="nav-item" routerLink="/communities" [class.active]="isActive('/communities')"><i class="bi bi-buildings"></i><span>Communities</span><span class="badge badge-count">12</span></a>
+      <a class="nav-item" routerLink="/blog" [class.active]="isActive('/blog')"><i class="bi bi-journal-text"></i><span>Blog</span></a>
+      <a class="nav-item" routerLink="/resources" [class.active]="isActive('/resources')"><i class="bi bi-collection"></i><span>Resources</span></a>
+
+      <div class="nav-section">Intelligence</div>
+      <a class="nav-item" routerLink="/reporting" [class.active]="isActive('/reporting')"><i class="bi bi-bar-chart"></i><span>Reporting</span></a>
+      <a class="nav-item" routerLink="/pond" [class.active]="isActive('/pond')"><i class="bi bi-droplet"></i><span>Pond</span><span class="badge badge-attention">87</span></a>
+      <a class="nav-item" routerLink="/admin" [class.active]="isActive('/admin')"><i class="bi bi-shield-lock"></i><span>Admin</span></a>
+    </div>
+
+    <div class="user-card">
+      <div class="avatar">RF</div>
+      <div class="info">
+        <div class="name">Ryan Fitzgerald</div>
+        <div class="sub">Raleigh Realty <span class="sep">·</span> <span class="role-chip">Owner</span></div>
       </div>
-
-      <button
-        type="button"
-        class="pulse-nav-btn"
-        [class.active]="compact"
-        (click)="toggleCompact()"
-        [attr.aria-pressed]="compact"
-        title="Toggle compact rows"
-      >
-        <i class="bi" [class.bi-arrows-collapse]="!compact" [class.bi-arrows-expand]="compact"></i>
-        <span class="d-none d-lg-inline">{{ compact ? 'Comfortable' : 'Compact' }}</span>
-      </button>
-
-      <span
-        class="pulse-sync-chip"
-        [class.is-syncing]="syncChipState === 'syncing'"
-        [class.is-stale]="syncChipState === 'stale' || syncChipState === 'never'"
-      >
-        <span class="dot"></span>{{ syncChipLabel }}
-      </span>
-
-      <button
-        type="button"
-        class="pulse-nav-btn"
-        (click)="triggerSync()"
-        [disabled]="syncService.syncing"
-      >
-        <i class="bi bi-arrow-repeat"></i>
-        <span class="d-none d-md-inline">Sync</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- Left sidebar -->
-  <aside class="pulse-sidebar">
-    <div class="pulse-sidebar-section">Activity</div>
-    <a routerLink="/activity" [class.active]="isActivityActive(null)">
-      <i class="bi bi-list-ul"></i>All activity
-    </a>
-    <a routerLink="/activity" [queryParams]="{ channel: 'call' }" [class.active]="isActivityActive('call')">
-      <i class="bi bi-telephone"></i>Calls
-    </a>
-    <a routerLink="/activity" [queryParams]="{ channel: 'text' }" [class.active]="isActivityActive('text')">
-      <i class="bi bi-chat-text"></i>Texts
-    </a>
-    <a routerLink="/activity" [queryParams]="{ channel: 'email' }" [class.active]="isActivityActive('email')">
-      <i class="bi bi-envelope"></i>Emails
-    </a>
-
-    <div class="pulse-sidebar-section">Deals</div>
-    <a routerLink="/deals" [class.active]="isDealsActive()">
-      <i class="bi bi-briefcase"></i>Pipeline
-    </a>
-
-    <div class="pulse-sidebar-foot">
-      <div><strong>{{ syncChipLabel }}</strong></div>
-      <div class="mt-1">Auto-sync every 15&nbsp;min</div>
+      <i class="bi bi-chevron-expand chev"></i>
     </div>
   </aside>
 
-  <!-- Main content -->
-  <main class="pulse-content">
+  <main class="main">
     <router-outlet></router-outlet>
   </main>
 

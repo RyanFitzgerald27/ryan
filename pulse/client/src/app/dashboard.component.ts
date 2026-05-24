@@ -1,22 +1,22 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { ApiService } from './api.service';
-import { SyncService } from './sync.service';
-import {
-  ActivityRow,
-  AppConfig,
-  RangeMeta,
-  Summary,
-  TrendPoint,
-} from './models';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
-interface RangeOption { value: string; label: string; }
-interface KpiCell { label: string; value: string; icon: string; accent: string; foot: string; }
-type ChannelFilter = null | 'call' | 'text' | 'email';
-type DirectionFilter = 'all' | 'in' | 'out';
-type SortKey = 'createdAt' | 'agent' | 'channel' | 'duration';
-type SortDir = 'asc' | 'desc';
+interface Lead {
+  id: string;
+  name: string;
+  src: string;
+  created: string;
+  stage: 'Lead' | 'Hot' | 'Active';
+  visit: string;
+  calls: number;
+  price: number | null;
+  phone: string;
+  phoneBad: boolean;
+  email: string;
+  activity: 'Viewed' | 'Registered' | 'Replied';
+  sel?: boolean;
+  avatarColor: string;
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -24,246 +24,59 @@ type SortDir = 'asc' | 'desc';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
-export class DashboardComponent implements OnInit, OnDestroy {
-  private readonly api = inject(ApiService);
-  private readonly route = inject(ActivatedRoute);
-  readonly syncService = inject(SyncService);
+export class DashboardComponent {
+  private readonly router = inject(Router);
 
-  readonly ranges: RangeOption[] = [
-    { value: 'today',  label: 'Today' },
-    { value: 'week',   label: 'This Week' },
-    { value: 'last7',  label: 'Last 7' },
-    { value: 'last30', label: 'Last 30' },
-    { value: 'month',  label: 'This Month' },
-    { value: 'year',   label: 'YTD' },
-    { value: 'all',    label: 'All' },
+  railCollapsed = true;
+
+  readonly leads: Lead[] = [
+    { id: 'richard-mitchell', name: 'Richard Mitchell', src: 'raleighrealty.com', created: '34 minutes ago', stage: 'Lead', visit: '26 minutes ago', calls: 0, price: 894024, phone: '(602) 653-6083', phoneBad: false, email: 'rmit403@gmail.com',          activity: 'Viewed',     sel: true, avatarColor: '#c2998a' },
+    { id: 'pervis-caldwell',  name: 'PERVIS J Caldwell',  src: 'raleighrealty.com', created: 'an hour ago',    stage: 'Lead', visit: 'an hour ago',    calls: 0, price: null,   phone: '',                phoneBad: false, email: '2brothers1mind@gmail.com',   activity: 'Viewed',     avatarColor: '#d4b87a' },
+    { id: 'jatoria-lewis',    name: 'Jatoria Lewis',      src: 'raleighrealty.com', created: 'an hour ago',    stage: 'Lead', visit: '22 minutes ago', calls: 0, price: 404990, phone: '(984) 222-4382', phoneBad: false, email: 'jatorialewis00@gmail.com',   activity: 'Viewed',     avatarColor: '#a7b87a' },
+    { id: 'taylor-marshall',  name: 'Taylor Marshall',    src: 'raleighrealty.com', created: 'an hour ago',    stage: 'Lead', visit: 'an hour ago',    calls: 2, price: 1100000,phone: '(919) 770-7864', phoneBad: false, email: 'taylor.marshall1012@gmail.com', activity: 'Viewed',   avatarColor: '#7aa2b8' },
+    { id: 'deb-golden',       name: 'Deb Golden',         src: 'raleighrealty.com', created: '2 hours ago',    stage: 'Lead', visit: '2 hours ago',    calls: 2, price: 450000, phone: '(719) 596-7063', phoneBad: false, email: 'debgolden14@yahoo.com',       activity: 'Viewed',     avatarColor: '#9a8ec2' },
+    { id: 'leonid-loutsenko', name: 'Leonid Loutsenko',   src: 'raleighrealty.com', created: '2 hours ago',    stage: 'Lead', visit: '2 hours ago',    calls: 0, price: null,   phone: '',                phoneBad: false, email: 'loutsenkoleonid@gmail.com',   activity: 'Viewed',     avatarColor: '#c28a8a' },
+    { id: 'sue-fazekas',      name: 'Sue Fazekas',        src: 'raleighrealty.com', created: '3 hours ago',    stage: 'Lead', visit: '3 hours ago',    calls: 0, price: 449990, phone: '(919) 342-5942', phoneBad: true,  email: 'sue.fazekas721@gmail.com',    activity: 'Viewed',     avatarColor: '#8ac2a3' },
+    { id: 'vanessa-mclaughlin',name: 'Vanessa McLaughlin', src: 'raleighrealty.com', created: '3 hours ago',    stage: 'Lead', visit: '3 hours ago',    calls: 2, price: 579000, phone: '(347) 665-4639', phoneBad: false, email: 'vanessa.a.mclaughlin@gmail.com', activity: 'Viewed', avatarColor: '#c2a48a' },
+    { id: 'adena-sexton',     name: 'Adena Sexton',       src: 'raleighrealty.com', created: '3 hours ago',    stage: 'Lead', visit: '3 hours ago',    calls: 0, price: null,   phone: '',                phoneBad: false, email: 'adenasexton@gmail.com',       activity: 'Viewed',     avatarColor: '#7ac2bb' },
+    { id: 'blizzard-smith',   name: 'Blizzard Smith',     src: 'raleighrealty.com', created: '3 hours ago',    stage: 'Lead', visit: '3 hours ago',    calls: 0, price: 2600000,phone: '(905) 618-2354', phoneBad: true,  email: 'blizzardinc906@gmail.com',    activity: 'Viewed',     avatarColor: '#c28abb' },
+    { id: 'michael-dove',     name: 'Michael Dove',       src: 'raleighrealty.com', created: '4 hours ago',    stage: 'Lead', visit: '4 hours ago',    calls: 0, price: null,   phone: '',                phoneBad: false, email: 'kathryndove94@gmail.com',     activity: 'Registered', avatarColor: '#c2998a' },
+    { id: 'jay-harvey',       name: 'Jay Harvey',         src: 'raleighrealty.com', created: '4 hours ago',    stage: 'Lead', visit: '4 hours ago',    calls: 0, price: null,   phone: '',                phoneBad: false, email: 'harveyclan4@gmail.com',       activity: 'Registered', avatarColor: '#d4b87a' },
+    { id: 'caroline-truong',  name: 'Caroline Truong',    src: 'raleighrealty.com', created: '5 hours ago',    stage: 'Hot',  visit: '4 hours ago',    calls: 3, price: 675000, phone: '(919) 555-2384', phoneBad: false, email: 'caroline.t@gmail.com',        activity: 'Replied',    avatarColor: '#a7b87a' },
+    { id: 'marcus-webb',      name: 'Marcus Webb',        src: 'raleighrealty.com', created: '6 hours ago',    stage: 'Lead', visit: '5 hours ago',    calls: 1, price: 525000, phone: '(984) 222-9182', phoneBad: false, email: 'mwebb1@outlook.com',          activity: 'Viewed',     avatarColor: '#7aa2b8' },
   ];
 
-  range = 'last30';
-  channelFilter: ChannelFilter = null;
-  directionFilter: DirectionFilter = 'all';
-  sortKey: SortKey = 'createdAt';
-  sortDir: SortDir = 'desc';
-
-  config?: AppConfig;
-  rangeMeta?: RangeMeta;
-  summary?: Summary;
-  trend: TrendPoint[] = [];
-  activity: ActivityRow[] = [];
-
-  loading = false;
-  error: string | null = null;
-
-  readonly skeletonRows = Array.from({ length: 8 });
-
-  private querySub?: Subscription;
-
-  ngOnInit(): void {
-    this.querySub = this.route.queryParamMap.subscribe((p) => {
-      const ch = p.get('channel');
-      this.channelFilter = ch === 'call' || ch === 'text' || ch === 'email' ? ch : null;
-    });
-    this.refreshConfig();
-    this.syncService.refresh();
-    this.load();
+  toggleRail(): void {
+    this.railCollapsed = !this.railCollapsed;
   }
 
-  ngOnDestroy(): void {
-    this.querySub?.unsubscribe();
+  openLead(lead: Lead): void {
+    this.router.navigate(['/leads', lead.id]);
   }
 
-  setRange(value: string): void {
-    if (this.range === value) return;
-    this.range = value;
-    this.load();
-  }
-
-  setDirection(d: DirectionFilter): void {
-    this.directionFilter = d;
-  }
-
-  toggleSort(key: SortKey): void {
-    if (this.sortKey === key) {
-      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortKey = key;
-      this.sortDir = key === 'createdAt' ? 'desc' : 'asc';
-    }
-  }
-
-  load(): void {
-    this.loading = true;
-    this.error = null;
-
-    this.api.getSummary(this.range).subscribe({
-      next: (r) => { this.summary = r.summary; this.rangeMeta = r.range; },
-      error: (e) => this.fail(e),
-    });
-    this.api.getTrend(this.range).subscribe({
-      next: (r) => (this.trend = r.points),
-      error: (e) => this.fail(e),
-    });
-    this.api.getRecentActivity(this.range, 200).subscribe({
-      next: (r) => { this.activity = r.activity; this.loading = false; },
-      error: (e) => this.fail(e),
-    });
-  }
-
-  refreshConfig(): void {
-    this.api.getConfig().subscribe({ next: (c) => (this.config = c) });
-  }
-
-  sync(): void {
-    this.error = null;
-    this.syncService.start().then(() => {
-      if (this.syncService.error) this.error = this.syncService.error;
-      this.refreshConfig();
-      this.load();
-    });
-  }
-
-  private fail(e: any): void {
-    this.loading = false;
-    this.error = e?.error?.error || e?.message || 'Request failed — is the API server running?';
-  }
-
-  // --- header ---
-  get headerTitle(): string {
-    switch (this.channelFilter) {
-      case 'call':  return 'Calls';
-      case 'text':  return 'Texts';
-      case 'email': return 'Emails';
-      default:      return 'All activity';
-    }
-  }
-
-  get headerSub(): string {
-    const r = this.rangeMeta?.label ?? '';
-    const s = this.summary;
-    if (!s) return r;
-    const total = s.calls + s.texts + s.emails;
-    return `${this.num(total)} interactions across ${this.num(s.activeAgents)} agents · ${r}`;
-  }
-
-  // --- KPI strip ---
-  get cards(): KpiCell[] {
-    const s = this.summary;
-    return [
-      { label: 'Calls',         value: this.num(s?.calls),          icon: 'bi-telephone',  accent: 'blue',   foot: 'Logged calls' },
-      { label: 'Texts',         value: this.num(s?.texts),          icon: 'bi-chat-text',  accent: 'green',  foot: 'In + outbound' },
-      { label: 'Emails',        value: this.num(s?.emails),         icon: 'bi-envelope',   accent: 'purple', foot: 'In + outbound' },
-      { label: 'Conversations', value: this.num(s?.conversations),  icon: 'bi-chat-dots',  accent: 'teal',   foot: 'Connects + replies' },
-      { label: 'Talk Time',     value: this.duration(s?.talkSeconds),icon: 'bi-stopwatch', accent: 'orange', foot: 'Connected time' },
-      { label: 'Active Agents', value: this.num(s?.activeAgents),   icon: 'bi-people',     accent: 'slate',  foot: 'With activity' },
-    ];
-  }
-
-  // --- table ---
-  get filteredActivity(): ActivityRow[] {
-    let rows = this.activity;
-    if (this.channelFilter) {
-      rows = rows.filter((r) => r.channel === this.channelFilter);
-    }
-    if (this.directionFilter !== 'all') {
-      const wantIn = this.directionFilter === 'in';
-      rows = rows.filter((r) => !!r.isIncoming === wantIn);
-    }
-    const dir = this.sortDir === 'asc' ? 1 : -1;
-    const key = this.sortKey;
-    return [...rows].sort((a, b) => {
-      let av: any, bv: any;
-      switch (key) {
-        case 'createdAt': av = a.createdAt;        bv = b.createdAt;        break;
-        case 'agent':     av = a.agentName ?? '';  bv = b.agentName ?? '';  break;
-        case 'channel':   av = a.channel;          bv = b.channel;          break;
-        case 'duration':  av = a.duration ?? -1;   bv = b.duration ?? -1;   break;
-      }
-      if (av < bv) return -1 * dir;
-      if (av > bv) return  1 * dir;
-      return 0;
-    });
-  }
-
-  // --- formatting ---
-  num(v: number | null | undefined): string {
-    return (v ?? 0).toLocaleString();
-  }
-
-  duration(seconds: number | null | undefined): string {
-    const total = Math.max(0, Math.round(seconds ?? 0));
-    if (total === 0) return '0s';
-    if (total < 60) return `${total}s`;
-    const h = Math.floor(total / 3600);
-    const m = Math.floor((total % 3600) / 60);
-    const s = total % 60;
-    if (h > 0) return `${h}h ${m}m`;
-    return s > 0 ? `${m}m ${s}s` : `${m}m`;
-  }
-
-  dateTime(iso: string | null | undefined): string {
-    if (!iso) return '—';
-    return new Date(iso).toLocaleString(undefined, {
-      month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
-    });
-  }
-
-  fullDateTime(iso: string | null | undefined): string {
-    return iso ? new Date(iso).toLocaleString() : 'never';
-  }
-
-  relativeTime(iso: string | null | undefined): string {
-    if (!iso) return '—';
-    const diff = Date.now() - Date.parse(iso);
-    if (!Number.isFinite(diff) || diff < 0) return this.dateTime(iso);
-    const min = Math.round(diff / 60000);
-    if (min < 1) return 'just now';
-    if (min < 60) return `${min}m ago`;
-    const h = Math.round(min / 60);
-    if (h < 24) return `${h}h ago`;
-    const d = Math.round(h / 24);
-    if (d < 7) return `${d}d ago`;
-    return this.dateTime(iso);
-  }
-
-  initials(name: string | null | undefined): string {
-    if (!name) return '–';
-    const parts = name.trim().split(/\s+/);
+  initials(name: string): string {
+    const parts = name.split(/\s+/).filter(Boolean);
     if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
     return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
   }
 
-  channelIcon(channel: string): string {
-    if (channel === 'text') return 'bi-chat-text';
-    if (channel === 'email') return 'bi-envelope';
-    return 'bi-telephone';
+  fmtPrice(p: number | null): string {
+    return p == null ? '' : '$' + p.toLocaleString();
   }
 
-  leadLabel(row: ActivityRow): string {
-    return row.personId ? `Contact #${row.personId}` : '—';
+  stageClass(stage: string): string {
+    return stage.toLowerCase();
   }
 
-  activityDetail(row: ActivityRow): string {
-    if (row.channel === 'call') {
-      if (row.detail) return row.detail;
-      return row.outcome ? `Call · ${row.outcome}` : 'Call';
-    }
-    return row.detail || (row.channel === 'text' ? 'Text message' : 'Email');
+  activityClass(a: string): string {
+    if (a === 'Viewed') return 'eye';
+    if (a === 'Replied') return 'reply';
+    return 'reg';
   }
 
-  outcomeBadge(row: ActivityRow): { text: string; cls: string } | null {
-    if (row.channel === 'call') {
-      const o = (row.outcome || '').toLowerCase();
-      if (!o) return null;
-      if (o.includes('appoint') || o.includes('interest') && !o.includes('not')) {
-        return { text: row.outcome!, cls: 'status-positive' };
-      }
-      if (o.includes('voicemail')) return { text: 'Voicemail', cls: 'status-info' };
-      if (o.includes('no answer') || o.includes('busy')) return { text: row.outcome!, cls: 'status-warning' };
-      if (o.includes('not') || o.includes('wrong')) return { text: row.outcome!, cls: 'status-negative' };
-      return { text: row.outcome!, cls: 'status-neutral' };
-    }
-    return row.isIncoming
-      ? { text: 'Replied', cls: 'status-positive' }
-      : { text: 'Sent', cls: 'status-neutral' };
+  activityIcon(a: string): string {
+    if (a === 'Viewed') return 'bi-eye';
+    if (a === 'Replied') return 'bi-chat-dots';
+    return 'bi-check2-circle';
   }
 }

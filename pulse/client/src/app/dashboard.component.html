@@ -1,171 +1,240 @@
-<!-- Object header -->
-<div class="pulse-object-header">
-  <div class="pulse-object-icon">
-    <i class="bi" [class.bi-list-ul]="!channelFilter" [class.bi-telephone]="channelFilter === 'call'" [class.bi-chat-text]="channelFilter === 'text'" [class.bi-envelope]="channelFilter === 'email'"></i>
+<div class="topbar">
+  <div class="crumbs">
+    <i class="bi bi-people"></i>
+    <strong>Leads</strong>
+    <span class="sep">/</span>
+    <span>Hot &amp; warm buyers</span>
   </div>
-  <div class="pulse-object-title">
-    <h1>{{ headerTitle }}</h1>
-    <div class="sub">{{ headerSub }}</div>
-  </div>
-  <div class="pulse-object-actions">
-    <button type="button" class="pulse-btn-ghost" disabled title="Coming soon">
-      <i class="bi bi-download"></i>Export
+  <div class="topbar-right">
+    <span class="sync-chip"><span class="dot"></span>Live</span>
+    <button class="icon-btn" title="Notifications"><i class="bi bi-bell"></i></button>
+    <button class="icon-btn" title="Help"><i class="bi bi-question-circle"></i></button>
+    <button class="icon-btn filter-toggle" title="Toggle filters" (click)="toggleRail()">
+      <i class="bi bi-funnel"></i>
+      <span class="badge-dot">4</span>
     </button>
-    <button type="button" class="pulse-btn-primary" (click)="sync()" [disabled]="syncService.syncing">
-      <i class="bi bi-arrow-repeat"></i>Refresh
-    </button>
+    <button class="btn accent"><i class="bi bi-plus-lg"></i>New lead</button>
   </div>
 </div>
 
-<!-- Toolbar -->
-<div class="pulse-toolbar">
-  <span class="pulse-toolbar-label">Range</span>
-  <div class="pulse-range-group" role="group" aria-label="Date range">
-    @for (r of ranges; track r.value) {
-      <button type="button" [class.active]="range === r.value" (click)="setRange(r.value)">
-        {{ r.label }}
-      </button>
-    }
-  </div>
+<div class="leads-shell" [class.rail-collapsed]="railCollapsed">
 
-  <div class="pulse-toolbar-divider"></div>
+  <!-- Smart list strip -->
+  <aside class="smartlist-strip">
+    <button class="sl-icon" title="All people"><i class="bi bi-list-ul"></i></button>
+    <button class="sl-icon" title="My people"><i class="bi bi-person"></i></button>
+    <div class="sl-divider"></div>
+    <button class="sl-icon active" title="Hot &amp; warm buyers"><i class="bi bi-funnel-fill"></i></button>
+    <button class="sl-icon" title="New this week"><i class="bi bi-funnel"></i></button>
+    <button class="sl-icon" title="No reply 72h"><i class="bi bi-funnel"></i><span class="sl-dot red"></span></button>
+    <button class="sl-icon" title="Appointments set"><i class="bi bi-funnel"></i></button>
+    <button class="sl-icon" title="Zillow Premier 30d"><i class="bi bi-funnel"></i></button>
+    <button class="sl-icon" title="Sphere of influence"><i class="bi bi-funnel"></i></button>
+    <button class="sl-icon" title="Past clients"><i class="bi bi-funnel"></i></button>
+    <button class="sl-icon" title="Investors"><i class="bi bi-funnel"></i></button>
+    <button class="sl-icon" title="Luxury $1M+"><i class="bi bi-funnel"></i></button>
+    <div class="sl-spacer"></div>
+    <button class="sl-icon sl-new" title="Create smart list"><i class="bi bi-plus"></i></button>
+    <button class="sl-icon" title="Manage smart lists"><i class="bi bi-gear"></i></button>
+  </aside>
 
-  <span class="pulse-toolbar-label">Direction</span>
-  <div class="pulse-chip-group">
-    <button type="button" class="pulse-chip" [class.active]="directionFilter === 'all'" (click)="setDirection('all')">All</button>
-    <button type="button" class="pulse-chip" [class.active]="directionFilter === 'in'" (click)="setDirection('in')">
-      <i class="bi bi-arrow-down-left"></i>Inbound
-    </button>
-    <button type="button" class="pulse-chip" [class.active]="directionFilter === 'out'" (click)="setDirection('out')">
-      <i class="bi bi-arrow-up-right"></i>Outbound
-    </button>
-  </div>
-
-  <div class="pulse-toolbar-spacer"></div>
-
-  <span class="pulse-toolbar-meta">
-    @if (loading && !activity.length) {
-      Loading…
-    } @else {
-      Showing <strong>{{ num(filteredActivity.length) }}</strong> of {{ num(activity.length) }} {{ activity.length === 1 ? 'row' : 'rows' }} · {{ rangeMeta?.label }}
-    }
-  </span>
-</div>
-
-<!-- Alerts -->
-@if (config && !config.fubConfigured) {
-  <div class="pulse-banner warning">
-    <i class="bi bi-exclamation-triangle-fill"></i>
-    <div>
-      <strong>Follow Up Boss is not connected.</strong>
-      Add your <code>FUB_API_KEY</code> to <code>pulse/server/.env</code>,
-      restart the API server, then click <em>Refresh</em>.
-    </div>
-  </div>
-}
-@if (error) {
-  <div class="pulse-banner danger">
-    <i class="bi bi-x-octagon-fill"></i>
-    <div>{{ error }}</div>
-  </div>
-}
-
-<!-- KPI strip -->
-<div class="pulse-kpi-strip">
-  @for (c of cards; track c.label) {
-    <div class="kpi accent-{{ c.accent }}">
-      <div class="label"><i class="bi {{ c.icon }}"></i>{{ c.label }}</div>
-      <div class="value">
-        @if (loading && !summary) {
-          <span class="skeleton-bar" style="width: 70%"></span>
-        } @else {
-          {{ c.value }}
-        }
+  <!-- Main page -->
+  <section class="page">
+    <div class="page-head">
+      <div class="page-head-row">
+        <h1><i class="bi bi-people"></i>Hot &amp; warm buyers</h1>
+        <div class="page-head-actions">
+          <button class="btn outline-accent"><i class="bi bi-plus-lg"></i>New list</button>
+        </div>
       </div>
-      <div class="foot">{{ c.foot }}</div>
     </div>
-  }
-</div>
 
-<!-- Data table -->
-<div class="pulse-table-wrap">
-  <table class="pulse-data-table">
-    <thead>
-      <tr>
-        <th class="sortable" [class.sorted]="sortKey === 'createdAt'" (click)="toggleSort('createdAt')" style="width: 110px">
-          When <i class="bi sort-arrow" [class.bi-arrow-down]="sortKey === 'createdAt' && sortDir === 'desc'" [class.bi-arrow-up]="sortKey === 'createdAt' && sortDir === 'asc'"></i>
-        </th>
-        <th class="sortable" [class.sorted]="sortKey === 'agent'" (click)="toggleSort('agent')" style="width: 180px">
-          Agent <i class="bi sort-arrow" [class.bi-arrow-down]="sortKey === 'agent' && sortDir === 'desc'" [class.bi-arrow-up]="sortKey === 'agent' && sortDir === 'asc'"></i>
-        </th>
-        <th class="sortable" [class.sorted]="sortKey === 'channel'" (click)="toggleSort('channel')" style="width: 100px">
-          Type <i class="bi sort-arrow" [class.bi-arrow-down]="sortKey === 'channel' && sortDir === 'desc'" [class.bi-arrow-up]="sortKey === 'channel' && sortDir === 'asc'"></i>
-        </th>
-        <th style="width: 60px">Dir</th>
-        <th>Lead</th>
-        <th>Detail</th>
-        <th class="sortable" [class.sorted]="sortKey === 'duration'" (click)="toggleSort('duration')" style="width: 90px; text-align: right">
-          Duration <i class="bi sort-arrow" [class.bi-arrow-down]="sortKey === 'duration' && sortDir === 'desc'" [class.bi-arrow-up]="sortKey === 'duration' && sortDir === 'asc'"></i>
-        </th>
-        <th style="width: 130px">Outcome</th>
-      </tr>
-    </thead>
-    <tbody>
-      @if (loading && !activity.length) {
-        @for (_ of skeletonRows; track $index) {
+    <div class="toolbar">
+      <span class="row-count">Showing <strong>2,518</strong> of 101,847 people</span>
+      <div class="bulk-toolbar">
+        <button class="bulk-btn" title="Email selected"><i class="bi bi-envelope"></i></button>
+        <button class="bulk-btn" title="Call/text selected"><i class="bi bi-telephone"></i></button>
+        <button class="bulk-btn" title="Reassign owner"><i class="bi bi-person"></i></button>
+        <button class="bulk-btn" title="Add tag"><i class="bi bi-tag"></i></button>
+        <button class="bulk-btn danger" title="Delete"><i class="bi bi-trash"></i></button>
+        <button class="bulk-btn" title="Export selected"><i class="bi bi-download"></i></button>
+      </div>
+      <div class="right">
+        <span class="info-chip"><i class="bi bi-info-circle"></i>How smart lists work</span>
+        <button class="btn ghost"><i class="bi bi-layout-three-columns"></i>Columns<i class="bi bi-chevron-down" style="font-size:10px;opacity:.6"></i></button>
+        <button class="btn ghost"><i class="bi bi-people"></i>Everyone<i class="bi bi-chevron-down" style="font-size:10px;opacity:.6"></i></button>
+        <button class="btn ghost filter-toggle-btn" (click)="toggleRail()">
+          <i class="bi bi-funnel-fill" style="color:var(--accent)"></i>Filters<span class="filter-count">4</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="leads">
+        <thead>
           <tr>
-            <td><span class="skeleton-bar" style="width: 80%"></span></td>
-            <td><span class="skeleton-bar" style="width: 70%"></span></td>
-            <td><span class="skeleton-bar" style="width: 60%"></span></td>
-            <td><span class="skeleton-bar" style="width: 22px"></span></td>
-            <td><span class="skeleton-bar" style="width: 50%"></span></td>
-            <td><span class="skeleton-bar" style="width: 80%"></span></td>
-            <td class="num"><span class="skeleton-bar" style="width: 40px"></span></td>
-            <td><span class="skeleton-bar" style="width: 60%"></span></td>
+            <th class="check"><input type="checkbox"></th>
+            <th class="sortable">Name</th>
+            <th class="sortable sorted">Created <i class="bi bi-arrow-down arr"></i></th>
+            <th class="sortable">Stage</th>
+            <th class="sortable">Last visit</th>
+            <th class="col-num sortable">Calls</th>
+            <th class="col-num sortable">Price</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Last activity</th>
           </tr>
-        }
-      } @else {
-        @for (row of filteredActivity; track row.channel + '-' + row.id) {
-          <tr>
-            <td class="nowrap" [title]="fullDateTime(row.createdAt)">{{ relativeTime(row.createdAt) }}</td>
-            <td>
-              <div class="agent-cell">
-                <span class="agent-initials">{{ initials(row.agentName) }}</span>
-                <span class="agent-name">{{ row.agentName || '—' }}</span>
-              </div>
-            </td>
-            <td>
-              <span class="channel-pill {{ row.channel }}">
-                <i class="bi {{ channelIcon(row.channel) }}"></i>{{ row.channel }}
-              </span>
-            </td>
-            <td>
-              <span class="dir-arrow" [class.inbound]="row.isIncoming" [class.outbound]="!row.isIncoming" [title]="row.isIncoming ? 'Inbound' : 'Outbound'">
-                <i class="bi" [class.bi-arrow-down-left]="row.isIncoming" [class.bi-arrow-up-right]="!row.isIncoming"></i>
-              </span>
-            </td>
-            <td class="nowrap">{{ leadLabel(row) }}</td>
-            <td>{{ activityDetail(row) }}</td>
-            <td class="num">{{ row.channel === 'call' ? duration(row.duration) : '—' }}</td>
-            <td>
-              @if (outcomeBadge(row); as b) {
-                <span class="status-badge {{ b.cls }}">{{ b.text }}</span>
-              } @else {
-                <span class="text-muted">—</span>
-              }
-            </td>
-          </tr>
-        } @empty {
-          <tr>
-            <td colspan="8">
-              <div class="pulse-table-empty">
-                <i class="bi bi-inboxes"></i>
-                No activity matches the current filters.
-              </div>
-            </td>
-          </tr>
-        }
-      }
-    </tbody>
-  </table>
+        </thead>
+        <tbody>
+          @for (l of leads; track l.id) {
+            <tr [class.selected]="l.sel" (click)="openLead(l)">
+              <td class="check" (click)="$event.stopPropagation()"><input type="checkbox" [checked]="l.sel"></td>
+              <td>
+                <div class="lead-cell">
+                  <span class="lead-avatar" [style.background]="l.avatarColor">{{ initials(l.name) }}</span>
+                  <div>
+                    <div class="lead-name">{{ l.name }}</div>
+                    <div class="lead-email">{{ l.src }}</div>
+                  </div>
+                </div>
+              </td>
+              <td><div class="time-cell"><i class="bi bi-clock"></i>{{ l.created }}</div></td>
+              <td><span class="stage" [class]="'stage ' + stageClass(l.stage)"><span class="swatch"></span>{{ l.stage }}</span></td>
+              <td><div class="time-cell muted"><i class="bi bi-clock-history"></i>{{ l.visit }}</div></td>
+              <td class="col-num"><div class="calls-cell"><i class="bi bi-telephone-fill"></i>{{ l.calls }}</div></td>
+              <td class="col-num">{{ fmtPrice(l.price) }}</td>
+              <td>
+                @if (l.phone) {
+                  <div class="phone-cell" [class.bad]="l.phoneBad">
+                    <i class="bi bi-telephone-fill" [style.color]="l.phoneBad ? 'var(--text-subtle)' : 'var(--green)'"></i>
+                    <i class="bi bi-chat-text-fill" [style.color]="l.phoneBad ? 'var(--text-subtle)' : 'var(--blue)'"></i>
+                    <span class="num">{{ l.phone }}</span>
+                  </div>
+                } @else {
+                  <span class="muted">—</span>
+                }
+              </td>
+              <td><div class="email-cell"><i class="bi bi-envelope-fill"></i><span>{{ l.email }}</span></div></td>
+              <td><div class="activity-cell" [class]="'activity-cell ' + activityClass(l.activity)"><i class="bi" [class]="activityIcon(l.activity)"></i>{{ l.activity }}</div></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Right filter rail -->
+  <aside class="filter-rail">
+    <div class="filter-rail-head">
+      <h3><i class="bi bi-funnel-fill"></i>Filters <span class="pill">4</span></h3>
+      <div class="right">
+        <button title="Save"><i class="bi bi-bookmark-plus"></i></button>
+        <button title="Collapse" (click)="toggleRail()"><i class="bi bi-chevron-double-right"></i></button>
+      </div>
+    </div>
+
+    <div class="saved-block">
+      <div class="saved-block-head">
+        <span class="sb-label">Saved searches</span>
+        <button class="sb-new" title="Save current view"><i class="bi bi-plus-lg"></i></button>
+      </div>
+      <div class="saved-list">
+        <div class="saved-item active">
+          <i class="bi bi-bookmark-fill sb-ico"></i>
+          <div class="sb-body">
+            <div class="sb-name">Hot &amp; warm buyers</div>
+            <div class="sb-meta"><i class="bi bi-people-fill"></i>Shared by Sarah · 2h ago</div>
+          </div>
+          <div class="sb-count">2,518</div>
+        </div>
+        <div class="saved-item">
+          <i class="bi bi-bookmark sb-ico"></i>
+          <div class="sb-body">
+            <div class="sb-name">New this week</div>
+            <div class="sb-meta"><i class="bi bi-people-fill"></i>Shared · 1d ago</div>
+          </div>
+          <div class="sb-count">214</div>
+        </div>
+        <div class="saved-item">
+          <i class="bi bi-bookmark sb-ico"></i>
+          <div class="sb-body">
+            <div class="sb-name">No reply 72h</div>
+            <div class="sb-meta"><i class="bi bi-lightning-fill"></i>Auto-tags &amp; assigns</div>
+          </div>
+          <div class="sb-count danger">156</div>
+        </div>
+        <div class="saved-item">
+          <i class="bi bi-bookmark sb-ico"></i>
+          <div class="sb-body">
+            <div class="sb-name">Appointments set</div>
+            <div class="sb-meta"><i class="bi bi-person-fill"></i>Private · just you</div>
+          </div>
+          <div class="sb-count">87</div>
+        </div>
+        <a class="saved-all">See all (24) →</a>
+      </div>
+    </div>
+
+    <div class="filter-builder">
+      <div class="fb-section-label">Current filters</div>
+      <div class="fb-add">
+        <i class="bi bi-plus-circle"></i>
+        <input placeholder="Add a filter..." />
+      </div>
+
+      <div class="fb-row">
+        <div class="fb-field">Stage</div>
+        <div class="fb-op">is</div>
+        <div class="fb-val">Active, Appointment</div>
+        <button class="fb-remove"><i class="bi bi-x"></i></button>
+      </div>
+      <div class="fb-row">
+        <div class="fb-field">Source</div>
+        <div class="fb-op">is one of</div>
+        <div class="fb-val">Zillow Premier, FUB site</div>
+        <button class="fb-remove"><i class="bi bi-x"></i></button>
+      </div>
+      <div class="fb-row">
+        <div class="fb-field">Lead score</div>
+        <div class="fb-op">between</div>
+        <div class="fb-val">60 – 100</div>
+        <button class="fb-remove"><i class="bi bi-x"></i></button>
+      </div>
+      <div class="fb-row">
+        <div class="fb-field">Last contact</div>
+        <div class="fb-op">in last</div>
+        <div class="fb-val">7 days</div>
+        <button class="fb-remove"><i class="bi bi-x"></i></button>
+      </div>
+
+      <div class="fb-divider">
+        <span>Match all</span>
+        <div class="match-toggle inline">
+          <button class="active">AND</button>
+          <button>OR</button>
+        </div>
+      </div>
+
+      <div class="fb-empty-helper">
+        <i class="bi bi-lightbulb"></i>
+        Try filtering by <em>tag</em>, <em>price range</em>, or any custom field
+      </div>
+    </div>
+
+    <div class="rail-scroll"></div>
+
+    <div class="match-summary">
+      <i class="bi bi-check2-circle" style="color:var(--accent)"></i>
+      Matches <strong>2,518</strong> of 101,847 leads
+    </div>
+
+    <div class="rail-foot">
+      <span class="reset">Reset all</span>
+      <div class="right">
+        <button class="btn">Save view</button>
+        <button class="btn primary">Apply</button>
+      </div>
+    </div>
+  </aside>
+
 </div>

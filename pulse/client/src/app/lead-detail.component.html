@@ -1,0 +1,400 @@
+<!-- Top bar with breadcrumbs + paging -->
+<div class="topbar">
+  <div class="crumbs">
+    <i class="bi bi-people"></i>
+    <a (click)="back()" style="cursor:pointer">Leads</a>
+    <span class="sep">/</span>
+    <a (click)="back()" style="cursor:pointer">Hot &amp; warm buyers</a>
+    <span class="sep">/</span>
+    <strong>Richard Mitchell</strong>
+  </div>
+  <div class="topbar-right">
+    <div class="person-nav">
+      <button class="nav-arrow"><i class="bi bi-chevron-left"></i></button>
+      <span><strong>1</strong> of <strong>2,518</strong></span>
+      <button class="nav-arrow"><i class="bi bi-chevron-right"></i></button>
+    </div>
+    <div style="width:8px"></div>
+    <button class="btn ghost"><i class="bi bi-share"></i>Share</button>
+    <button class="btn ghost"><i class="bi bi-three-dots"></i></button>
+    <button class="btn accent"><i class="bi bi-lightning-fill"></i>Take action</button>
+  </div>
+</div>
+
+<div class="lead-body">
+
+  <!-- LEFT: Contact details -->
+  <aside class="lead-col left">
+    <div class="contact-head">
+      <div class="contact-top">
+        <div class="contact-avatar">RM</div>
+        <div style="flex:1; min-width:0;">
+          <h2 class="contact-name">Richard Mitchell <i class="bi bi-pencil edit-pencil"></i></h2>
+          <div class="contact-last"><span class="dot"></span>Last contact <strong style="color:var(--text)">32 min ago</strong> · by Miranda</div>
+        </div>
+        <span class="lead-score-chip" title="Lead score"><i class="bi bi-fire"></i>92</span>
+      </div>
+
+      <div class="contact-actions">
+        <button class="contact-action call"><i class="bi bi-telephone-fill"></i>Call</button>
+        <button class="contact-action text"><i class="bi bi-chat-text-fill"></i>Text</button>
+        <button class="contact-action email"><i class="bi bi-envelope-fill"></i>Email</button>
+        <button class="contact-action primary"><i class="bi bi-search"></i>Search</button>
+      </div>
+    </div>
+
+    <div class="details-section">
+      <div class="details-head">
+        <span class="title"><i class="bi bi-person-vcard"></i>Contact</span>
+        <div class="head-actions"><button title="Edit"><i class="bi bi-pencil"></i></button></div>
+        <i class="bi bi-chevron-down chev"></i>
+      </div>
+      <div class="details-body">
+        <div class="detail-row"><i class="bi bi-telephone-fill lead-icon" style="color:var(--green)"></i><span class="v">(602) 653-6083</span><span style="color:var(--text-muted);font-size:11px">mobile</span><button class="qa"><i class="bi bi-copy"></i></button></div>
+        <div class="detail-row"><i class="bi bi-envelope-fill lead-icon" style="color:var(--blue)"></i><span class="v">rmit403&#64;gmail.com</span><button class="qa"><i class="bi bi-copy"></i></button></div>
+        <div class="detail-row"><i class="bi bi-geo-alt-fill lead-icon" style="color:var(--accent)"></i><span class="v plain">San Antonio, TX <small>· 78201</small></span></div>
+        <div class="detail-row"><i class="bi bi-globe lead-icon"></i><span class="v">raleighrealty.com</span></div>
+      </div>
+    </div>
+
+    <div class="details-section">
+      <div class="details-head">
+        <span class="title"><i class="bi bi-list-ul"></i>Details</span>
+        <div class="head-actions"><button title="Edit"><i class="bi bi-pencil"></i></button></div>
+        <i class="bi bi-chevron-down chev"></i>
+      </div>
+      <div class="details-body">
+        <div class="kv-row"><span class="k">Stage</span><span class="v"><span class="stage-pill"><span class="swatch"></span>Lead</span></span></div>
+        <div class="kv-row"><span class="k">Assigned</span><span class="v link">Miranda Herring</span></div>
+        <div class="kv-row"><span class="k">Source</span><span class="v link">raleighrealty.com</span></div>
+        <div class="kv-row"><span class="k">Created</span><span class="v">34 min ago</span></div>
+        <div class="kv-row"><span class="k">Price</span><span class="v accent">$894,024</span></div>
+        <div class="kv-row"><span class="k">Timeframe</span><span class="v">3–6 months</span></div>
+        <div class="kv-row" style="margin-top:6px"><span class="k">Tags</span><span class="v">
+          <div class="tags-row">
+            <span class="tag-chip">27703 <i class="bi bi-x"></i></span>
+            <span class="tag-chip">Ad–Google <i class="bi bi-x"></i></span>
+            <span class="tag-chip">Durham <i class="bi bi-x"></i></span>
+            <span class="tag-chip">Email Registration <i class="bi bi-x"></i></span>
+            <button class="tag-add"><i class="bi bi-plus"></i></button>
+          </div>
+        </span></div>
+      </div>
+    </div>
+
+    <div class="details-section collapsed">
+      <div class="details-head">
+        <span class="title"><i class="bi bi-info-circle"></i>Background</span>
+        <i class="bi bi-chevron-down chev"></i>
+      </div>
+      <div class="details-body">
+        <div class="add-row"><i class="bi bi-plus-circle"></i>&nbsp;<span class="add-link">Add background</span></div>
+      </div>
+    </div>
+
+    <div class="details-section">
+      <div class="details-head">
+        <span class="title"><i class="bi bi-people"></i>Relationships</span>
+        <div class="head-actions"><button class="accent-btn" title="Add"><i class="bi bi-plus-lg"></i></button></div>
+        <i class="bi bi-chevron-down chev"></i>
+      </div>
+      <div class="details-body">
+        <div class="detail-row"><i class="bi bi-person-heart lead-icon"></i><span class="v">Jennifer Mitchell <small>(spouse)</small></span></div>
+        <div class="add-row"><i class="bi bi-plus-circle" style="color:var(--accent)"></i>&nbsp;<span class="add-link">Add another</span></div>
+      </div>
+    </div>
+
+    <div class="details-section collapsed">
+      <div class="details-head">
+        <span class="title"><i class="bi bi-bank"></i>Financing</span>
+        <i class="bi bi-chevron-down chev"></i>
+      </div>
+    </div>
+
+    <div class="details-section collapsed">
+      <div class="details-head">
+        <span class="title"><i class="bi bi-share"></i>Social profile</span>
+        <i class="bi bi-chevron-down chev"></i>
+      </div>
+    </div>
+
+    <div class="details-section collapsed">
+      <div class="details-head">
+        <span class="title"><i class="bi bi-sliders"></i>Custom fields</span>
+        <i class="bi bi-chevron-down chev"></i>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CENTER: Composer + Activity -->
+  <section class="lead-col center">
+
+    <div class="composer-tabs">
+      <button class="composer-tab note" [class.active]="composer === 'note'" (click)="setComposer('note')">
+        <span class="icon-chip"><i class="bi bi-sticky"></i></span>Create note
+      </button>
+      <button class="composer-tab email" [class.active]="composer === 'email'" (click)="setComposer('email')">
+        <span class="icon-chip"><i class="bi bi-envelope"></i></span>Send email
+      </button>
+      <button class="composer-tab text" [class.active]="composer === 'text'" (click)="setComposer('text')">
+        <span class="icon-chip"><i class="bi bi-chat-text"></i></span>Text
+      </button>
+      <button class="composer-tab call" [class.active]="composer === 'call'" (click)="setComposer('call')">
+        <span class="icon-chip"><i class="bi bi-telephone"></i></span>Log call
+      </button>
+      <div class="right">
+        <span class="info-chip"><i class="bi bi-info-circle"></i>How it works</span>
+      </div>
+    </div>
+
+    <div class="composer-body">
+      <textarea class="composer-textarea" placeholder="Add notes or type @name to notify a teammate..."></textarea>
+      <div class="composer-actions">
+        <div class="left">
+          <button title="Attach"><i class="bi bi-paperclip"></i></button>
+          <button title="Template"><i class="bi bi-file-text"></i></button>
+          <button title="Variable"><i class="bi bi-braces"></i></button>
+          <button title="Mention"><i class="bi bi-at"></i></button>
+        </div>
+        <div class="right">
+          <button class="btn ghost"><i class="bi bi-bell"></i>Notify 0</button>
+          <button class="btn primary"><i class="bi bi-check2"></i>Save note</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity-filters">
+      <button class="afilter" [class.active]="filter === 'all'" (click)="setFilter('all')"><span class="lbl"><i class="bi bi-list-ul"></i>All</span><span class="c">(16)</span></button>
+      <button class="afilter call" [class.active]="filter === 'calls'" (click)="setFilter('calls')"><span class="lbl"><i class="bi bi-telephone-fill"></i>Calls</span><span class="c">(1)</span></button>
+      <button class="afilter text" [class.active]="filter === 'texts'" (click)="setFilter('texts')"><span class="lbl"><i class="bi bi-chat-text-fill"></i>Texts</span><span class="c">(3)</span></button>
+      <button class="afilter email" [class.active]="filter === 'emails'" (click)="setFilter('emails')"><span class="lbl"><i class="bi bi-envelope-fill"></i>Emails</span><span class="c">(2)</span></button>
+      <button class="afilter note" [class.active]="filter === 'notes'" (click)="setFilter('notes')"><span class="lbl"><i class="bi bi-pin-angle-fill"></i>Notes</span><span class="c">(1)</span></button>
+      <button class="afilter activity" [class.active]="filter === 'activity'" (click)="setFilter('activity')"><span class="lbl"><i class="bi bi-activity"></i>Activity</span><span class="c">(12)</span></button>
+      <button class="afilter search" [class.active]="filter === 'searches'" (click)="setFilter('searches')"><span class="lbl"><i class="bi bi-search"></i>Searches</span><span class="c">(5)</span></button>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-day">Today · May 24, 2026</div>
+
+      <div class="event">
+        <span class="event-avatar miranda">MH<span class="channel-chip note"><i class="bi bi-pin-angle-fill"></i></span></span>
+        <div class="event-body-flush">
+          <div class="event-head">
+            <span class="who">Miranda Herring</span>
+            <span class="verb">added a note</span>
+            <span class="ts">5:18 pm · Today</span>
+          </div>
+          <div class="sticky-note">
+            Spoke with Richard — he's relocating from San Antonio in August for a remote tech role. Pre-approved up to $950k. Wants a 4BR with home office in Durham or N. Raleigh. Following up Tuesday with a curated list.
+          </div>
+          <div class="event-meta">
+            <span class="pill info"><i class="bi bi-at"></i>Sarah Chen</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <span class="event-avatar miranda">MH<span class="channel-chip text"><i class="bi bi-chat-text-fill"></i></span></span>
+        <div class="event-body-flush">
+          <div class="event-head">
+            <span class="who">Miranda Herring</span>
+            <span class="verb">→</span>
+            <span class="target">Richard Mitchell</span>
+            <span class="ts">5:16 pm</span>
+          </div>
+          <div class="chat-bubble outbound">Hi Richard, thank you for reaching out! This is Miranda Herring with Raleigh Realty. When is a good time for me to give you a call?</div>
+          <div class="quick-reply">
+            <i class="bi bi-check-all" style="color:var(--blue);font-size:12px"></i>
+            <span style="color:var(--text-subtle);font-size:11px">Delivered</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <span class="event-avatar lead">RM<span class="channel-chip prop"><i class="bi bi-heart-fill"></i></span></span>
+        <div class="event-body-flush">
+          <div class="event-head">
+            <span class="who">Richard</span>
+            <span class="verb">saved a property</span>
+            <span class="ts">5:14 pm</span>
+          </div>
+          <div class="property-card">
+            <div class="photo"><i class="bi bi-house-door"></i></div>
+            <div>
+              <div class="addr">6508 Century Oak Ct, Raleigh NC 27613</div>
+              <div class="meta">
+                <span><i class="bi bi-tag-fill"></i>$742,000</span>
+                <span><i class="bi bi-door-open"></i>4 bd</span>
+                <span><i class="bi bi-droplet"></i>3 ba</span>
+                <span><i class="bi bi-aspect-ratio"></i>3,193 sf</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <span class="event-avatar system"><i class="bi bi-person-plus-fill"></i></span>
+        <div class="event-body-flush">
+          <div class="event-head">
+            <span class="who">Registration</span>
+            <span class="ts">5:14 pm</span>
+          </div>
+          <div class="event-text">
+            via <a style="color:var(--blue);font-weight:600;text-decoration:none">raleighrealty.com</a> · <strong>Buyers</strong> · Ryan Fitzgerald (API)<br>
+            <span style="color:var(--text-muted)">Coming from <strong>San Antonio, Bexar County, TX</strong></span>
+          </div>
+          <div class="event-meta">
+            <span class="pill info"><i class="bi bi-person-fill"></i>Assigned to Miranda Herring</span>
+            <span class="pill"><i class="bi bi-google" style="color:#4285f4"></i>AdWords</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <span class="event-avatar lead">RM<span class="channel-chip search"><i class="bi bi-search"></i></span></span>
+        <div class="event-body-flush">
+          <div class="event-head">
+            <span class="who">Richard</span>
+            <span class="verb">created a saved search</span>
+            <span class="target">"Durham 4BR 700–950k"</span>
+            <span class="ts">5:12 pm</span>
+          </div>
+          <div class="search-summary">
+            <div><div class="k">Area</div><div class="v">Durham + N. Raleigh</div></div>
+            <div><div class="k">Price</div><div class="v">$700k – $950k</div></div>
+            <div><div class="k">Email frequency</div><div class="v accent">Daily</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-day">Yesterday · May 23</div>
+
+      <div class="event">
+        <span class="event-avatar lead">RM<span class="channel-chip email"><i class="bi bi-envelope-fill"></i></span></span>
+        <div class="event-body-flush">
+          <div class="event-head">
+            <span class="who">Richard Mitchell</span>
+            <span class="verb">submitted</span>
+            <span class="target">Home valuation form</span>
+            <span class="ts">9:42 pm</span>
+          </div>
+          <div class="event-text">
+            Asked for a valuation on a home in <strong>78201</strong> (current residence). Plans to sell before relocating.
+          </div>
+          <div class="event-meta">
+            <span class="pill warn"><i class="bi bi-flag-fill"></i>Action needed</span>
+            <span class="pill">CMA pending</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RIGHT: Context rail -->
+  <aside class="lead-col right">
+
+    <div class="rail-section">
+      <div class="rail-section-head">
+        <h4><i class="bi bi-check2-square"></i>Tasks <span style="color:var(--text-subtle);font-weight:500">3</span></h4>
+        <div class="right">
+          <button class="accent-btn" title="AI suggest"><i class="bi bi-lightning-fill"></i></button>
+          <button title="Add"><i class="bi bi-plus-lg"></i></button>
+        </div>
+      </div>
+      <div>
+        <div class="task-row">
+          <input type="checkbox">
+          <div class="task-text">Send curated Durham listings <span class="task-due overdue">Due today</span></div>
+        </div>
+        <div class="task-row">
+          <input type="checkbox">
+          <div class="task-text">Schedule discovery call <span class="task-due">Tue · 2pm</span></div>
+        </div>
+        <div class="task-row">
+          <input type="checkbox">
+          <div class="task-text">Request pre-approval letter <span class="task-due">Wed</span></div>
+        </div>
+        <div class="task-quick-add"><i class="bi bi-plus"></i>Add a task...</div>
+      </div>
+    </div>
+
+    <div class="rail-section">
+      <div class="rail-section-head">
+        <h4><i class="bi bi-bookmark-fill" style="color:var(--accent)"></i>Saved searches</h4>
+        <div class="right"><button class="accent-btn" title="Create"><i class="bi bi-plus-lg"></i></button></div>
+      </div>
+      <div>
+        <div class="rail-saved active">
+          <div class="rs-head">
+            <span class="rs-name">Durham 4BR · 700–950k</span>
+            <span class="rs-status active-status">Active</span>
+          </div>
+          <div class="rs-meta">
+            <span><i class="bi bi-envelope"></i>Daily digest</span>
+            <span><i class="bi bi-eye"></i>5 properties</span>
+          </div>
+          <div class="rs-criteria">
+            <span class="crit">Durham, N. Raleigh</span>
+            <span class="crit">$700k–$950k</span>
+            <span class="crit">4+ beds</span>
+            <span class="crit">2,500+ sf</span>
+          </div>
+        </div>
+        <div class="rail-saved">
+          <div class="rs-head">
+            <span class="rs-name">Wake Co · 600k–800k</span>
+            <span class="rs-status paused">Paused</span>
+          </div>
+          <div class="rs-meta">
+            <span><i class="bi bi-envelope"></i>Weekly</span>
+            <span><i class="bi bi-eye"></i>0 new</span>
+          </div>
+        </div>
+        <button class="btn accent" style="width:100%;justify-content:center;margin-top:4px"><i class="bi bi-plus-lg"></i>Create search</button>
+      </div>
+    </div>
+
+    <div class="rail-section">
+      <div class="rail-section-head">
+        <h4><i class="bi bi-stars"></i>At a glance</h4>
+      </div>
+      <div class="at-glance">
+        <div class="glance-cell"><div class="k"><i class="bi bi-tag-fill"></i>Budget</div><div class="v">$894k</div><div class="sub">Up to $950k</div></div>
+        <div class="glance-cell"><div class="k"><i class="bi bi-door-open"></i>Beds</div><div class="v">4+</div><div class="sub">Home office</div></div>
+        <div class="glance-cell"><div class="k"><i class="bi bi-aspect-ratio"></i>Size</div><div class="v">2,500+ sf</div></div>
+        <div class="glance-cell"><div class="k"><i class="bi bi-geo-alt-fill"></i>Area</div><div class="v">27703</div><div class="sub">Durham</div></div>
+      </div>
+    </div>
+
+    <div class="rail-section">
+      <div class="rail-section-head">
+        <h4><i class="bi bi-broadcast"></i>Marketing source</h4>
+      </div>
+      <div class="source-pill">
+        <i class="bi bi-google"></i>
+        <div style="flex:1">
+          <div>AdWords <span class="from">· Buyers form</span></div>
+          <div class="from" style="margin-top:2px">"durham real estate" — paid</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rail-section">
+      <div class="rail-section-head">
+        <h4><i class="bi bi-globe"></i>Website activity <span style="color:var(--text-subtle);font-weight:500">623</span></h4>
+        <div class="right"><button style="color:var(--accent);font-weight:600;font-size:11px;padding:0 4px;width:auto">View all →</button></div>
+      </div>
+      <div>
+        <div class="web-activity"><div class="photo"><i class="bi bi-house"></i></div><div class="addr">1519 Brownairs Ln, Raleigh</div><span class="when">5m ago</span></div>
+        <div class="web-activity"><div class="photo"><i class="bi bi-house"></i></div><div class="addr">Raleigh, NC Real Estate Homes</div><span class="when">12m ago</span></div>
+        <div class="web-activity"><div class="photo"><i class="bi bi-house"></i></div><div class="addr">6508 Century Oak Ct, Raleigh</div><span class="when">14m ago</span></div>
+        <div class="web-activity"><div class="photo"><i class="bi bi-house"></i></div><div class="addr">Homes and Real Estate for Sale</div><span class="when">22m ago</span></div>
+        <div class="web-activity"><div class="photo"><i class="bi bi-house"></i></div><div class="addr">55 Adult Community, Clayton NC</div><span class="when">45m ago</span></div>
+      </div>
+    </div>
+
+  </aside>
+</div>
