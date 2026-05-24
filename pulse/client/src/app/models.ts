@@ -117,6 +117,29 @@ export interface SyncStatus {
   lastCallSync: SyncRun | null;
 }
 
+export interface Lead {
+  id: number;
+  name: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  stage: string | null;
+  source: string | null;
+  sourceUrl: string | null;
+  assignedUserId: number | null;
+  assignedName: string | null;
+  email: string | null;
+  phone: string | null;
+  city: string | null;
+  state: string | null;
+  postalCode: string | null;
+  tags: string[];
+  created: string | null;
+  updated: string | null;
+  lastActivity: string | null;
+  lastCommunication: string | null;
+  price: number | null;
+}
+
 export interface AppConfig {
   fubConfigured: boolean;
   timezone: string;

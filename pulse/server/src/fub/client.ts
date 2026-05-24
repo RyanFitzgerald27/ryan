@@ -11,6 +11,30 @@ export interface FubUser {
   status?: string;
 }
 
+/** A person (lead/contact) in Follow Up Boss. Fields are loosely typed because
+ *  shapes vary by account. The route layer picks out what the UI needs. */
+export interface FubPerson {
+  id: number;
+  created?: string;
+  updated?: string;
+  firstName?: string;
+  lastName?: string;
+  name?: string;
+  stage?: string;
+  source?: string;
+  sourceUrl?: string;
+  assignedUserId?: number;
+  assignedTo?: string;
+  emails?: Array<{ value?: string; type?: string; isPrimary?: number | boolean }>;
+  phones?: Array<{ value?: string; type?: string; isPrimary?: number | boolean }>;
+  addresses?: Array<{ city?: string; state?: string; postalCode?: string }>;
+  tags?: string[];
+  lastActivity?: string;
+  lastCommunication?: string;
+  contacted?: number;
+  price?: number;
+}
+
 /** A logged call in Follow Up Boss. */
 export interface FubCall {
   id: number;
@@ -173,6 +197,18 @@ export async function* fubPages<T>(
 
 export function fetchUsers(): AsyncGenerator<FubUser[]> {
   return fubPages<FubUser>('/users', 'users', {});
+}
+
+/** Fetches a single person by id. Returns null on 404 so the route can 404 cleanly. */
+export async function fetchPerson(id: number): Promise<FubPerson | null> {
+  try {
+    const data = await fubGet(`/people/${id}`);
+    return data as FubPerson;
+  } catch (err) {
+    const msg = String((err as Error)?.message ?? '');
+    if (msg.includes('FUB API 404')) return null;
+    throw err;
+  }
 }
 
 /** Calls are requested newest-first so sync can stop early once past the window. */

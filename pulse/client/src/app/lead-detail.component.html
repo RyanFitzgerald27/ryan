@@ -9,7 +9,7 @@
     <span class="sep">/</span>
     <a (click)="back()" style="cursor:pointer">Hot &amp; warm buyers</a>
     <span class="sep">/</span>
-    <strong>Richard Mitchell</strong>
+    <strong>{{ lead()?.name ?? 'Richard Mitchell' }}</strong>
   </div>
   <div class="topbar-right">
     <div class="person-nav">
@@ -30,9 +30,9 @@
   <aside class="lead-col left">
     <div class="contact-head">
       <div class="contact-top">
-        <div class="contact-avatar">RM</div>
+        <div class="contact-avatar">{{ initials() || 'RM' }}</div>
         <div style="flex:1; min-width:0;">
-          <h2 class="contact-name">Richard Mitchell <i class="bi bi-pencil edit-pencil"></i></h2>
+          <h2 class="contact-name">{{ lead()?.name ?? 'Richard Mitchell' }} <i class="bi bi-pencil edit-pencil"></i></h2>
           <div class="contact-last"><span class="dot"></span>Last contact <strong style="color:var(--text)">32 min ago</strong></div>
         </div>
         <span class="lead-score-chip" title="Lead score"><i class="bi bi-fire"></i>92</span>
@@ -53,9 +53,9 @@
         <i class="bi bi-chevron-down chev"></i>
       </div>
       <div class="details-body">
-        <div class="detail-row"><i class="bi bi-telephone-fill lead-icon" style="color:var(--green)"></i><span class="v">(602) 653-6083</span><span style="color:var(--text-muted);font-size:11px">mobile</span><button class="qa"><i class="bi bi-copy"></i></button></div>
-        <div class="detail-row"><i class="bi bi-envelope-fill lead-icon" style="color:var(--blue)"></i><span class="v">rmit403&#64;gmail.com</span><button class="qa"><i class="bi bi-copy"></i></button></div>
-        <div class="detail-row"><i class="bi bi-geo-alt-fill lead-icon" style="color:var(--accent)"></i><span class="v plain">San Antonio, TX <small>· 78201</small></span></div>
+        <div class="detail-row"><i class="bi bi-telephone-fill lead-icon" style="color:var(--green)"></i><span class="v">{{ lead()?.phone ?? '(602) 653-6083' }}</span><span style="color:var(--text-muted);font-size:11px">mobile</span><button class="qa"><i class="bi bi-copy"></i></button></div>
+        <div class="detail-row"><i class="bi bi-envelope-fill lead-icon" style="color:var(--blue)"></i><span class="v">{{ lead()?.email ?? 'rmit403@gmail.com' }}</span><button class="qa"><i class="bi bi-copy"></i></button></div>
+        <div class="detail-row"><i class="bi bi-geo-alt-fill lead-icon" style="color:var(--accent)"></i><span class="v plain">{{ lead()?.city ?? 'San Antonio' }}, {{ lead()?.state ?? 'TX' }} <small *ngIf="lead()?.postalCode || true">· {{ lead()?.postalCode ?? '78201' }}</small></span></div>
         <div class="detail-row"><i class="bi bi-globe lead-icon"></i><span class="v">raleighrealty.com</span></div>
       </div>
     </div>

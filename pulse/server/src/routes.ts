@@ -15,6 +15,7 @@ import {
   trend,
 } from './metrics';
 import { syncState, triggerSync } from './fub/sync';
+import { fetchPerson, type FubPerson } from './fub/client';
 
 export const apiRouter = Router();
 
@@ -26,6 +27,61 @@ function handle(fn: (req: import('express').Request, res: import('express').Resp
       console.error('[api]', err);
       res.status(500).json({ error: String((err as Error)?.message ?? err) });
     }
+  };
+}
+
+function asyncHandle(
+  fn: (req: import('express').Request, res: import('express').Response) => Promise<void>,
+) {
+  return async (req: import('express').Request, res: import('express').Response) => {
+    try {
+      await fn(req, res);
+    } catch (err) {
+      console.error('[api]', err);
+      res.status(500).json({ error: String((err as Error)?.message ?? err) });
+    }
+  };
+}
+
+function pickPrimary<T extends { isPrimary?: number | boolean; value?: string }>(
+  arr: T[] | undefined,
+): string | null {
+  if (!arr || arr.length === 0) return null;
+  const primary = arr.find((x) => x.isPrimary) ?? arr[0];
+  return primary?.value ?? null;
+}
+
+function shapePerson(p: FubPerson) {
+  const agentRow = p.assignedUserId
+    ? (db
+        .prepare('SELECT name FROM agents WHERE id = ?')
+        .get(p.assignedUserId) as { name?: string } | undefined)
+    : undefined;
+  const assignedName = p.assignedTo ?? agentRow?.name ?? null;
+  const fullName =
+    p.name ?? ([p.firstName, p.lastName].filter(Boolean).join(' ').trim() || null);
+  const addr = p.addresses?.[0];
+  return {
+    id: p.id,
+    name: fullName,
+    firstName: p.firstName ?? null,
+    lastName: p.lastName ?? null,
+    stage: p.stage ?? null,
+    source: p.source ?? null,
+    sourceUrl: p.sourceUrl ?? null,
+    assignedUserId: p.assignedUserId ?? null,
+    assignedName,
+    email: pickPrimary(p.emails),
+    phone: pickPrimary(p.phones),
+    city: addr?.city ?? null,
+    state: addr?.state ?? null,
+    postalCode: addr?.postalCode ?? null,
+    tags: p.tags ?? [],
+    created: p.created ?? null,
+    updated: p.updated ?? null,
+    lastActivity: p.lastActivity ?? null,
+    lastCommunication: p.lastCommunication ?? null,
+    price: p.price ?? null,
   };
 }
 
@@ -136,6 +192,29 @@ apiRouter.get(
     const range = resolveRange(String(req.query.range ?? 'last30'));
     const limit = Math.min(100, Math.max(1, Number(req.query.limit ?? 10)));
     res.json({ range, deals: recentClosedDeals(range, limit) });
+  }),
+);
+
+apiRouter.get(
+  '/people/:id',
+  asyncHandle(async (req, res) => {
+    if (!fubConfigured()) {
+      res.status(400).json({
+        error: 'FUB_API_KEY is not set. Add it to pulse/server/.env and restart the server.',
+      });
+      return;
+    }
+    const id = Number(req.params.id);
+    if (!Number.isFinite(id) || id <= 0) {
+      res.status(400).json({ error: 'Invalid person id' });
+      return;
+    }
+    const person = await fetchPerson(id);
+    if (!person) {
+      res.status(404).json({ error: 'Person not found' });
+      return;
+    }
+    res.json({ person: shapePerson(person) });
   }),
 );
 

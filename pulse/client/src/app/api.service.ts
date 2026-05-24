@@ -9,6 +9,7 @@ import {
   DealRow,
   DealSummary,
   DealTrendPoint,
+  Lead,
   PipelineStage,
   RangeMeta,
   Summary,
@@ -108,6 +109,12 @@ export class ApiService {
       `${this.base}/deals/closed`,
       { params: { range, limit } },
     );
+  }
+
+  // --- Leads (people) ---
+
+  getPerson(id: number | string): Observable<{ person: Lead }> {
+    return this.http.get<{ person: Lead }>(`${this.base}/people/${id}`);
   }
 
   // --- Sync ---
