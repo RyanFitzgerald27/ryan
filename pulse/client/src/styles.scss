@@ -13,10 +13,15 @@
   --side-section: #57637d;
   --side-active-bg: rgba(255, 255, 255, .05);
 
-  /* Accent */
-  --accent: #c39150;
-  --accent-soft: rgba(195, 145, 80, .14);
-  --accent-strong: #d6a563;
+  /* Accent — AgentLoft brand pink (primary single-color accent) */
+  --accent: #ec4899;
+  --accent-soft: rgba(236, 72, 153, .12);
+  --accent-strong: #db2777;
+  --accent-ink: #ffffff;
+
+  /* Brand gradient (logo + key CTAs only — too noisy for everyday accent) */
+  --brand-gradient: linear-gradient(95deg, #c026d3 0%, #ec4899 30%, #f43f5e 60%, #f97316 100%);
+  --brand-gradient-soft: linear-gradient(95deg, rgba(192,38,211,.85), rgba(236,72,153,.85), rgba(244,63,94,.85), rgba(249,115,22,.85));
 
   /* Surface */
   --bg: #f4f4f1;
@@ -110,23 +115,28 @@ input, button, select, textarea { font-family: inherit; }
 }
 .brand-mark {
   width: 28px; height: 28px;
-  background: linear-gradient(135deg, #d6a563, #b27c3d);
+  background: var(--brand-gradient);
   border-radius: 7px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #1a1208;
+  color: #fff;
   font-weight: 800;
   font-size: 14px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .18);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .22);
 }
 .brand-word {
-  color: #fff;
-  font-family: 'Fraunces', serif;
-  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
   font-size: 17px;
+  letter-spacing: -.015em;
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
-.brand-word em { color: var(--accent); font-style: normal; font-weight: 600; }
+.brand-word em { font-style: normal; font-weight: 800; }
 
 .side-collapse-btn {
   position: absolute;
@@ -147,7 +157,7 @@ input, button, select, textarea { font-family: inherit; }
 }
 .side-collapse-btn:hover {
   background: var(--accent);
-  color: #1a1208;
+  color: var(--accent-ink);
   border-color: var(--accent);
   transform: translateY(-50%) scale(1.08);
 }
@@ -179,7 +189,7 @@ input, button, select, textarea { font-family: inherit; }
   font-size: 12.5px;
   outline: none;
 }
-.search:focus { background: rgba(255, 255, 255, .07); border-color: rgba(195, 145, 80, .4); }
+.search:focus { background: rgba(255, 255, 255, .07); border-color: rgba(236, 72, 153, .4); }
 .search::placeholder { color: var(--side-text-subtle); }
 .search-wrap .bi-search {
   position: absolute;
@@ -255,7 +265,7 @@ input, button, select, textarea { font-family: inherit; }
 }
 .badge-count    { color: var(--side-text-subtle); background: rgba(255, 255, 255, .05); }
 .badge-urgent   { color: #ffb3b3; background: rgba(180, 42, 42, .28); font-weight: 700; }
-.badge-attention{ color: #f4c873; background: rgba(195, 145, 80, .16); }
+.badge-attention{ color: #f4c873; background: rgba(244, 200, 115, .14); }
 .nav-item.active .badge-count { color: #fff; background: rgba(255, 255, 255, .1); }
 
 .user-card {
@@ -347,7 +357,7 @@ input, button, select, textarea { font-family: inherit; }
   position: absolute;
   top: -4px; right: -4px;
   background: var(--accent);
-  color: #1a1208;
+  color: var(--accent-ink);
   font-size: 10px;
   font-weight: 700;
   padding: 1px 5px;
@@ -374,8 +384,30 @@ input, button, select, textarea { font-family: inherit; }
 .btn:hover { background: var(--surface-alt); border-color: var(--border-strong); }
 .btn.primary { background: var(--text); color: #fff; border-color: var(--text); }
 .btn.primary:hover { background: #000; }
-.btn.accent { background: var(--accent); color: #1a1208; border-color: var(--accent); font-weight: 600; }
-.btn.accent:hover { background: var(--accent-strong); }
+.btn.accent {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+.btn.accent:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+
+/* Brand gradient CTA — for primary "do the thing" actions */
+.btn.brand {
+  background: var(--brand-gradient);
+  color: #fff;
+  border: 0;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 99px;
+  box-shadow: 0 2px 8px rgba(236, 72, 153, .25), inset 0 1px 0 rgba(255,255,255,.22);
+  transition: transform .12s, box-shadow .12s, filter .12s;
+}
+.btn.brand:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(236, 72, 153, .35), inset 0 1px 0 rgba(255,255,255,.22);
+  filter: brightness(1.05);
+}
 .btn.outline-accent {
   background: transparent;
   color: var(--accent);

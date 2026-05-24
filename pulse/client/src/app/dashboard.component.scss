@@ -40,7 +40,7 @@
 }
 .smartlist-strip .sl-icon:hover { background: rgba(255,255,255,.06); color: #fff; }
 .smartlist-strip .sl-icon.active {
-  background: rgba(195,145,80,.18);
+  background: rgba(236,72,153,.18);
   color: var(--accent);
 }
 .smartlist-strip .sl-icon.active::before {
@@ -151,7 +151,7 @@
 .filter-toggle-btn { position: relative; }
 .filter-toggle-btn .filter-count {
   background: var(--accent);
-  color: #1a1208;
+  color: var(--accent-ink);
   font-size: 10px;
   font-weight: 700;
   padding: 1px 6px;
@@ -198,7 +198,7 @@ table.leads tbody td {
 }
 table.leads tbody tr { cursor: pointer; }
 table.leads tbody tr:hover td { background: var(--surface-alt); }
-table.leads tbody tr.selected td { background: rgba(195,145,80,.06); }
+table.leads tbody tr.selected td { background: rgba(236,72,153,.06); }
 
 th.check, td.check { width: 38px; padding-right: 0; }
 
@@ -400,13 +400,13 @@ th.check, td.check { width: 38px; padding-right: 0; }
 .saved-item .sb-count.danger { background: var(--red-soft); color: var(--red); }
 .saved-item.active {
   background: var(--accent-soft);
-  border: 1px solid rgba(195,145,80,.25);
+  border: 1px solid rgba(236,72,153,.25);
   padding: 6px 7px;
 }
 .saved-item.active .sb-ico,
 .saved-item.active .sb-name { color: var(--accent); }
 .saved-item.active .sb-name { font-weight: 700; }
-.saved-item.active .sb-count { background: var(--accent); color: #1a1208; }
+.saved-item.active .sb-count { background: var(--accent); color: var(--accent-ink); }
 .saved-all {
   display: block;
   padding: 6px 8px;
@@ -496,7 +496,7 @@ th.check, td.check { width: 38px; padding-right: 0; }
 .fb-empty-helper {
   display: flex; align-items: start; gap: 6px;
   background: var(--accent-soft);
-  border: 1px solid rgba(195,145,80,.25);
+  border: 1px solid rgba(236,72,153,.25);
   color: var(--text);
   padding: 7px 10px;
   border-radius: 6px;
