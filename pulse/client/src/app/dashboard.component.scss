@@ -40,15 +40,15 @@
 }
 .smartlist-strip .sl-icon:hover { background: rgba(255,255,255,.06); color: #fff; }
 .smartlist-strip .sl-icon.active {
-  background: rgba(236,72,153,.18);
-  color: var(--accent);
+  background: rgba(255, 255, 255, .1);
+  color: #fff;
 }
 .smartlist-strip .sl-icon.active::before {
   content: '';
   position: absolute;
   left: -8px; top: 8px; bottom: 8px;
   width: 3px;
-  background: var(--accent);
+  background: var(--side-accent);
   border-radius: 0 3px 3px 0;
 }
 .smartlist-strip .sl-icon .sl-dot {
@@ -57,7 +57,7 @@
   width: 6px; height: 6px;
   border-radius: 50%;
 }
-.smartlist-strip .sl-icon .sl-dot.accent { background: var(--accent); }
+.smartlist-strip .sl-icon .sl-dot.accent { background: #fff; }
 .smartlist-strip .sl-icon .sl-dot.red { background: #ef4444; }
 .smartlist-strip .sl-divider {
   width: 22px; height: 1px;
@@ -66,7 +66,7 @@
 }
 .smartlist-strip .sl-spacer { flex: 1; }
 .smartlist-strip .sl-icon.sl-new { color: var(--side-text-subtle); margin-top: 2px; }
-.smartlist-strip .sl-icon.sl-new:hover { color: var(--accent); }
+.smartlist-strip .sl-icon.sl-new:hover { color: #fff; }
 
 .page {
   display: flex;
@@ -87,10 +87,10 @@
 }
 .page-head h1 {
   margin: 0;
-  font-family: 'Fraunces', serif;
-  font-weight: 600;
-  font-size: 24px;
-  letter-spacing: -.015em;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -.02em;
   color: var(--text);
   display: inline-flex;
   align-items: center;
@@ -198,7 +198,7 @@ table.leads tbody td {
 }
 table.leads tbody tr { cursor: pointer; }
 table.leads tbody tr:hover td { background: var(--surface-alt); }
-table.leads tbody tr.selected td { background: rgba(236,72,153,.06); }
+table.leads tbody tr.selected td { background: var(--accent-soft); }
 
 th.check, td.check { width: 38px; padding-right: 0; }
 
@@ -400,7 +400,7 @@ th.check, td.check { width: 38px; padding-right: 0; }
 .saved-item .sb-count.danger { background: var(--red-soft); color: var(--red); }
 .saved-item.active {
   background: var(--accent-soft);
-  border: 1px solid rgba(236,72,153,.25);
+  border: 1px solid var(--border-strong);
   padding: 6px 7px;
 }
 .saved-item.active .sb-ico,
@@ -496,7 +496,7 @@ th.check, td.check { width: 38px; padding-right: 0; }
 .fb-empty-helper {
   display: flex; align-items: start; gap: 6px;
   background: var(--accent-soft);
-  border: 1px solid rgba(236,72,153,.25);
+  border: 1px solid var(--border);
   color: var(--text);
   padding: 7px 10px;
   border-radius: 6px;

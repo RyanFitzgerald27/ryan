@@ -13,15 +13,16 @@
   --side-section: #57637d;
   --side-active-bg: rgba(255, 255, 255, .05);
 
-  /* Accent — AgentLoft brand pink (primary single-color accent) */
-  --accent: #ec4899;
-  --accent-soft: rgba(236, 72, 153, .12);
-  --accent-strong: #db2777;
+  /* Accent — monochrome (Linear/Notion-style: near-black on light surfaces) */
+  --accent: #18181b;
+  --accent-soft: #f4f4f5;
+  --accent-strong: #000000;
   --accent-ink: #ffffff;
+  --accent-rgb: 24, 24, 27;
 
-  /* Brand gradient (logo + key CTAs only — too noisy for everyday accent) */
-  --brand-gradient: linear-gradient(95deg, #c026d3 0%, #ec4899 30%, #f43f5e 60%, #f97316 100%);
-  --brand-gradient-soft: linear-gradient(95deg, rgba(192,38,211,.85), rgba(236,72,153,.85), rgba(244,63,94,.85), rgba(249,115,22,.85));
+  /* Sidebar accent — white on the dark sidebar */
+  --side-accent: #ffffff;
+  --side-accent-soft: rgba(255, 255, 255, .1);
 
   /* Surface */
   --bg: #f4f4f1;
@@ -112,31 +113,24 @@ input, button, select, textarea { font-family: inherit; }
   align-items: center;
   gap: 10px;
   position: relative;
-}
-.brand-mark {
-  width: 28px; height: 28px;
-  background: var(--brand-gradient);
-  border-radius: 7px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight: 800;
-  font-size: 14px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .22);
+  min-height: 60px;
 }
 .brand-word {
+  color: #ffffff;
   font-family: 'Inter', sans-serif;
-  font-weight: 800;
-  font-size: 17px;
-  letter-spacing: -.015em;
-  background: var(--brand-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -.02em;
 }
-.brand-word em { font-style: normal; font-weight: 800; }
+.brand-word em { font-style: normal; font-weight: 700; opacity: .55; }
+.app.side-collapsed .brand-word { display: none; }
+.app.side-collapsed .brand::before {
+  content: 'A';
+  color: #fff;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -.04em;
+}
 
 .side-collapse-btn {
   position: absolute;
@@ -156,9 +150,9 @@ input, button, select, textarea { font-family: inherit; }
   transition: background .12s, color .12s, border-color .12s, transform .12s;
 }
 .side-collapse-btn:hover {
-  background: var(--accent);
-  color: var(--accent-ink);
-  border-color: var(--accent);
+  background: rgba(255, 255, 255, .14);
+  color: #fff;
+  border-color: rgba(255, 255, 255, .2);
   transform: translateY(-50%) scale(1.08);
 }
 
@@ -189,7 +183,7 @@ input, button, select, textarea { font-family: inherit; }
   font-size: 12.5px;
   outline: none;
 }
-.search:focus { background: rgba(255, 255, 255, .07); border-color: rgba(236, 72, 153, .4); }
+.search:focus { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .18); }
 .search::placeholder { color: var(--side-text-subtle); }
 .search-wrap .bi-search {
   position: absolute;
@@ -250,10 +244,10 @@ input, button, select, textarea { font-family: inherit; }
   position: absolute;
   left: -8px; top: 4px; bottom: 4px;
   width: 3px;
-  background: var(--accent);
+  background: var(--side-accent);
   border-radius: 0 3px 3px 0;
 }
-.nav-item.active i { color: var(--accent); }
+.nav-item.active i { color: var(--side-accent); }
 
 .badge {
   margin-left: auto;
@@ -409,14 +403,14 @@ input, button, select, textarea { font-family: inherit; }
   filter: brightness(1.05);
 }
 .btn.outline-accent {
-  background: transparent;
-  color: var(--accent);
-  border: 1px solid var(--accent);
-  border-radius: 99px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: 7px;
   font-weight: 600;
-  padding: 7px 16px;
+  padding: 7px 14px;
 }
-.btn.outline-accent:hover { background: var(--accent-soft); border-color: var(--accent-strong); }
+.btn.outline-accent:hover { background: var(--surface-alt); border-color: var(--text); }
 .btn.ghost {
   background: transparent;
   border: 1px solid transparent;
