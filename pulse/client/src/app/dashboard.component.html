@@ -4,9 +4,7 @@
   </button>
   <div class="crumbs">
     <i class="bi bi-people"></i>
-    <strong>Leads</strong>
-    <span class="sep">/</span>
-    <span>Hot &amp; warm buyers</span>
+    <strong>All Leads</strong>
   </div>
   <div class="topbar-right">
     <span class="sync-chip"><span class="dot"></span>Live</span>
@@ -14,7 +12,6 @@
     <button class="icon-btn" title="Help"><i class="bi bi-question-circle"></i></button>
     <button class="icon-btn filter-toggle" title="Toggle filters" (click)="toggleRail()">
       <i class="bi bi-funnel"></i>
-      <span class="badge-dot">4</span>
     </button>
     <button class="btn accent"><i class="bi bi-plus-lg"></i>New lead</button>
   </div>
@@ -24,10 +21,10 @@
 
   <!-- Smart list strip -->
   <aside class="smartlist-strip">
-    <button class="sl-icon" title="All people"><i class="bi bi-list-ul"></i></button>
-    <button class="sl-icon" title="My people"><i class="bi bi-person"></i></button>
+    <button class="sl-icon active" title="All leads"><i class="bi bi-list-ul"></i></button>
+    <button class="sl-icon" title="My leads"><i class="bi bi-person"></i></button>
     <div class="sl-divider"></div>
-    <button class="sl-icon active" title="Hot &amp; warm buyers"><i class="bi bi-funnel-fill"></i></button>
+    <button class="sl-icon" title="Hot &amp; warm buyers"><i class="bi bi-funnel"></i></button>
     <button class="sl-icon" title="New this week"><i class="bi bi-funnel"></i></button>
     <button class="sl-icon" title="No reply 72h"><i class="bi bi-funnel"></i><span class="sl-dot red"></span></button>
     <button class="sl-icon" title="Appointments set"><i class="bi bi-funnel"></i></button>
@@ -45,7 +42,7 @@
   <section class="page">
     <div class="page-head">
       <div class="page-head-row">
-        <h1><i class="bi bi-people"></i>Hot &amp; warm buyers</h1>
+        <h1><i class="bi bi-people"></i>All Leads</h1>
         <div class="page-head-actions">
           <button class="btn outline-accent"><i class="bi bi-plus-lg"></i>New list</button>
         </div>
@@ -53,7 +50,7 @@
     </div>
 
     <div class="toolbar">
-      <span class="row-count">Showing <strong>2,518</strong> of 101,847 people</span>
+      <span class="row-count">Showing <strong>103,482</strong> leads</span>
       <div class="bulk-toolbar">
         <button class="bulk-btn" title="Email selected"><i class="bi bi-envelope"></i></button>
         <button class="bulk-btn" title="Call/text selected"><i class="bi bi-telephone"></i></button>
@@ -67,7 +64,7 @@
         <button class="btn ghost"><i class="bi bi-layout-three-columns"></i>Columns<i class="bi bi-chevron-down" style="font-size:10px;opacity:.6"></i></button>
         <button class="btn ghost"><i class="bi bi-people"></i>Everyone<i class="bi bi-chevron-down" style="font-size:10px;opacity:.6"></i></button>
         <button class="btn ghost filter-toggle-btn" (click)="toggleRail()">
-          <i class="bi bi-funnel-fill" style="color:var(--accent)"></i>Filters<span class="filter-count">4</span>
+          <i class="bi bi-funnel"></i>Filters
         </button>
       </div>
     </div>
@@ -129,9 +126,8 @@
   <!-- Right filter rail -->
   <aside class="filter-rail">
     <div class="filter-rail-head">
-      <h3><i class="bi bi-funnel-fill"></i>Filters <span class="pill">4</span></h3>
+      <h3><i class="bi bi-funnel"></i>Filters</h3>
       <div class="right">
-        <button title="Save"><i class="bi bi-bookmark-plus"></i></button>
         <button title="Collapse" (click)="toggleRail()"><i class="bi bi-chevron-double-right"></i></button>
       </div>
     </div>
@@ -142,8 +138,8 @@
         <button class="sb-new" title="Save current view"><i class="bi bi-plus-lg"></i></button>
       </div>
       <div class="saved-list">
-        <div class="saved-item active">
-          <i class="bi bi-bookmark-fill sb-ico"></i>
+        <div class="saved-item">
+          <i class="bi bi-bookmark sb-ico"></i>
           <div class="sb-body">
             <div class="sb-name">Hot &amp; warm buyers</div>
             <div class="sb-meta"><i class="bi bi-people-fill"></i>Shared by Sarah · 2h ago</div>
@@ -185,57 +181,18 @@
         <input placeholder="Add a filter..." />
       </div>
 
-      <div class="fb-row">
-        <div class="fb-field">Stage</div>
-        <div class="fb-op">is</div>
-        <div class="fb-val">Active, Appointment</div>
-        <button class="fb-remove"><i class="bi bi-x"></i></button>
-      </div>
-      <div class="fb-row">
-        <div class="fb-field">Source</div>
-        <div class="fb-op">is one of</div>
-        <div class="fb-val">Zillow Premier, FUB site</div>
-        <button class="fb-remove"><i class="bi bi-x"></i></button>
-      </div>
-      <div class="fb-row">
-        <div class="fb-field">Lead score</div>
-        <div class="fb-op">between</div>
-        <div class="fb-val">60 – 100</div>
-        <button class="fb-remove"><i class="bi bi-x"></i></button>
-      </div>
-      <div class="fb-row">
-        <div class="fb-field">Last contact</div>
-        <div class="fb-op">in last</div>
-        <div class="fb-val">7 days</div>
-        <button class="fb-remove"><i class="bi bi-x"></i></button>
-      </div>
-
-      <div class="fb-divider">
-        <span>Match all</span>
-        <div class="match-toggle inline">
-          <button class="active">AND</button>
-          <button>OR</button>
-        </div>
-      </div>
-
       <div class="fb-empty-helper">
         <i class="bi bi-lightbulb"></i>
-        Try filtering by <em>tag</em>, <em>price range</em>, or any custom field
+        No filters yet — try <em>stage</em>, <em>source</em>, <em>tag</em>, or any custom field
       </div>
     </div>
 
     <div class="rail-scroll"></div>
 
-    <div class="match-summary">
-      <i class="bi bi-check2-circle" style="color:var(--accent)"></i>
-      Matches <strong>2,518</strong> of 101,847 leads
-    </div>
-
     <div class="rail-foot">
       <span class="reset">Reset all</span>
       <div class="right">
-        <button class="btn">Save view</button>
-        <button class="btn primary">Apply</button>
+        <button class="btn">Save as new search</button>
       </div>
     </div>
   </aside>
