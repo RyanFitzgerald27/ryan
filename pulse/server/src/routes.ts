@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { config, fubConfigured } from './config';
-import { db } from './db';
+import { db, getLeadMetadata, setLeadMetadata } from './db';
 import {
   dealLeaderboard,
   dealPipeline,
@@ -82,7 +82,12 @@ function shapePerson(p: FubPerson) {
     lastActivity: p.lastActivity ?? null,
     lastCommunication: p.lastCommunication ?? null,
     price: p.price ?? null,
+    targetBuyDate: getLeadMetadata(p.id).targetBuyDate,
   };
+}
+
+function isValidIsoDate(v: unknown): v is string {
+  return typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v));
 }
 
 apiRouter.get(
@@ -215,6 +220,31 @@ apiRouter.get(
       return;
     }
     res.json({ person: shapePerson(person) });
+  }),
+);
+
+apiRouter.patch(
+  '/people/:id/metadata',
+  handle((req, res) => {
+    const id = Number(req.params.id);
+    if (!Number.isFinite(id) || id <= 0) {
+      res.status(400).json({ error: 'Invalid person id' });
+      return;
+    }
+    const body = (req.body ?? {}) as { targetBuyDate?: string | null };
+    const patch: { targetBuyDate?: string | null } = {};
+    if ('targetBuyDate' in body) {
+      if (body.targetBuyDate === null || body.targetBuyDate === '') {
+        patch.targetBuyDate = null;
+      } else if (isValidIsoDate(body.targetBuyDate)) {
+        patch.targetBuyDate = body.targetBuyDate;
+      } else {
+        res.status(400).json({ error: 'targetBuyDate must be YYYY-MM-DD or null' });
+        return;
+      }
+    }
+    const saved = setLeadMetadata(id, patch);
+    res.json({ metadata: saved });
   }),
 );
 

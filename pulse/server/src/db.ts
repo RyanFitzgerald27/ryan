@@ -90,6 +90,12 @@ CREATE TABLE IF NOT EXISTS meta (
   key   TEXT PRIMARY KEY,
   value TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS lead_metadata (
+  person_id        INTEGER PRIMARY KEY,
+  target_buy_date  TEXT,
+  updated_at       TEXT NOT NULL
+);
 `);
 
 export function getMeta(key: string): string | null {
@@ -103,4 +109,31 @@ export function setMeta(key: string, value: string): void {
   db.prepare(
     'INSERT INTO meta (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value',
   ).run(key, value);
+}
+
+export interface LeadMetadata {
+  targetBuyDate: string | null;
+}
+
+export function getLeadMetadata(personId: number): LeadMetadata {
+  const row = db
+    .prepare('SELECT target_buy_date FROM lead_metadata WHERE person_id = ?')
+    .get(personId) as { target_buy_date: string | null } | undefined;
+  return { targetBuyDate: row?.target_buy_date ?? null };
+}
+
+export function setLeadMetadata(personId: number, patch: Partial<LeadMetadata>): LeadMetadata {
+  const current = getLeadMetadata(personId);
+  const next: LeadMetadata = {
+    targetBuyDate:
+      patch.targetBuyDate === undefined ? current.targetBuyDate : patch.targetBuyDate,
+  };
+  db.prepare(
+    `INSERT INTO lead_metadata (person_id, target_buy_date, updated_at)
+     VALUES (?, ?, ?)
+     ON CONFLICT(person_id) DO UPDATE SET
+       target_buy_date = excluded.target_buy_date,
+       updated_at = excluded.updated_at`,
+  ).run(personId, next.targetBuyDate, new Date().toISOString());
+  return next;
 }

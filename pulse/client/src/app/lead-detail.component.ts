@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from './api.service';
 import { Lead } from './models';
@@ -10,7 +11,7 @@ type ActivityFilter = 'all' | 'calls' | 'texts' | 'emails' | 'notes' | 'activity
 
 @Component({
   selector: 'app-lead-detail',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './lead-detail.component.html',
   styleUrl: './lead-detail.component.scss',
 })
@@ -43,6 +44,18 @@ export class LeadDetailComponent implements OnInit {
       error: (err) => {
         this.error.set(err?.error?.error ?? err?.message ?? 'Failed to load lead');
         this.loading.set(false);
+      },
+    });
+  }
+
+  onTargetBuyDateChange(value: string): void {
+    const lead = this.lead();
+    if (!lead) return;
+    const next = value || null;
+    this.lead.set({ ...lead, targetBuyDate: next });
+    this.api.updateLeadMetadata(lead.id, { targetBuyDate: next }).subscribe({
+      error: (err) => {
+        this.error.set(err?.error?.error ?? err?.message ?? 'Failed to save date');
       },
     });
   }

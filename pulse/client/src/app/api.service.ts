@@ -117,6 +117,16 @@ export class ApiService {
     return this.http.get<{ person: Lead }>(`${this.base}/people/${id}`);
   }
 
+  updateLeadMetadata(
+    id: number | string,
+    patch: { targetBuyDate?: string | null },
+  ): Observable<{ metadata: { targetBuyDate: string | null } }> {
+    return this.http.patch<{ metadata: { targetBuyDate: string | null } }>(
+      `${this.base}/people/${id}/metadata`,
+      patch,
+    );
+  }
+
   // --- Sync ---
 
   getSyncStatus(): Observable<SyncStatus> {

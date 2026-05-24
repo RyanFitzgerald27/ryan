@@ -72,7 +72,7 @@
         <div class="kv-row"><span class="k">Source</span><span class="v link">raleighrealty.com</span></div>
         <div class="kv-row"><span class="k">Created</span><span class="v">34 min ago</span></div>
         <div class="kv-row"><span class="k">Price</span><span class="v accent">$894,024</span></div>
-        <div class="kv-row"><span class="k">Timeframe</span><span class="v">3–6 months</span></div>
+        <div class="kv-row"><span class="k">Target buy</span><span class="v"><input type="date" class="date-input" [ngModel]="lead()?.targetBuyDate ?? ''" (ngModelChange)="onTargetBuyDateChange($event)" [disabled]="!lead()" /></span></div>
         <div class="kv-row" style="margin-top:6px"><span class="k">Tags</span><span class="v">
           <div class="tags-row">
             <span class="tag-chip">27703 <i class="bi bi-x"></i></span>

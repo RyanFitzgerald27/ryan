@@ -138,6 +138,7 @@ export interface Lead {
   lastActivity: string | null;
   lastCommunication: string | null;
   price: number | null;
+  targetBuyDate: string | null;
 }
 
 export interface AppConfig {
