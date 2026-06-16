@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# Project artifacts
+cache/
+charts/
+logs/
+practice_email*.html
+
+# Env
+.env
